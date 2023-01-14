@@ -9,12 +9,8 @@
             <input type="email" id="email" class="form-control" name="email" required>
         </div>
         <div class="mb-3">
-            <label for="last_name" class="form-label">First name:</label>
-            <input type="text" id="first_name" class="form-control" name="first_name" required>
-        </div>
-        <div class="mb-3">
-            <label for="last_name" class="form-label">Last name:</label>
-            <input type="text" id="last_name" class="form-control" name="last_name" required>
+            <label for="full_name" class="form-label">First name:</label>
+            <input type="text" id="full_name" class="form-control" name="full_name" required>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password:</label>
@@ -24,6 +20,15 @@
             <label for="confirm_password" class="form-label">Confirm password:</label>
             <input type="password" id="confirm_password" class="form-control" name="confirm_password" required>
         </div>
+        <div class="mb-3">
+            <label for="account_type" class="form-label">Are you a therapist?</label>
+            <select class="mb-2" name="account_type" id="account_type">
+                <option disabeled>Select one</option>
+                <option value=0>Yes</option>
+                <option value=1>No</option>
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>

@@ -5,6 +5,8 @@ from app import app
 from flask_bcrypt import Bcrypt        
 import json
 from app.models.users import User
+from app.models.categories import Category
+
 import pdb
 bcrypt = Bcrypt(app)
 
@@ -15,9 +17,9 @@ class Therapist(User):
     def __init__(self,data):
         super().__init__(data)
         self.linkedin = data['linkedin']
-        self.profile_pic = data['profile_pic']
         self.cdr = data['cdr']
         self.metodo = data['metodo']
+        self.categories = []
         self.publications = []
         self.articles = []
         self.education =[]
@@ -30,17 +32,30 @@ class Therapist(User):
 
 
     @classmethod
-    def anadir_datos(self,form_data):
-        # toma el form especifico para psicologos y agrega los nuevos datos a la base de datos
-        #1. INSERT A LA TABLA USERS CON LA INFO ADICIONAL: LINKEDIN, FOTO, CDR 
+    def create(self,form_data):
+        query = '''
+                INSERT INTO users ( name , email , password , type, linkedin, cdr, age, gender,modalidad,metodo, created_at ) 
+                VALUES ( %(name)s  , %(email)s , %(password)s , %(type)s, %(linkedin)s ,%(cdr)s,%(age)s, %(gender)s , %(modalidad)s, %(metodo)s, NOW());
+                '''
 
-        #2. AGREGA LA DIRECCION: LLAMA A FUNCION ADD_ADDRESS
+        data = {
+            'email':form_data['email'],
+            'name' :form_data['full_name'],
+            'password' :form_data['password'],
+            'type' :int(form_data['account_type']),
+            'linkedin' : form_data['linkedin'],
+            'cdr': form_data['cdr'],
+            'age' : int(form_data['age']),
+            'gender' : form_data['gender'],
+            'modalidad': form_data['modalidad'],
+            'metodo' : form_data['metodo']
+            }
+        
+        
+        flash('Register  succesful!','success')
 
-        #3. LLAMA A LA FUNCION ADD_EDUCATION  // FOR LOOP PARA CADA EDUCACION
+        return  connectToMySQL('psicoapp').query_db(query,data)
 
-        #4. AGREGA CATEGORIAS // FOR LOOP QUE AGREGA A LA FUNCION ADD_CATEOGRIES
-
-        pass
 
     @classmethod
     def classify(cls,id): 
@@ -51,27 +66,45 @@ class Therapist(User):
         data = {
             "id": id
         }
-
-        results = connectToMySQL('wishlist2').query_db(query,data)
+        results = connectToMySQL('psicoapp').query_db(query,data)
         if results == False or len(results) ==0:
             print('no list matches id')
             return False
         
         result = results[0]
         therapist = cls(result)
+        therapist.categories = cls.get_categories(id)
 
-        therapist.publications = Publication.get_all_from_user(id)
-        therapist.articles = Article.get_all_from_user(id)
-        therapist.requests  = Message.get_requests(id)
-        therapist.education = cls.get_education(id) #IMPLEMENTAR ESTE METODO EN ESTE MODELO
-        therapist.categories = User.get_categories(id) #IMPLEMENTAR METODO EN CLASE USER
+        #therapist.publications = Publication.get_all_from_user(id)
+        #therapist.articles = Article.get_all_from_user(id)
+        #therapist.requests  = Message.get_requests(id)
+        #therapist.education = cls.get_education(id) #IMPLEMENTAR ESTE METODO EN ESTE MODELO
+        #therapist.categories = User.get_categories(id) #IMPLEMENTAR METODO EN CLASE USER
     
-        for product in therapist.products:
-            therapist.product_count +=1
+        #for product in therapist.products:
+        #    therapist.product_count +=1
         
         return therapist
 
-        
+    @classmethod
+    def get_categories(cls,user_id):
+        query = '''
+                SELECT category_id from user_categories
+                where user_id = %(user_id)s;
+                '''
+
+        data = {
+            'user_id':user_id
+        }
+
+        results = connectToMySQL('psicoapp').query_db(query,data) 
+        user_categories = []
+        for category_id in results:
+            user_categories.append(Category.classify(category_id['category_id']))
+
+        return user_categories
+
+
     @classmethod
     def add_education(cls,user_id,form_data):
         pass 

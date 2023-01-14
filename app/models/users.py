@@ -13,7 +13,7 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 class User:
     def __init__(self,data):
         self.id = data['id']
-        self.first_name = data['first_name']
+        self.name = data['name']
         self.email = data['email']
         self.password = data['password']
         self.age = data['age']
@@ -44,7 +44,7 @@ class User:
     @staticmethod
     def validate_user(form_data):
         is_valid = True
-        if len(form_data['name']) <4:
+        if len(form_data['full_name']) <4:
             flash("Name must be at least 4 characters.",'error')
             is_valid = False
         if not EMAIL_REGEX.match(form_data['email']): 
@@ -57,7 +57,7 @@ class User:
             flash('Passwords must match!','error')
             is_valid = False
         if is_valid == True:
-            flash('User created!', 'info')
+            flash('Valid credentials! Please fill in aditional info', 'info')
         return is_valid
 
     #Verifica que el correo de registro este o no en la base de datos
@@ -80,13 +80,15 @@ class User:
             return False
     
 
+    @classmethod
+    def encrypt_pass(cls,pswd):
+        password = bcrypt.generate_password_hash(pswd)
+        return password
+
+
     #Crea un nuevo usuario y encrypta su contrasena, esa contrasena encriptada es guardada a la base de datos
     @classmethod
     def create(cls,form_data):
-
-        password = bcrypt.generate_password_hash(form_data["password"])
-        print(password)
-
 
         query = '''
                 INSERT INTO users ( name , email , password , type, created_at ) 

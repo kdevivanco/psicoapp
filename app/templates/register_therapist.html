@@ -1,0 +1,95 @@
+{% extends 'landing.html'%}
+{% block body %}
+<div class="col-5">
+    <p>Please fill this form... your account is not created until you have entered all your information</p>
+    <form class="form-cont" action="/therapist-reg" method="POST">
+        <div class="mb-3">
+            <label for="linkedin" class="form-label">Add your linkedin link:</label>
+            <input type="text" id="linkedin" class="form-control" name="linkedin" required>
+        </div>
+        <div class="mb-3">
+            <label for="cdr" class="form-label">Add your license / board number:</label>
+            <input type="text" id="cdr" class="form-control" name="cdr" required>
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Age:</label>
+            <input type="number" id="age" class="form-control" name="age" required>
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Gender:</label>
+            <select name="gender" id="">
+                <option name="gender" id="" value="" disabled selected>Select your gender</option>
+                <option name="gender" id="" value="female">Female</option>
+                <option name="gender" id="" value="male">Male</option> 
+                <option name="gender" id="" value="non_binary">Non Binary</option>
+                <option name="gender" id="" value="genderfluid">Genderfluid</option>
+                <option name="gender" id="" value="trans_female">Transgender female</option>
+                <option name="gender" id="" value="trans_male">Transgender male</option> 
+                <option name="gender" id="" value="agender">Agender</option> 
+                <option name="gender" id="" value="other">Other</option> 
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="modalidad" class="form-label">Consultation mode:</label>
+            <select name="modalidad" id="">
+                <option name="modalidad" id="" value="office">In person/Office</option>
+                <option name="modalidad" id="" value="office">Remote/Virtual</option>
+                <option name="modalidad" id="" value="office">Hybrid (both)</option> 
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="metodo" class="form-label">Add your specialty:</label>
+            <input type="text" id="metodo" class="form-control" name="metodo" required>
+        </div>
+        <div class="mb-3">
+            <label for="confirm_password" class="form-label">What subjects do you specialize in (choose five as a maximum):</label>
+            <!--Aqui va un for de jinja dando todas las categorias-->
+            <select multiple="multiple"  id="my-select" name="category">
+                {% for category in all_categories %}
+                    <option value="{{category.id}}" id="category"> {{category.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>
+{% endblock %}
+
+{%block script%}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='multiple-select.js') }}"></script>
+<script>
+
+    document.getElementById("my-select").onchange = function() {
+    var selectedOptions = document.querySelectorAll("#my-select option:checked");
+    if (selectedOptions.length > 5) {
+        alert("You can only select up to 5 options.");
+        for (var i = 5; i < selectedOptions.length; i++) {
+            selectedOptions[i].selected = false;
+        }
+    }
+};
+
+
+</script>
+
+<script>
+    $(function() {
+        $('#ms').change(function() {
+            console.log($(this).val());
+        }).multipleSelect({
+            width: '100%'
+        });
+    });
+</script>
+<script>
+    // Initialize multiple select on your regular select
+    $("#my-select").multipleSelect({
+        filter: true
+    });
+</script>
+{%endblock%}

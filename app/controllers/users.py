@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, Blueprint,session
 from app.models.users import User
+from app.models.categories import Category
+from app.models.therapists import Therapist
 from app.decorators import login_required
-from app.models.lists import Wishlist
-from app.models.products import Product
 import json
 import pdb
 
@@ -22,6 +22,9 @@ def landing_page():
         log = 'Log in'
     else:
         log = 'Log out'
+
+    therapist = Therapist.classify(session['user']['id']) #FUNCIONA PARA TERAPEUTA Y LISTA DE CATEGORIAS, FALTA EDUCACION! 
+
     return render_template('landing.html', log = log)
 
 @users.route('/register')
@@ -36,17 +39,58 @@ def register_user():
     if not User.validate_user(request.form):
         return redirect('/register')
     
-    user_id = User.create_new(request.form)
-    user = User.get_one(user_id)
-    session['user'] = {
-            'id': user.id,
-            'first_name':user.first_name,
-            'last_name':user.last_name,
-            'email':user.email
-        }
-    
-    return redirect('/dashboard')
+    password = User.encrypt_pass(request.form['password'])
 
+    session['user'] = {
+        'id': None,
+        'email' : request.form['email'],
+        'full_name' : request.form['full_name'],
+        'password' : password,
+        'account_type' : request.form['account_type']
+    }
+
+    #pdb.set_trace()
+    if int(request.form['account_type']) == 0: 
+        #the user type is a therapist
+        return redirect('/therapist-reg')
+    else: 
+        return redirect('/patient-reg')
+
+@users.route('/therapist-reg')
+def show_therapist_register():
+    
+    all_categories = Category.get_all()
+    
+    #pdb.set_trace()
+    #if ['user'] not in session or session['user'] == None:
+    #    return redirect('/')
+
+    return render_template('register_therapist.html', all_categories = all_categories)
+
+
+@users.route('/therapist-reg', methods = ['POST'])
+def register_therapist():
+    if 'user' not in session or session['user'] == None:
+        return redirect('/')
+    user_data = {
+        'email': session['user']['email'],
+        'full_name' : session['user']['full_name'],
+        'password' : session['user']['password'],
+        'account_type' : session['user']['account_type'],
+        'linkedin' : request.form['linkedin'],
+        'cdr': request.form['cdr'],
+        'age' : request.form['age'],
+        'gender' : request.form['gender'],
+        'modalidad': request.form['modalidad'],
+        'metodo' : request.form['metodo']
+    }
+    selected_categories = request.form.getlist('category')
+
+    session['user']['id'] = Therapist.create(user_data)
+    for cat_id in selected_categories:
+        Category.add_to_category(session['user']['id'],int(cat_id))
+
+    return redirect('/')#/add-education.html'
 
 @users.route('/login')
 def show_login():

@@ -12,6 +12,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;800&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include the default stylesheet -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/wenzhixin/multiple-select/e14b36de/multiple-select.css">
+    <!-- Include plugin -->
+    <script src="https://cdn.rawgit.com/wenzhixin/multiple-select/e14b36de/multiple-select.js"></script>
+    
     <title>Welcome to Registry</title>
 </head>
 <body>
@@ -76,6 +82,8 @@
             {% endif %}
         {% endwith %}
     </script>
+    {%block script%}
+    {%endblock%}
 </body>
 
 </html>
