@@ -33,20 +33,21 @@
                     </div>
                 <div class="col-lg-12   ">
                     <div class="bg-light text-center rounded p-5">
-                        <form>
+                        <form action="edit_therapist"  method="post">
                             <div class="row g-3">
-                                
-                                <div class="col-12 col-sm-6">
+                    
+                                <!-- <div class="col-12 col-sm-6">
                                     <input type="text" name="therapist_pic" class="form-control bg-white border-0" placeholder="Sube una foto" style="height: 55px;">
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="email" class="form-control bg-white border-0" placeholder="Adjuntar" style="height: 55px;">
+                                    <input type="email" class="form-control bg-white border-0" placeholder="Adjuntar" style="height: 55px;"> -->
+                                </div>
+
+                                <div class="col-12 col-sm-12">
+                                    <input type="text" name="method" class="form-control bg-white border-0" placeholder="Método" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12 col-sm-12">
-                                    <input type="text" name="method" class="form-control bg-white border-0" placeholder="Método" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-12">
-                                    <textarea name="description" class="form-control bg-white border-0" cols="30" rows="5" style="height: 55px;" placeholder="Descripción"></textarea>
+                                    <textarea name="description" class="form-control bg-white border-0" cols="30" rows="5" style="height: 55px;" placeholder="Descripción" required></textarea>
                                 </div>
                                 <div class="col-12 col-sm-12">
                                     <input type="text" name="linkedin" class="form-control bg-white border-0" placeholder="Linkedin" style="height: 55px;">
@@ -54,7 +55,7 @@
                                 <div class="row g-3">
                                     <label for="">¿Dónde estás ubicado?</label>
                                     <div class="col-12 col-sm-6">
-                                        <select class="form-select bg-white border-0" style="height: 55px;">
+                                        <select class="form-select bg-white border-0" style="height: 55px;" required>
                                             <option selected>Ciudad</option>
                                             <option value="1">Arequipa</option>
                                             <option value="2">Bogotá</option>
@@ -63,7 +64,7 @@
                                         </select>
                                     </div>
                                     <div class="col-12 col-sm-6"> <!--  Este debe activarse de acuerdo con la opción anterior -->
-                                        <select class="form-select bg-white border-0" style="height: 55px;">
+                                        <select class="form-select bg-white border-0" style="height: 55px;" required>
                                             <option selected>Distrito/Barrio</option>
                                             <option value="1">El Poblado</option>
                                             <option value="2">Belén</option>
@@ -76,6 +77,14 @@
                                 </div>
                             </div>
                         </form>
+                        <form action="/edit_therapist/changeimg"  method="post" enctype="multipart/form-data"> <!-- Prueba para adjuntar la foto del terapeuta <Con el enctype, le digo que no solo voy a tener archivos de texto, sino documentos>-->
+                            <div class="row g-3">
+                                <div class="col-12 col-sm-6">
+                                    <input type="file" name="file" class="form-control bg-white border-0" placeholder="Sube una imagen" style="height: 55px;" required>  
+                                    <input type = "submit" value="Upload">  
+                                </div>
+                            </div>
+                        </form>       
                     </div>
                 </div>
                     <!-- <p class="mb-5">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>

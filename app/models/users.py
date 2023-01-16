@@ -29,6 +29,7 @@ class User:
         #self.profile_pic = data['profile_pic']
         #self.cdr = data['cdr']
 
+
     #Crea una lista de todos los usuarios y los devuelve como objetos User   
     @classmethod
     def get_all(cls):
@@ -220,3 +221,22 @@ class User:
 
         connectToMySQL('psicoapp').query_db(query,data)
         return
+
+
+# En Therapist(users) se debe crear un método para agregar en la basse de datos, el archivo que el usuario adjunta (En este caso la imagen del perfil) 
+    @classmethod
+    def set_profile_pic(self, email, filename):
+        query = '''
+                UPDATE users 
+                SET profile_pic = %(profile_pic)s
+                WHERE email = %(email)s
+                '''
+
+        data = {
+            'email': email,
+            'profile_pic': filename
+        }
+
+        flash('imagen subida con éxito', 'success')
+        return connectToMySQL('psicoapp').query_db(query,data) 
+

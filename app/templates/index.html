@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 {% block home %} active {% endblock %}
 
-{% block styles %}
+{% block styles %} 
 <style>
+    .user_img {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+    }
 </style>
 {% endblock %}
 
@@ -15,6 +20,16 @@
                     <a href="blog.html" class="nav-item nav-link">Blog</a>
                     <a href="ini_sesion.html" class="nav-item nav-link">Iniciar sesión</a>
                     <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
+                    <!-- Desde acá se está implementando el cargue de la imagen ¿Esto debe ir en base? ¿cómo?-->
+                    <li class="nav-item">
+                        <a href="/profile/avatar" class="nav-link disable">
+                            {% if session.user %}
+                                Hola {{ session.user.name }}
+                                <img class="user_img d-inline-block" src="/static/users/general_user.jpeg" alt="imagen usuario">
+                            {% endif %}
+                        </a>
+
+                    </li>
                 </div>
             </div>
         </nav>

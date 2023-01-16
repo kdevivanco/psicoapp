@@ -1,7 +1,32 @@
 from flask import request, redirect, render_template, Blueprint, flash, session
+from app.models.users import User # Tengo que llamar al modelo donde tengo el método de cambiar el avatar
 
 
 routes = Blueprint('skeleton', __name__, template_folder='templates')
+
+
+@routes.route('/register')
+def show_register():
+    return render_template('register_psicoapp.html')
+
+@routes.route('/register',methods=["POST"])
+def register_user():
+    if not User.email_free(request.form):
+        return redirect('/register')
+    if not User.validate_user(request.form):
+        return redirect('/register')
+    
+    password = User.encrypt_pass(request.form['password'])
+
+    session['user'] = {
+        'id': None,
+        'email' : request.form['email'],
+        'full_name' : request.form['full_name'],
+        'password' : password,
+        'account_type' : request.form['account_type']
+    }
+    print
+    return redirect('/edit_therapist')
 
 
 @routes.route('/home')
@@ -24,9 +49,27 @@ def add_publication():
     return render_template('add_publication.html')
 
 
+
+
+
 @routes.route('/edit_therapist')
 def edit_therapist():
     return render_template('edit_therapist.html')
+
+
+@routes.route('/edit_therapist/changeimg', methods = ['POST'])
+def change_profile_img():
+    file = request.files['file'] # Estamos accediendo al archivo cargado
+    file.save('app/static/img/users/' + file.filename ) # Se guarda la imagen con el nombre original del archivo
+    # accedemos al método en user para agregarlo en la base de datos
+    User.set_profile_pic(
+        session['user']['email'],   # Necesito sacar el email de la sesión
+        file.filename
+    )             # Necesito el nombre del archivo que llega
+    return redirect('profile_therapist.html')
+    # Faltaría guardar en session, la imagen para que siga apareciendo en la app cada vez que el usuario ingresa
+
+# En users se creó un método para agregar la ruta en la basse de datos, del archivo que el usuario adjunta 
 
 
 @routes.route('/edit_user')
@@ -51,12 +94,40 @@ def profile_user():
 
 @routes.route('/register')
 def register():
-    return render_template('register.html')
+    return render_template('register_psicoapp.html')
+
+@routes.route('/register', methods = ['POST'])
+def create_user(cls,form_data):
+
+        query = '''
+                INSERT INTO users ( name , email , password , type, created_at ) 
+                VALUES ( %(name)s  , %(email)s , %(password)s , %(type)s, NOW());
+                '''
+
+        data = {
+                "name": form_data["name"],
+                "email" : form_data["email"],
+                "type" : form_data["type"],
+                "password" : password
+            }
+        
+        
+        flash('Register  succesful!','success')
+
+        return  connectToMySQL('psicoapp').query_db(query,data)
+    return render_template('register_psicoapp.html')
 
 
 @routes.route('/search_therapist')
 def search_therapist():
     return render_template('search_therapist.html')
+
+
+@routes.route('/logout')
+def logout():
+    session['user'] = None
+    return redirect('index.html')
+
 
 
 
