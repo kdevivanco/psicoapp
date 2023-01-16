@@ -1,0 +1,11 @@
+__pycache__
+**/*.pyc
+.mi_env
+.vscode
+.terraform
+.terragrunt-cache
+.terraform.lock.hcl
+terragrunt
+.DS_Store
+.mwb
+.mwb.bak
