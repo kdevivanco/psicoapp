@@ -125,4 +125,21 @@ class Therapist(User):
         #EDITAR PERFIL DESPUES DE CREADO
         pass
 
-    
+
+# METODO PARA EL UPLOAD DE LOS FILES
+# Agrega el path de las imagenes de acá en la base de datos 
+    @classmethod
+    def set_profile_pic(self, email, filename):
+        query = '''
+                UPDATE users 
+                SET profile_pic = %(profile_pic)s
+                WHERE email = %(email)s
+                '''
+
+        data = {
+            'email': email,
+            'profile_pic': filename
+        }
+
+        flash('imagen subida con éxito', 'success')
+        return connectToMySQL('psicoapp').query_db(query,data)

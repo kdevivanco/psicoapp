@@ -116,7 +116,7 @@ class Publication:
         results = connectToMySQL('psicoapp').query_db(query,data)
         other_publications = []
 
-        if results == 0 or len(results) == 0 or results = False:
+        if results == 0 or len(results) == 0 or results == False:
             return other_publications #evita que la lista itere si esque esta vacia para evitar un error
         
         for publication_id in results:
@@ -166,7 +166,7 @@ class Publication:
                     where id = %(id)s'''
 
         data = {
-            "id" = publication_id
+            "id": publication_id
         }
 
         return connectToMySQL('psicoapp').query_db(query,data)

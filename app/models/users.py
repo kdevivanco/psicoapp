@@ -29,6 +29,7 @@ class User:
         #self.profile_pic = data['profile_pic']
         #self.cdr = data['cdr']
 
+
     #Crea una lista de todos los usuarios y los devuelve como objetos User   
     @classmethod
     def get_all(cls):
@@ -220,3 +221,7 @@ class User:
 
         connectToMySQL('psicoapp').query_db(query,data)
         return
+
+
+
+

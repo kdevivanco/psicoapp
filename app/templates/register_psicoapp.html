@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block home %} active {% endblock %}
+
+{% block styles %}
+<style>
+</style>
+{% endblock %}
+
+
+{% block main %}
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">Acerca</a>
+                    <a href="blog.html" class="nav-item nav-link">Blog</a>
+                    <a href="ini_sesion.html" class="nav-item nav-link">Iniciar sesión</a>
+                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- Navbar End -->
+
+
+    <!-- Contact (Register) Start -->
+    <div class="container-fluid pt-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 500px; padding-bottom: 150px;">
+                <h1 class="display-4">Crea tu cuenta</h1>
+                <p>¿Ya tienes una cuenta?</p><span><a href="ini_sesion.html" class="d-inline-block text-primary text-uppercase border-bottom border-5">Inicia sesión</a></span>
+            </div>
+            <div class="row justify-content-center position-relative" style="margin-top: -200px; z-index: 1;">
+                <div class="col-lg-8">
+                <!-- Comment Form Start -->
+                    <div class="bg-light rounded p-5 m-5 mb-0">
+                        <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">Registro</h4>
+                        <form action="/register" method="POST">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <input type="text" name="full_name" class="form-control bg-white border-0" placeholder="Nombre completo" style="height: 55px;">
+                                </div>
+                                <div class="col-12">
+                                    <input type="email" name="email" class="form-control bg-white border-0" placeholder="Email" style="height: 55px;">
+                                </div>
+                                <div class="col-12">
+                                    <input type="password" name="password" class="form-control bg-white border-0" placeholder="Contraseña" style="height: 55px;">
+                                </div>
+                                <div class="col-12">
+                                    <input type="password" name="confirm_password" class="form-control bg-white border-0" placeholder=" Confirme la contraseña" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <select class="form-select bg-white border-0" style="height: 55px;" name="account_type" id="account_type">
+                                        <option name="type" disabeled>¿Eres psicólogo?</option>
+                                        <option name="type" value="0">Si</option>
+                                        <option name="type" value="1">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Regístrate</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                <!-- Comment Form End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact (Register) End -->
+
+
+{% endblock %}
