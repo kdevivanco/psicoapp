@@ -1,4 +1,6 @@
 {% extends 'landing.html'%}
+{% block styles %}
+{% endblock %}
 {% block body %}
 <div class="col-5">
     <p>Please fill this form... your account is not created until you have entered all your information</p>
@@ -43,14 +45,18 @@
             <input type="text" id="metodo" class="form-control" name="metodo" required>
         </div>
         <div class="mb-3">
-            <label for="confirm_password" class="form-label">What subjects do you specialize in (choose five as a maximum):</label>
-            <!--Aqui va un for de jinja dando todas las categorias-->
-            <select multiple="multiple"  id="my-select" name="category">
+            <label for="category" class="form-label">What subjects do you specialize in (choose five as a maximum):</label>
+            <div class="dropdown">
+              <button class="dropbtn">Select Options</button>
+              <div class="dropdown-content">
                 {% for category in all_categories %}
-                    <option value="{{category.id}}" id="category"> {{category.name}}</option>
+                  <label>
+                    <input type="checkbox" value="{{category.id}}" class="category" id="{{category.id}}"> {{category.name}}
+                  </label>
                 {% endfor %}
-            </select>
-        </div>
+              </div>
+            </div>
+          </div>
 
         <button type="submit" class="btn btn-primary">Create</button>
     </form>

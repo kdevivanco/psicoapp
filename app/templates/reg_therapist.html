@@ -2,8 +2,7 @@
 {% block home %} active {% endblock %}
 
 {% block styles %}
-<style>
-</style>
+<link type="text/css" href="{{ url_for('static', filename='css/dropdown_ms.css')}}" rel="stylesheet">
 {% endblock %}
 
 
@@ -118,14 +117,27 @@
                                 <input type="text" name="metodo" class="form-control bg-white border-0"
                                     placeholder="Agrega tu especialidad" style="height: 55px;" required>
                             </div>
-                            <div class="col-12 col-sm-12">
-                                <!--Aqui va un for de jinja dando todas las categorias-->
+                            <!--<div class="col-12 col-sm-12">
+                                Aqui va un for de jinja dando todas las categorias
                                 <select name="category" class="form-control bg-white border-0" multiple="multiple"  id="my-select" >
                                     {% for category in all_categories %}
                                         <option value="{{category.id}}" id="category"> {{category.name}}</option>
                                     {% endfor %}
                                 </select>
-                            </div>
+                            </div>-->
+                            <div class="mb-3">
+                                <label for="category" class="form-label">What subjects do you specialize in (choose five as a maximum):</label>
+                                <div class="dropdown">
+                                  <button class="dropbtn">Select Options</button>
+                                  <div class="dropdown-content">
+                                    {% for category in all_categories %}
+                                      <label>
+                                        <input type="checkbox" value="{{category.id}}" class="category" id="{{category.id}}"> {{category.name}}
+                                      </label>
+                                    {% endfor %}
+                                  </div>
+                                </div>
+                              </div>
                             <div class="col-12">
                                 <button class="btn btn-primary w-100 py-3" type="submit">Guardar</button>
                             </div>
