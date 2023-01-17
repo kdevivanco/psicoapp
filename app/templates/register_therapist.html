@@ -1,8 +1,35 @@
 {% extends 'landing.html'%}
 {% block body %}
 <div class="col-5">
-    <p>Please fill this form... your account is not created until you have entered all your information</p>
+    <p>Welcome!</p>
+    
     <form class="form-cont" action="/therapist-reg" method="POST">
+        <form class="form-cont" action="/register" method="POST">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" id="email" class="form-control" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="full_name" class="form-label">First name:</label>
+                <input type="text" id="full_name" class="form-control" name="full_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" id="password" class="form-control" name="password" required>
+            </div>
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">Confirm password:</label>
+                <input type="password" id="confirm_password" class="form-control" name="confirm_password" required>
+                <p style="color: red; font-size:0.5rem" class="hidden">Passwords must match!</p>
+            </div>
+            <div class="mb-3">
+                <label for="account_type" class="form-label">Are you a therapist?</label>
+                <select class="mb-2" name="account_type" id="account_type">
+                    <option disabeled>Select one</option>
+                    <option value=0>Yes</option>
+                    <option value=1>No</option>
+                </select>
+            </div>
         <div class="mb-3">
             <label for="linkedin" class="form-label">Add your linkedin link:</label>
             <input type="text" id="linkedin" class="form-control" name="linkedin" required>
@@ -34,8 +61,8 @@
             <label for="modalidad" class="form-label">Consultation mode:</label>
             <select name="modalidad" id="">
                 <option name="modalidad" id="" value="office">In person/Office</option>
-                <option name="modalidad" id="" value="office">Remote/Virtual</option>
-                <option name="modalidad" id="" value="office">Hybrid (both)</option> 
+                <option name="modalidad" id="" value="remote">Remote/Virtual</option>
+                <option name="modalidad" id="" value="hybrid">Hybrid (both)</option> 
             </select>
         </div>
         <div class="mb-3">
@@ -43,19 +70,73 @@
             <input type="text" id="metodo" class="form-control" name="metodo" required>
         </div>
         <div class="mb-3">
-            <label for="confirm_password" class="form-label">What subjects do you specialize in (choose five as a maximum):</label>
-            <!--Aqui va un for de jinja dando todas las categorias-->
-            <select multiple="multiple"  id="my-select" name="category">
+            <label for="category" class="form-label">What subjects do you specialize in (choose five as a maximum):</label>
+            <div class="dropdown">
+                <button class="dropbtn">Select Options</button>
+                <div class="dropdown-content">
                 {% for category in all_categories %}
-                    <option value="{{category.id}}" id="category"> {{category.name}}</option>
+                    <label>
+                        <input name="category" type="checkbox" value="{{category.id}}" class="category" id="{{category.id}}"><span class="cat-name" id="{{category.id}}">{{category.name}}</span>
+                    </label>
                 {% endfor %}
-            </select>
+                </div>
+            </div>
         </div>
 
         <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>
 {% endblock %}
+
+{%block script%}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='multiple-select.js') }}"></script>
+
+<script>
+    var checkboxes = document.querySelectorAll(".dropdown-content input[type=checkbox]");
+    var all_spans = document.querySelectorAll('.cat-name')
+
+    for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener("change", checkSelection);
+    }
+    function checkSelection() {
+    var selectedOptions = document.querySelectorAll(".dropdown-content input[type=checkbox]:checked");
+    if (selectedOptions.length >= 5) {
+        // alert("You can only select a maximum of 5 options");
+        var otherCheckboxes = document.querySelectorAll(".dropdown-content input[type=checkbox]:not(:checked)");
+        for (var i = 0; i < otherCheckboxes.length; i++) {
+            otherCheckboxes[i].disabled = true;
+            //all_spans[i+1].style.color= 'red'
+        }
+        } else {
+        var allCheckboxes = document.querySelectorAll(".dropdown-content input[type=checkbox]");
+        for (var i = 0; i < allCheckboxes.length; i++) {
+            allCheckboxes[i].disabled = false;
+            //all_spans.style.color= 'black';
+        }
+        }
+    }
+</script>
+
+
+<script>
+    $(function() {
+        $('#ms').change(function() {
+            console.log($(this).val());
+        }).multipleSelect({
+            width: '100%'
+        });
+    });
+</script>
+<script>
+    // Initialize multiple select on your regular select
+    $("#my-select").multipleSelect({
+        filter: true
+    });
+</script>
+{%endblock%}
 
 {% extends 'base.html' %}
 {% block home %} active {% endblock %}
@@ -129,3 +210,4 @@
 
 
 {% endblock %}
+
