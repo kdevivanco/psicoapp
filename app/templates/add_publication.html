@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block home %} active {% endblock %}
+
+{% block styles %}
+<style>
+</style>
+{% endblock %}
+
+
+{% block main %}
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">Acerca</a>
+                    <a href="blog.html" class="nav-item nav-link">Blog</a>
+                    <a href="ini_sesion.html" class="nav-item nav-link">Iniciar sesión</a>
+                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- Navbar End -->
+
+
+    <!-- Appointment Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row gx-5">
+                <div class="col-lg-10 mb-5 mb-lg-0">
+                    <div class="mb-4">
+                        <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Publicaciones</h5>
+                        <h1 class="display-4">Cargar publicación</h1>
+                    </div>
+                <div class="col-lg-12">
+                    <div class="bg-light text-center rounded p-5">
+                        <form>
+                            <div class="row g-3">
+                                
+                                <div class="col-12 col-sm-12">
+                                    <input type="text" name="paper" class="form-control bg-white border-0" placeholder="Título de la publicación" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-12">
+                                    <input type="text" name="paper" class="form-control bg-white border-0" placeholder="¿Dónde fue publicado?" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-12">
+                                    <textarea name="body" class="form-control bg-white border-0" rows="5" placeholder="Referencias/Links"></textarea>
+                                </div>
+                                <div class="col-12 col-sm-12">
+                                    <textarea name="body" class="form-control bg-white border-0" rows="10" placeholder="Descripción"></textarea>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-outline-primary rounded-pill py-3 px-5" type="submit">Adjuntar</button>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                    <!-- <p class="mb-5">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
+                    <a class="btn btn-primary rounded-pill py-3 px-5 me-3" href="">Guardar</a>
+                    <a class="btn btn-outline-primary rounded-pill py-3 px-5" href="">tal vez después</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Appointment End -->
+
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% block home %} active {% endblock %}
+
+{% block styles %}
+<style>
+</style>
+{% endblock %}
+
+
+{% block main %}
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">Acerca</a>
+                    <a href="blog.html" class="nav-item nav-link">Blog</a>
+                    <a href="ini_sesion.html" class="nav-item nav-link">Iniciar sesión</a>
+                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- Navbar End -->
+
+
+    <!-- Search Start -->
+    <div class="container-fluid pt-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+                <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Psicólogos</h5>
+                <h1 class="display-4 mb-4">Encuentra el mejor para ti</h1>
+                <h5 class="fw-normal">Encuentra el psicólogo de tu preferencia por ubicación y por tema de interés</h5>
+            </div>
+            <div class="mx-auto" style="width: 100%; max-width: 600px;">
+                <div class="input-group">
+                    <div></div> <!-- BUGGGGGGG  -->
+                        <select class="form-select border-primary" style="height: 65px;">
+                            <option selected>Ciudad</option>
+                            <option value="1">Arequipa</option>
+                            <option value="2">Bogotá</option>
+                            <option value="3">Lima</option>
+                            <option value="4">Medellín</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select class="form-select border-primary" style="height: 65px; margin-top: 20px;">
+                            <option selected>Distrito/Barrio</option>
+                            <option value="1">El Poblado</option>
+                            <option value="2">Belén</option>
+                            <option value="3">Laureles 3</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select class="form-select border-primary" style="height: 65px; margin-top: 20px;">
+                            <option selected>tipo de consulta</option>
+                            <option value="1">Presencial</option>
+                            <option value="2">Adultos</option>
+                            <option value="3">Familia</option>
+                            <option value="3">Niños y adolecentes</option>
+                            <option value="3">Pareja</option>
+                            <option value="3">Sexualidad y género</option>
+                            <option value="3">Ansiedad</option>
+                            <option value="3">Depresión</option>
+                            <option value="3">Duelo</option>
+                        </select>
+                    </div>
+                    <!-- <input type="text" class="form-control border-primary w-50" placeholder="Keyword"> -->
+                    <div>
+                        
+                    </div>
+                    <button class="btn btn-dark border-0 w-25" style="margin-top: 40px;">Buscar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Search End -->
+
+
+    <!-- Search Result Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 team-item">
+                    <div class="row g-0 bg-light rounded overflow-hidden">
+                        <div class="col-12 col-sm-5 h-100">
+                            <img class="img-fluid h-100" src="img/team-1.jpg" style="object-fit: cover;">
+                        </div>
+                        <div class="col-12 col-sm-7 h-100 d-flex flex-column">
+                            <div class="mt-auto p-4">
+                                <h3>Psicólogo 1</h3>
+                                <h6 class="fw-normal fst-italic text-primary mb-4">método:</h6>
+                                <p class="m-0">Descripción</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 team-item">
+                    <div class="row g-0 bg-light rounded overflow-hidden">
+                        <div class="col-12 col-sm-5 h-100">
+                            <img class="img-fluid h-100" src="img/team-2.jpg" style="object-fit: cover;">
+                        </div>
+                        <div class="col-12 col-sm-7 h-100 d-flex flex-column">
+                            <div class="mt-auto p-4">
+                                <h3>Psicólogo 2</h3>
+                                <h6 class="fw-normal fst-italic text-primary mb-4">método:</h6>
+                                <p class="m-0">Descripción</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 team-item">
+                    <div class="row g-0 bg-light rounded overflow-hidden">
+                        <div class="col-12 col-sm-5 h-100">
+                            <img class="img-fluid h-100" src="img/team-3.jpg" style="object-fit: cover;">
+                        </div>
+                        <div class="col-12 col-sm-7 h-100 d-flex flex-column">
+                            <div class="mt-auto p-4">
+                                <h3>Psicólogo 3</h3>
+                                <h6 class="fw-normal fst-italic text-primary mb-4">método:</h6>
+                                <p class="m-0">Descripción</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 team-item">
+                    <div class="row g-0 bg-light rounded overflow-hidden">
+                        <div class="col-12 col-sm-5 h-100">
+                            <img class="img-fluid h-100" src="img/team-1.jpg" style="object-fit: cover;">
+                        </div>
+                        <div class="col-12 col-sm-7 h-100 d-flex flex-column">
+                            <div class="mt-auto p-4">
+                                <h3>Psicólogo 4</h3>
+                                <h6 class="fw-normal fst-italic text-primary mb-4">método:</h6>
+                                <p class="m-0">Descripción</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 text-center">
+                    <button class="btn btn-primary py-3 px-5">Cargar más</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Search Result End -->
+
+
+{% endblock %}

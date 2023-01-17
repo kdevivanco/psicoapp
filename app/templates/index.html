@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% block home %} active {% endblock %}
+
+{% block styles %} 
+<style>
+    .user_img {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+    }
+</style>
+{% endblock %}
+
+
+
+{% block main %}
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">Acerca</a>
+                    <a href="blog.html" class="nav-item nav-link">Blog</a>
+                    <a href="ini_sesion.html" class="nav-item nav-link">Iniciar sesión</a>
+                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
+                    <!-- Desde acá se está implementando el cargue de la imagen ¿Esto debe ir en base? ¿cómo?-->
+                    <li class="nav-item">
+                        <a href="/profile/avatar" class="nav-link disable">
+                            {% if session.user %}
+                                Hola {{ session.user.name }}
+                                <img class="user_img d-inline-block" src="/static/users/general_user.jpeg" alt="imagen usuario">
+                            {% endif %}
+                        </a>
+
+                    </li>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- Navbar End -->
+
+    <!-- Hero Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 hero-header">
+        <div class="container py-5">
+            <div class="row justify-content-start">
+                <div class="col-lg-8 text-center text-lg-start">
+                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5" style="border-color: rgba(256, 256, 256, .3) !important;">Bienvenido</h5>
+                    <h1 class="display-1 text-white mb-md-4">Psicoapp</h1>
+                        <h5 class="text-white mb-md-2">Conoce a tu psicólogo</h5>
+                        <h5 class="text-white mb-md-2">Accede a cientos de artículos y publicaciones</h5>
+                        <h5 class="text-white mb-md-2">Busca en base a tus necesidades</h5>
+                        <h5 class="text-white mb-md-4">Maneja tus citas</h5>
+                    <div class="pt-2">
+                        <a href="register.html" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">REGISTRARSE</a>
+                        <a href="" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">INICIAR SESIÓN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Appointment Start -->
+    <div class="container-fluid bg-primary my-5 py-5">
+        <div class="container py-5">
+            <div class="row gx-5">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="mb-4">
+                        <h5 class="d-inline-block text-white text-uppercase border-bottom border-5">Regístrate</h5>
+                        <h1 class="display-4">Accede a todos nuestros servicios</h1>
+                    </div>
+                    <p class="text-white mb-5">Puedes encontrar al psicólogo de tu preferencia, ver artículos y publicaciones por temas de interés, contactar a un profesional y mucho más!</p>
+                    <a class="btn btn-outline-dark rounded-pill py-3 px-5" href="">Encuentra a tu psicólogo</a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="bg-white text-center rounded p-5">
+                        <h1 class="mb-4">Registrarse</h1>
+                            <p>¿Ya tienes una cuenta?</p><span><a href="ini_sesion.html">Inicia sesión</a></span>
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-12 col-sm-12">
+                                    <input type="text" name="name" class="form-control bg-light border-0" placeholder="Nombre completo" style="height: 55px;" required>
+                                </div>
+                                <div class="col-12 col-sm-12">
+                                    <input type="email" name="email" class="form-control bg-light border-0" placeholder="Email" style="height: 55px;" required>
+                                </div>
+                                <div class="col-12">
+                                    <input type="password" name="password" class="form-control bg-light border-0" placeholder="Contraseña" style="height: 55px;" required>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <select class="form-control bg-light border-0"  style="height: 55px;">
+                                        <option name="type" selected>¿Eres psicólogo?</option>
+                                        <option name="type" value="1">Si</option>
+                                        <option name="type" value="2">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="number" name="cdr" class="form-control bg-light border-0"  placeholder="CDR" style="height: 55px;"> <!-- ESTO SOLO SE ACTIVA SI ES PSICÓLOGO, DEPENDE DE LA PREGUNTA ANTERIOR -->
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Registrarse</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Appointment End -->
+
+
+        <!-- Blog Start -->
+        <div class="container-fluid py-5">
+            <div class="container">
+                <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Blog</h5>
+                    <h1 class="display-4">Nuestros  más recientes artículos</h1>
+                </div>
+                <div class="row g-5">
+                    <div class="col-xl-4 col-lg-6">
+                        <div class="bg-light rounded overflow-hidden">
+                            <img class="img-fluid w-100" src="img/blog-1.jpg" alt="">
+                            <div class="p-4">
+                                <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
+                                <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
+                                    rebum clita rebum dolor stet amet justo</p>
+                            </div>
+                            <div class="d-flex justify-content-between border-top p-4">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
+                                    <small>John Doe</small>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
+                                    <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6">
+                        <div class="bg-light rounded overflow-hidden">
+                            <img class="img-fluid w-100" src="img/blog-2.jpg" alt="">
+                            <div class="p-4">
+                                <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
+                                <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
+                                    rebum clita rebum dolor stet amet justo</p>
+                            </div>
+                            <div class="d-flex justify-content-between border-top p-4">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
+                                    <small>John Doe</small>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
+                                    <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6">
+                        <div class="bg-light rounded overflow-hidden">
+                            <img class="img-fluid w-100" src="img/blog-3.jpg" alt="">
+                            <div class="p-4">
+                                <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
+                                <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
+                                    rebum clita rebum dolor stet amet justo</p>
+                            </div>
+                            <div class="d-flex justify-content-between border-top p-4">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
+                                    <small>John Doe</small>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
+                                    <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Blog End -->
+
+{% endblock %}
