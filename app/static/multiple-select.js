@@ -140,7 +140,7 @@
         // add placeholder to choice button
         this.$choice = $(sprintf([
                 '<button type="button" class="ms-choice">',
-                '<span class="placeholder">%s</span>',
+                '<span>Select a maximum of 5 topics</span>',
                 '<div></div>',
                 '</button>'
             ].join(''),
@@ -471,7 +471,7 @@
                 sl = selects.length;
 
             if (sl === 0) {
-                $span.addClass('placeholder').html(this.options.placeholder);
+                $span.addClass('').html(this.options.placeholder);
             } else if (this.options.allSelected && sl === this.$selectItems.length + this.$disableItems.length) {
                 $span.removeClass('placeholder').html(this.options.allSelected);
             } else if (this.options.ellipsis && sl > this.options.minimumCountSelected) {
@@ -713,8 +713,8 @@
     $.fn.multipleSelect.defaults = {
         name: '',
         isOpen: false,
-        placeholder: '',
-        selectAll: true,
+        placeholder: 'Select 5 as a maximum',
+        selectAll: false,
         selectAllDelimiter: ['[', ']'],
         minimumCountSelected: 3,
         ellipsis: false,
@@ -735,7 +735,7 @@
         filterAcceptOnEnter: false,
         hideOptgroupCheckboxes: false,
 
-        selectAllText: 'Select all',
+        //selectAllText: 'Select all',
         allSelected: 'All selected',
         countSelected: '# of % selected',
         noMatchesFound: 'No matches found',
