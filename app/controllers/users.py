@@ -27,70 +27,36 @@ def landing_page():
 
     return render_template('landing.html', log = log)
 
-@users.route('/register')
-def show_register():
-    return render_template('register.html')
-
-
-@users.route('/register',methods=["POST"])
-def register_user():
-    if not User.email_free(request.form):
-        return redirect('/register')
-    if not User.validate_user(request.form):
-        return redirect('/register')
-    
-    password = User.encrypt_pass(request.form['password'])
-
-    session['user'] = {
-        'id': None,
-        'email' : request.form['email'],
-        'full_name' : request.form['full_name'],
-        'password' : password,
-        'account_type' : request.form['account_type']
-    }
-
-    #pdb.set_trace()
-    if int(request.form['account_type']) == 0: 
-        #the user type is a therapist
-        return redirect('/therapist-reg')
-    else: 
-        return redirect('/patient-reg')
 
 @users.route('/therapist-reg')
 def show_therapist_register():
     
     all_categories = Category.get_all()
-    
-    #pdb.set_trace()
-    #if ['user'] not in session or session['user'] == None:
-    #    return redirect('/')
 
     return render_template('register_therapist.html', all_categories = all_categories)
 
+# def check_status(id_usuario):
+
+#     este_usuario = User.get_one(id_usuario)
+#     session['user']['status' ] = este_usuario.validated   
+#     return
 
 @users.route('/therapist-reg', methods = ['POST'])
 def register_therapist():
-    if 'user' not in session or session['user'] == None:
-        return redirect('/')
-    user_data = {
-        'email': session['user']['email'],
-        'full_name' : session['user']['full_name'],
-        'password' : session['user']['password'],
-        'account_type' : session['user']['account_type'],
-        'linkedin' : request.form['linkedin'],
-        'cdr': request.form['cdr'],
-        'age' : request.form['age'],
-        'gender' : request.form['gender'],
-        'modalidad': request.form['modalidad'],
-        'metodo' : request.form['metodo']
-    }
-    selected_categories = request.form.getlist('category')
+    pdb.set_trace()
+    if not User.email_free(request.form):
+        return redirect('/therapist-reg')
+    if not User.validate_user(request.form):
+        return redirect('/therapist-reg')
 
-    session['user']['id'] = Therapist.create(user_data)
+
+    selected_categories = request.form.getlist('category')
+    session['user']['id'] = Therapist.create(request.form)
+
     for cat_id in selected_categories:
         Category.add_to_category(session['user']['id'],int(cat_id))
 
-    return redirect('/')#/add-education.html'
+    return redirect('/')# Aqui se debe redirect a  /add-education'
 
 @users.route('/login')
 def show_login():
@@ -110,6 +76,8 @@ def login():
             'profile_url':user.profile_url
         }
     else:
+        return redirect('/falta-validar')
+
         return redirect('/login')
 
     return redirect('/dashboard')
@@ -119,6 +87,9 @@ def login():
 def logout():
     session['user'] = None
     return redirect('/')
+
+
+
 
 
 @users.route('/edit-profile/<id>')
