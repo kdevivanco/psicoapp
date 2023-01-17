@@ -33,7 +33,6 @@ class Therapist(User):
 
     @classmethod
     def create(self,form_data):
-        password = User.encrypt_pass(form_data['password'])
         query = '''
                 INSERT INTO users ( name , email , password , type, linkedin, cdr, age, gender,modalidad,metodo, created_at ) 
                 VALUES ( %(name)s  , %(email)s , %(password)s , %(type)s, %(linkedin)s ,%(cdr)s,%(age)s, %(gender)s , %(modalidad)s, %(metodo)s, NOW());
@@ -42,7 +41,7 @@ class Therapist(User):
         data = {
             'email':form_data['email'],
             'name' :form_data['full_name'],
-            'password' :password,
+            'password' :form_data['password'],
             'type' :int(form_data['account_type']),
             'linkedin' : form_data['linkedin'],
             'cdr': form_data['cdr'],
@@ -125,4 +124,21 @@ class Therapist(User):
         #EDITAR PERFIL DESPUES DE CREADO
         pass
 
-    
+
+# METODO PARA EL UPLOAD DE LOS FILES
+# Agrega el path de las imagenes de acá en la base de datos 
+    @classmethod
+    def set_profile_pic(self, email, filename):
+        query = '''
+                UPDATE users 
+                SET profile_pic = %(profile_pic)s
+                WHERE email = %(email)s
+                '''
+
+        data = {
+            'email': email,
+            'profile_pic': filename
+        }
+
+        flash('imagen subida con éxito', 'success')
+        return connectToMySQL('psicoapp').query_db(query,data)

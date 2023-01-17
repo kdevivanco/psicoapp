@@ -1,34 +1,8 @@
 {% extends 'landing.html'%}
 {% block body %}
 <div class="col-5">
-    <p>Welcome!</p>
-    
+    <p>Please fill this form... your account is not created until you have entered all your information</p>
     <form class="form-cont" action="/therapist-reg" method="POST">
-        <form class="form-cont" action="/register" method="POST">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" id="email" class="form-control" name="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="full_name" class="form-label">First name:</label>
-                <input type="text" id="full_name" class="form-control" name="full_name" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" id="password" class="form-control" name="password" required>
-            </div>
-            <div class="mb-3">
-                <label for="confirm_password" class="form-label">Confirm password:</label>
-                <input type="password" id="confirm_password" class="form-control" name="confirm_password" required>
-            </div>
-            <div class="mb-3">
-                <label for="account_type" class="form-label">Are you a therapist?</label>
-                <select class="mb-2" name="account_type" id="account_type">
-                    <option disabeled>Select one</option>
-                    <option value=0>Yes</option>
-                    <option value=1>No</option>
-                </select>
-            </div>
         <div class="mb-3">
             <label for="linkedin" class="form-label">Add your linkedin link:</label>
             <input type="text" id="linkedin" class="form-control" name="linkedin" required>
@@ -60,8 +34,8 @@
             <label for="modalidad" class="form-label">Consultation mode:</label>
             <select name="modalidad" id="">
                 <option name="modalidad" id="" value="office">In person/Office</option>
-                <option name="modalidad" id="" value="remote">Remote/Virtual</option>
-                <option name="modalidad" id="" value="hybrid">Hybrid (both)</option> 
+                <option name="modalidad" id="" value="office">Remote/Virtual</option>
+                <option name="modalidad" id="" value="office">Hybrid (both)</option> 
             </select>
         </div>
         <div class="mb-3">
@@ -69,17 +43,13 @@
             <input type="text" id="metodo" class="form-control" name="metodo" required>
         </div>
         <div class="mb-3">
-            <label for="category" class="form-label">What subjects do you specialize in (choose five as a maximum):</label>
-            <div class="dropdown">
-                <button class="dropbtn">Select Options</button>
-                <div class="dropdown-content">
+            <label for="confirm_password" class="form-label">What subjects do you specialize in (choose five as a maximum):</label>
+            <!--Aqui va un for de jinja dando todas las categorias-->
+            <select multiple="multiple"  id="my-select" name="category">
                 {% for category in all_categories %}
-                    <label>
-                        <input name="category" type="checkbox" value="{{category.id}}" class="category" id="{{category.id}}"><span class="cat-name" id="{{category.id}}">{{category.name}}</span>
-                    </label>
+                    <option value="{{category.id}}" id="category"> {{category.name}}</option>
                 {% endfor %}
-                </div>
-            </div>
+            </select>
         </div>
 
         <button type="submit" class="btn btn-primary">Create</button>
@@ -87,52 +57,75 @@
 </div>
 {% endblock %}
 
-{%block script%}
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='multiple-select.js') }}"></script>
+{% extends 'base.html' %}
+{% block home %} active {% endblock %}
 
-<script>
-    var checkboxes = document.querySelectorAll(".dropdown-content input[type=checkbox]");
-    var all_spans = document.querySelectorAll('.cat-name')
-
-    for (var i = 0; i < checkboxes.length; i++) {
-    checkboxes[i].addEventListener("change", checkSelection);
-    }
-    function checkSelection() {
-    var selectedOptions = document.querySelectorAll(".dropdown-content input[type=checkbox]:checked");
-    if (selectedOptions.length >= 5) {
-        // alert("You can only select a maximum of 5 options");
-        var otherCheckboxes = document.querySelectorAll(".dropdown-content input[type=checkbox]:not(:checked)");
-        for (var i = 0; i < otherCheckboxes.length; i++) {
-            otherCheckboxes[i].disabled = true;
-            //all_spans[i+1].style.color= 'red'
-        }
-        } else {
-        var allCheckboxes = document.querySelectorAll(".dropdown-content input[type=checkbox]");
-        for (var i = 0; i < allCheckboxes.length; i++) {
-            allCheckboxes[i].disabled = false;
-            //all_spans.style.color= 'black';
-        }
-        }
-    }
-</script>
+{% block styles %}
+<style>
+</style>
+{% endblock %}
 
 
-<script>
-    $(function() {
-        $('#ms').change(function() {
-            console.log($(this).val());
-        }).multipleSelect({
-            width: '100%'
-        });
-    });
-</script>
-<script>
-    // Initialize multiple select on your regular select
-    $("#my-select").multipleSelect({
-        filter: true
-    });
-</script>
-{%endblock%}
+{% block main %}
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">Acerca</a>
+                    <a href="blog.html" class="nav-item nav-link">Blog</a>
+                    <a href="ini_sesion.html" class="nav-item nav-link">Iniciar sesión</a>
+                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- Navbar End -->
+
+
+    <!-- Contact (Register) Start -->
+    <div class="container-fluid pt-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 500px; padding-bottom: 150px;">
+                <h1 class="display-4">Crea tu cuenta</h1>
+                <p>¿Ya tienes una cuenta?</p><span><a href="ini_sesion.html" class="d-inline-block text-primary text-uppercase border-bottom border-5">Inicia sesión</a></span>
+            </div>
+            <div class="row justify-content-center position-relative" style="margin-top: -200px; z-index: 1;">
+                <div class="col-lg-8">
+                <!-- Comment Form Start -->
+                    <div class="bg-light rounded p-5 m-5 mb-0">
+                        <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">Registro</h4>
+                        <form action="/register" method="POST">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <input type="text" name="full_name" class="form-control bg-white border-0" placeholder="Nombre completo" style="height: 55px;">
+                                </div>
+                                <div class="col-12">
+                                    <input type="email" name="email" class="form-control bg-white border-0" placeholder="Email" style="height: 55px;">
+                                </div>
+                                <div class="col-12">
+                                    <input type="password" name="password" class="form-control bg-white border-0" placeholder="Contraseña" style="height: 55px;">
+                                </div>
+                                <div class="col-12">
+                                    <input type="password" name="confirm_password" class="form-control bg-white border-0" placeholder=" Confirme la contraseña" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <select class="form-select bg-white border-0" style="height: 55px;" name="account_type" id="account_type">
+                                        <option name="type" disabeled>¿Eres psicólogo?</option>
+                                        <option name="type" value="0">Si</option>
+                                        <option name="type" value="1">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Regístrate</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                <!-- Comment Form End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact (Register) End -->
+
+
+{% endblock %}

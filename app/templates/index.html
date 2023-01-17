@@ -74,11 +74,11 @@
                 <div class="col-lg-6">
                     <div class="bg-white text-center rounded p-5">
                         <h1 class="mb-4">Registrarse</h1>
-                            <p>¿Ya tienes una cuenta?</p><span><a href="ini_sesion.html">Inicia sesión</a></span>
-                        <form>
+                            <p>¿Ya tienes una cuenta?</p><span><a href="log_in.html">Inicia sesión</a></span>
+                        <form action="/register" method="POST">
                             <div class="row g-3">
                                 <div class="col-12 col-sm-12">
-                                    <input type="text" name="name" class="form-control bg-light border-0" placeholder="Nombre completo" style="height: 55px;" required>
+                                    <input type="text" name="full_name" class="form-control bg-light border-0" placeholder="Nombre completo" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12 col-sm-12">
                                     <input type="email" name="email" class="form-control bg-light border-0" placeholder="Email" style="height: 55px;" required>
@@ -86,15 +86,15 @@
                                 <div class="col-12">
                                     <input type="password" name="password" class="form-control bg-light border-0" placeholder="Contraseña" style="height: 55px;" required>
                                 </div>
-                                <div class="col-12 col-sm-6">
-                                    <select class="form-control bg-light border-0"  style="height: 55px;">
-                                        <option name="type" selected>¿Eres psicólogo?</option>
-                                        <option name="type" value="1">Si</option>
-                                        <option name="type" value="2">No</option>
-                                    </select>
+                                <div class="col-12">
+                                    <input type="password" name="confirm_password" class="form-control bg-light border-0" placeholder="Confirme la contraseña" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="number" name="cdr" class="form-control bg-light border-0"  placeholder="CDR" style="height: 55px;"> <!-- ESTO SOLO SE ACTIVA SI ES PSICÓLOGO, DEPENDE DE LA PREGUNTA ANTERIOR -->
+                                    <select class="form-control bg-light border-0"  style="height: 55px;" name="account_type" id="account_type">
+                                        <option name="type" disabeled>¿Eres psicólogo?</option>
+                                        <option name="type" value="0">Si</option>
+                                        <option name="type" value="1">No</option>
+                                    </select>
                                 </div>
                                 <div class="col-12">
                                     <button class="btn btn-primary w-100 py-3" type="submit">Registrarse</button>

@@ -34,10 +34,10 @@
                 <!-- Comment Form Start -->
                     <div class="bg-light rounded p-5 m-5 mb-0">
                         <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">Registro</h4>
-                        <form>
+                        <form action="/register" method="POST">
                             <div class="row g-3">
                                 <div class="col-12">
-                                    <input type="text" name="name" class="form-control bg-white border-0" placeholder="Nombre completo" style="height: 55px;">
+                                    <input type="text" name="full_name" class="form-control bg-white border-0" placeholder="Nombre completo" style="height: 55px;">
                                 </div>
                                 <div class="col-12">
                                     <input type="email" name="email" class="form-control bg-white border-0" placeholder="Email" style="height: 55px;">
@@ -49,18 +49,12 @@
                                     <input type="password" name="confirm_password" class="form-control bg-white border-0" placeholder=" Confirme la contraseña" style="height: 55px;">
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <select class="form-select bg-white border-0" style="height: 55px;">
-                                        <option name="type" selected>¿Eres psicólogo?</option>
-                                        <option name="type" value="1">Si</option>
-                                        <option name="type" value="2">No</option>
+                                    <select class="form-select bg-white border-0" style="height: 55px;" name="account_type" id="account_type">
+                                        <option name="type" disabeled>¿Eres psicólogo?</option>
+                                        <option name="type" value="0">Si</option>
+                                        <option name="type" value="1">No</option>
                                     </select>
                                 </div>
-                                <div class="col-12 col-sm-6">
-                                    <input type="number" name="cdr" class="form-control bg-white border-0" placeholder="CDR" style="height: 55px;"> <!-- ESTO SOLO SE ACTIVA SI ES PSICÓLOGO, DEPENDE DE LA PREGUNTA ANTERIOR -->
-                                </div>
-                                <!-- <div class="col-12">
-                                    <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
-                                </div> -->
                                 <div class="col-12">
                                     <button class="btn btn-primary w-100 py-3" type="submit">Regístrate</button>
                                 </div>

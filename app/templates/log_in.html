@@ -35,13 +35,13 @@
                 <!-- Comment Form Start -->
                     <div class="bg-light rounded p-5 m-5 mb-0">
                         <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">Inicio de sesión</h4>
-                        <form>
+                        <form action="/login" method="POST">
                             <div class="row g-3">
                                 <div class="col-12">
-                                    <input type="email" name="email" class="form-control bg-white border-0" placeholder="Email" style="height: 55px;">
+                                    <input type="email" name="email" class="form-control bg-white border-0" placeholder="Email" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12">
-                                    <input type="password" name="password" class="form-control bg-white border-0" placeholder="Contraseña" style="height: 55px;">
+                                    <input type="password" name="password" class="form-control bg-white border-0" placeholder="Contraseña" style="height: 55px;" required>
                                 </div>
                                 <!-- <div class="col-12">
                                     <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
