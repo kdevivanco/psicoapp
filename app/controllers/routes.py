@@ -1,5 +1,6 @@
 from flask import request, redirect, render_template, Blueprint, flash, session
 from app.models.users import User # Tengo que llamar al modelo donde tengo el método de cambiar el avatar
+import pdb
 
 
 routes = Blueprint('skeleton', __name__, template_folder='templates')
@@ -59,6 +60,7 @@ def edit_therapist():
 
 @routes.route('/edit_therapist/changeimg', methods = ['POST'])
 def change_profile_img():
+    pdb.set_trace()
     file = request.files['file'] # Estamos accediendo al archivo cargado
     file.save('app/static/img/users/' + file.filename ) # Se guarda la imagen con el nombre original del archivo
     # accedemos al método en user para agregarlo en la base de datos
@@ -66,10 +68,12 @@ def change_profile_img():
         session['user']['email'],   # Necesito sacar el email de la sesión
         file.filename
     )             # Necesito el nombre del archivo que llega
+    session['user']['profile_pic'] = file.filename
     return redirect('profile_therapist.html')
     # Faltaría guardar en session, la imagen para que siga apareciendo en la app cada vez que el usuario ingresa
 
 # En users se creó un método para agregar la ruta en la basse de datos, del archivo que el usuario adjunta 
+
 
 
 @routes.route('/edit_user')
@@ -96,26 +100,26 @@ def profile_user():
 def register():
     return render_template('register_psicoapp.html')
 
-@routes.route('/register', methods = ['POST'])
-def create_user(cls,form_data):
+# @routes.route('/register', methods = ['POST'])
+# def create_user(cls,form_data):
 
-        query = '''
-                INSERT INTO users ( name , email , password , type, created_at ) 
-                VALUES ( %(name)s  , %(email)s , %(password)s , %(type)s, NOW());
-                '''
+#     query = '''
+#             INSERT INTO users ( name , email , password , type, created_at ) 
+#             VALUES ( %(name)s  , %(email)s , %(password)s , %(type)s, NOW());
+#             '''
 
-        data = {
-                "name": form_data["name"],
-                "email" : form_data["email"],
-                "type" : form_data["type"],
-                "password" : password
-            }
-        
-        
-        flash('Register  succesful!','success')
+#     data = {
+#             "name": form_data["name"],
+#             "email" : form_data["email"],
+#             "type" : form_data["type"],
+#             "password" : password
+#         }
+    
+    
+#     flash('Register  succesful!','success')
 
-        return  connectToMySQL('psicoapp').query_db(query,data)
-    return render_template('register_psicoapp.html')
+#     connectToMySQL('psicoapp').query_db(query,data)
+#     return render_template('register_psicoapp.html')
 
 
 @routes.route('/search_therapist')
