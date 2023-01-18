@@ -106,14 +106,20 @@ def login():
     if user != False:
         session['user'] = {
             'id': user.id,
-            'first_name':user.first_name,
-            'last_name':user.last_name,
+            'name':user.name,
             'email':user.email,
-            'profile_url':user.profile_url
         }
     else:
         return redirect('/login')
-
+    if user.validated == 0:
+        #Falta verificar email 
+        #Mandar a verifica tu email
+        pass
+    if user.type == 0 and user.validated == 1: #Ha verificado su email pero no llenado info de psicologo
+        #redirecionamos a terminar perfil
+        return redirect('/therapist-reg')
+    elif user.type == 0 and user.validate == 2:
+        return redirect(f'/profile/{user.id}')
     return redirect('/profile_user') # No estoy muy segura a dónde debe llevar al usuario, estaba /dashboard, pero creo que este punto entra al perfil del usuario o del terapeuta
 
 # ENTRA AL PERFIL DEL USUARIO
