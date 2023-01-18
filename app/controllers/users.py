@@ -33,6 +33,7 @@ def show_register():
 
 @users.route('/register',methods=["POST"])
 def register_user():
+    pdb.set_trace()
     if not User.email_free(request.form):
         return redirect('/register')
     if not User.validate_user(request.form):
@@ -40,7 +41,7 @@ def register_user():
     
     user = User.create(request.form) #INSERTA AL USUARIO SIN IMPORTAR DE QUE TIPO ES    
 
-    #pdb.set_trace()
+    pdb.set_trace()
     if int(request.form['account_type']) == 0: 
         #the user type is a therapist
         return redirect('/therapist-reg')

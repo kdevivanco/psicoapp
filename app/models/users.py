@@ -125,17 +125,18 @@ class User:
     @classmethod
     def create(self,form_data):
 
-        password = bcrypt.generate_password_hash(pswd)
-        confirmation_hash = cls.generate_confirmation_hash(form_data['email'])
+        password = bcrypt.generate_password_hash(form_data['password'])
+        confirmation_hash = User.generate_confirmation_hash(form_data['email'])
 
         query = '''
-                INSERT INTO users ( name , email , password , type, created_at ) 
-                VALUES ( %(name)s  , %(email)s , %(password)s , %(type)s, NOW());
+                INSERT INTO users ( name , email , password , type, confirmation_hash, validated,created_at ) 
+                VALUES ( %(name)s  , %(email)s , %(password)s , %(account_type)s, %(confirmation_hash)s, %(validated)s, NOW());
                 '''
 
         data = {
             'email':form_data['email'],
             'name' :form_data['full_name'],
+            'account_type': form_data['account_type'],
             'password': password,
             'confirmation_hash': confirmation_hash,
             'validated': 0 #El usuario no ha validado el perfil
@@ -143,28 +144,6 @@ class User:
         
         
         return  connectToMySQL('psicoapp').query_db(query,data) #retorna el id del usuario
-
-
-    #Crea un nuevo usuario y encrypta su contrasena, esa contrasena encriptada es guardada a la base de datos
-    @classmethod
-    def create(cls,form_data):
-
-        query = '''
-                INSERT INTO users ( name , email , password , type, created_at ) 
-                VALUES ( %(name)s  , %(email)s , %(password)s , %(type)s, NOW());
-                '''
-
-        data = {
-                "name": form_data["name"],
-                "email" : form_data["email"],
-                "type" : form_data["type"],
-                "password" : password
-            }
-        
-        
-        flash('Register  succesful!','success')
-
-        return  connectToMySQL('psicoapp').query_db(query,data)
 
     #Verifica el login de dos formas:
     #1. que el usuario exista en la base de datos 

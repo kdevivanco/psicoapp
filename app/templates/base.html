@@ -101,9 +101,13 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div>
-                    <input type="text" class="form-control" placeholder="Busca un psicólogo">
-                    <button class="btn btn-primary px-3"><i class="fa fa-search"></i></button>
+                <div class="row px-5 mx-5">
+                    <div class="col-10 p-0">
+                        <input type="text" class="form-control m-0" placeholder="Busca un psicólogo">
+                    </div>
+                    <div class="col-2 p-0">
+                        <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                    </div>
                 </div>
 
                 <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -117,7 +121,7 @@
                             <!-- <ion-icon name="cog-outline" style="font-size: 1.5rem; color:white"></ion-icon> -->
                         </a>
                         {%endif%}
-                        <a href="/logout" class="btn btn-primary wlist-description">{{log}}</a>
+                        <!-- <a href="/logout" class="btn btn-primary wlist-description">{{log}}</a> -->
 
                         <!-- HASTA ACÁ -->
 
