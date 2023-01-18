@@ -13,8 +13,8 @@ therapist = Blueprint('therapist', __name__, template_folder='templates')
 @therapist.route('/tprofile/<id>')
 @login_required
 def profile_therapist(id):
-    
-    return render_template('profile_therapist.html')
+    logged = True
+    return render_template('profile_therapist.html',logged = logged)
 
 
 

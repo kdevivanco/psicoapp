@@ -18,7 +18,11 @@
                     <a href="index.html" class="nav-item nav-link active">Home</a>
                     <a href="about.html" class="nav-item nav-link">Acerca</a>
                     <a href="blog.html" class="nav-item nav-link">Blog</a>
-                    <a href="ini_sesion.html" class="nav-item nav-link">Iniciar sesión</a>
+                    {% if logged%}
+                    <a href="/logout" class="nav-item nav-link">Log out</a>
+                    {%else%}
+                    <a href="/login" class="nav-item nav-link">Log in</a>
+                    {%endif%}
                     <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
                     <!-- Desde acá se está implementando el cargue de la imagen ¿Esto debe ir en base? ¿cómo?-->
                     <li class="nav-item">
