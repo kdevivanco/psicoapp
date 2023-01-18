@@ -1,115 +1,204 @@
-{% extends '1base.html' %}
-{%block body%}
-<div class="container pt-5">
-    <div class="row">
-        <div class="col-7 dashboard-lists-section">
-            <div class="add-section">
-                <a href="/create-list/{{user.id}}" class="add-link">
-                    + Add a new list!
-                </a>
+{% extends 'base.html' %}
+{% block home %} active {% endblock %}
+
+{% block styles %}
+<style>
+</style>
+{% endblock %}
+
+
+{% block main %}
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">Acerca</a>
+                    <a href="blog.html" class="nav-item nav-link">Blog</a>
+                    <a href="ini_sesion.html" class="nav-item nav-link">Iniciar sesión</a>
+                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
+                </div>
             </div>
-            <h1 class="section-title">
-                See what other users are registering...
-            </h1>
-            <div class="my-row">
-                {%for product in op%}
-                <div class="other-post-box">
-                    <img src="{{product.img_url}}" alt="product_picture" class="product-pic"></img>
-                    <div class="box-info box-info-dash">
-                        <p class="post-title">{{product.product_name}}</p>
-                        <p class="post-creator">Created by: <a href="/profile/{{product.creator.id}}">{{product.creator.first_name}} {{product.creator.last_name}}</a></p>
-                        <a href="{{product.link}}" target="_blank" class="product-link">See in shop</a>
-                        <div class="product-add">
-                            <a href="/add/{{product.id}}"><ion-icon name="heart-circle-outline" class="add-icon"></ion-icon> </a>
-                            <a href="/add/{{product.id}}"></a><p class="add-text">Add to wishlist</p></a>
+        </nav>
+    </div>
+</div>
+<!-- Navbar End -->
+
+
+    <!-- Blog Start -->
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <!-- Blog Detail Start -->
+                <div class="mb-5">
+                    <h1 class="mb-4">Bienvenido, (Nombre)</h1>
+                    <!-- <p>Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
+                        magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
+                        amet magna accusam consetetur eirmod. Kasd accusam sit ipsum sadipscing et at at
+                        sanctus et. Ipsum sit gubergren dolores et, consetetur justo invidunt at et
+                        aliquyam ut et vero clita. Diam sea sea no sed dolores diam nonumy, gubergren
+                        sit stet no diam kasd vero.</p>
+                    <p>Voluptua est takimata stet invidunt sed rebum nonumy stet, clita aliquyam dolores
+                        vero stet consetetur elitr takimata rebum sanctus. Sit sed accusam stet sit
+                        nonumy kasd diam dolores, sanctus lorem kasd duo dolor dolor vero sit et. Labore
+                        ipsum duo sanctus amet eos et. Consetetur no sed et aliquyam ipsum justo et,
+                        clita lorem sit vero amet amet est dolor elitr, stet et no diam sit. Dolor erat
+                        justo dolore sit invidunt.</p>
+                    <p>Diam dolor est labore duo invidunt ipsum clita et, sed et lorem voluptua tempor
+                        invidunt at est sanctus sanctus. Clita dolores sit kasd diam takimata justo diam
+                        lorem sed. Magna amet sed rebum eos. Clita no magna no dolor erat diam tempor
+                        rebum consetetur, sanctus labore sed nonumy diam lorem amet eirmod. No at tempor
+                        sea diam kasd, takimata ea nonumy elitr sadipscing gubergren erat. Gubergren at
+                        lorem invidunt sadipscing rebum sit amet ut ut, voluptua diam dolores at
+                        sadipscing stet. Clita dolor amet dolor ipsum vero ea ea eos.</p> -->
+                <!-- Recent Post Start -->
+                    <div class="mb-5">
+                        <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Lee los últimos artículos</h4>
+                        <div class="d-flex rounded overflow-hidden mb-3">
+                            <img class="img-fluid" src="img/blog-1.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                            <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
+                            </a>
                         </div>
+                        <div class="d-flex rounded overflow-hidden mb-3">
+                            <img class="img-fluid" src="img/blog-2.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                            <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
+                            </a>
+                        </div>
+                        <div class="d-flex rounded overflow-hidden mb-3">
+                            <img class="img-fluid" src="img/blog-3.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                            <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
+                            </a>
+                        </div>
+                        <div class="d-flex rounded overflow-hidden mb-3">
+                            <img class="img-fluid" src="img/blog-1.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                            <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
+                            </a>
+                        </div>
+                    </div>
+                <!-- Recent Post End -->
+                    <div>
+                        <!-- <div class="d-flex align-items-center">
+                            <img class="rounded-circle me-2" src="img/user.jpg" width="40" height="40" alt="">
+                            <span>John Doe</span>
+                        </div> -->
+                        <!-- <div class="d-flex align-items-center">
+                            <span class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</span>
+                            <span class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</span>
+                        </div> -->
                     </div>
                 </div>
-                {%endfor%}
+                <!-- Blog Detail End -->
+
+
+                <!-- Comment Form Start -->
+                <!-- <div class="bg-light rounded p-5">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">Leave a comment</h4>
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-12 col-sm-6">
+                                <input type="text" class="form-control bg-white border-0" placeholder="Your Name" style="height: 55px;">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <input type="email" class="form-control bg-white border-0" placeholder="Your Email" style="height: 55px;">
+                            </div>
+                            <div class="col-12">
+                                <input type="text" class="form-control bg-white border-0" placeholder="Website" style="height: 55px;">
+                            </div>
+                            <div class="col-12">
+                                <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Leave Your Comment</button>
+                            </div>
+                        </div>
+                    </form>
+                </div> -->
+                <!-- Comment Form End -->
             </div>
-        </div>
-        <div class="col-5">
-            <div class="dashboard-profile-section">
-                <div class="profile-box row">
-                    <div class="user-pic-info col-4">
-                        {%if not user.profile_url or user.profile_url == ''%}
-                        <ion-icon name="person-circle-outline" style="font-size:8rem;"></ion-icon>
-                        {%else%}
-                        <img class="profile-pic" src="{{user.profile_url}}" alt="profile_picture">
-                        {%endif%}
-                    </div>
-                    <div class="user-other-info col-8">
-                        <h2 class="user-name-info">
-                            {{user.first_name}} {{user.last_name}}
-                        </h2>
-                        <div class="user-main-info">
-                            <p>Wishlists: {{creator.list_count}}</p>
-                            <p>Products: {{creator.created_product_count}} </p>
+
+            <!-- Sidebar Start -->
+            <div class="col-lg-4">
+                <!-- Plain Text Start -->
+                <div style="margin-bottom: 50px;">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Encuentra psicólogos cerca</h4>
+                    <div class="bg-light rounded text-center" style="padding: 30px;">
+                        <div class="col-12 col-sm-12">
+                            <select class="form-select bg-white border-0" style="height: 55px;">
+                                <option selected>Ciudad</option>
+                                <option value="1">Arequipa</option>
+                                <option value="2">Bogotá</option>
+                                <option value="3">Lima</option>
+                                <option value="4">Medellín</option>
+                            </select>
                         </div>
-                        <div class="user-links">
-                            <a href="/profile/{{user.id}}" >
-                                <ion-icon style="font-size: 1.5rem;"  name="eye-outline" ></ion-icon>
-                            </a>
-                            <p style="font-size: 0.5rem;">View Profile</p>
-                            <a href="/edit-profile/{{user.id}}" >
-                                <ion-icon name="cog-outline" style="font-size: 1.5rem;" ></ion-icon>
-                            </a>
-                            <p style="font-size: 0.5rem;">Edit Profile</p>
+                        <br>
+                        <div class="col-12 col-sm-12">
+                            <select class="form-select bg-white border-0" style="height: 55px;">
+                                <option selected>Distrito/Barrio</option>
+                                <option value="1">El Poblado</option>
+                                <option value="2">Belén</option>
+                                <option value="3">Laureles 3</option>
+                            </select>
                         </div>
+                        <br>
+                        <a href="" class="btn btn-primary py-2 px-4">Buscar</a>
                     </div>
                 </div>
+                <!-- Plain Text End -->
+                <!-- Category Start -->
+                <div class="mb-5">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Encuentra artículos por tema</h4>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Familia</a>
+                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Infancia y adolesencia</a>
+                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Pareja</a>
+                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Sexualidad y género</a>
+                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Adulto</a>
+                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Depresión</a>
+                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Ansiedad</a>
+                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Duelo</a>
+                    </div>
+                </div>
+                <!-- Category End -->
+                <!-- Search Form Start -->
+                <!-- <div class="mb-5">
+                    <div class="input-group">
+                        <input type="text" class="form-control p-3" placeholder="Keyword">
+                        <button class="btn btn-primary px-3"><i class="fa fa-search"></i></button>
+                    </div>
+                </div> -->
+                <!-- Search Form End -->
+
+
+
+                <!-- Image Start -->
+                <!-- <div class="mb-5">
+                    <img src="img/blog-1.jpg" alt="" class="img-fluid rounded"> -->
+                </div>
+                <!-- Image End -->
+
+                <!-- Tags Start -->
+                <!-- <div class="mb-5">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Tag Cloud</h4>
+                    <div class="d-flex flex-wrap m-n1">
+                        <a href="" class="btn btn-primary m-1">Design</a>
+                        <a href="" class="btn btn-primary m-1">Development</a>
+                        <a href="" class="btn btn-primary m-1">Marketing</a>
+                        <a href="" class="btn btn-primary m-1">SEO</a>
+                        <a href="" class="btn btn-primary m-1">Writing</a>
+                        <a href="" class="btn btn-primary m-1">Consulting</a>
+                        <a href="" class="btn btn-primary m-1">Design</a>
+                        <a href="" class="btn btn-primary m-1">Development</a>
+                        <a href="" class="btn btn-primary m-1">Marketing</a>
+                        <a href="" class="btn btn-primary m-1">SEO</a>
+                        <a href="" class="btn btn-primary m-1">Writing</a>
+                        <a href="" class="btn btn-primary m-1">Consulting</a>
+                    </div>
+                </div> -->
+                <!-- Tags End -->
 
             </div>
-            <div class="user-main-saved">
-                <div class="user-main-lists">
-                    <h3 class="user-main-subtitle">Your Wishlists</h3>
-                    {%if creator.lists|length == 0%}
-                    <div class="wishlist-box mb-2 p-4 bg-light">
-                        <p>You dont have any wishlists yet...</p>
-                    </div>
-                    {%endif%}
-                    <!--For Loop con wishlists del usuario-->
-                    {%for list in creator.lists%}
-                    <div class="wishlist-box">
-                        <a href="/list/{{list.id}}" class="list-img-link">
-                            <img src="{{list.img_url}}" alt="wishlist-img" class="list-img" >
-                        </a>
-                        <div class="list-info-col">
-                            <a href="/list/{{list.id}}" class="list-title">{{list.name}}</a>
-                            <p class="list-description">{{list.description}}</p>
-                            <p class="list-product-count">Products: {{list.product_count}}</p>
-                        </div>
-                    </div>
-                    {%endfor%}
-                </div>
-                <div class="user-participating-lists">
-                    <h3 class="user-main-subtitle">Wishlist you're in</h3>
-                    {%if creator.participating_lists|length == 0%}
-                    <div class="wishlist-box mb-2 p-4 bg-light">
-                        <p>You dont have any wishlists yet...</p>
-                    </div>
-                    {%endif%}
-                    <!--For Loop con wishlists del usuario-->
-                    {%for list in creator.participating_lists%}
-                    <div class="wishlist-box">
-                        <a href="/list/{{list.id}}" class="list-img-link">
-                            <img src="{{list.img_url}}" alt="wishlist-img" class="list-img">
-                        </a>
-                        <div class="list-info-col">
-                            <a href="/list/{{list.id}}" class="list-title">{{list.name}}</a>
-                            <div class="list-description"></div>
-                            <p class="list-product-count">Products: {{list.product_count}}</p>
-                        </div>
-                    </div>
-                    {%endfor%}
-                </div>
-            </div>
-            
-            
+            <!-- Sidebar End -->
         </div>
     </div>
+    <!-- Blog End -->
 
-    
-</div>
 
-{%endblock%}
+{% endblock %}

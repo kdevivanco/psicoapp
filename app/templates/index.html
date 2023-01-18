@@ -23,8 +23,6 @@
                     {%else%}
                     <a href="/login" class="nav-item nav-link">Log in</a>
                     {%endif%}
-                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
-                    <!-- Desde acá se está implementando el cargue de la imagen ¿Esto debe ir en base? ¿cómo?-->
                     <li class="nav-item">
                         <a href="/profile/avatar" class="nav-link disable">
                             {% if session.user %}
@@ -32,8 +30,9 @@
                                 <img class="user_img d-inline-block" src="/static/users/general_user.jpeg" alt="imagen usuario">
                             {% endif %}
                         </a>
-
                     </li>
+                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
+                    <!-- Desde acá se está implementando el cargue de la imagen ¿Esto debe ir en base? ¿cómo?-->
                 </div>
             </div>
         </nav>

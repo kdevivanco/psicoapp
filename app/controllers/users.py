@@ -13,10 +13,11 @@ users = Blueprint('users', __name__, template_folder='templates')
 @users.route('/') # 1. cambie la ruta base de /home a /
 def home():
     if 'user' not in session or session['user'] == None:
-        return render_template('index.html')
+        logged = False
+        return render_template('index.html',logged=logged)
     else: 
         user_id = session['user']['id']
-        return redirect(f'/tprofile/{user_id}') # 2. en esta ruta hay que agregar logica para redireccionar dependiendo del tipo de usuario
+        return redirect(f'/dashboard') # 2. en esta ruta hay que agregar logica para redireccionar dependiendo del tipo de usuario
 
 
 def mydecorator(): #esta funcion actua como un decorador solo para usarla en el landing page:
