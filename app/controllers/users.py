@@ -31,29 +31,21 @@ def mydecorator(): #esta funcion actua como un decorador solo para usarla en el 
 def show_register():
     return render_template('register_psicoapp.html')
 
-# @users.route('/register',methods=["POST"])
-# def register_user():
-#     if not User.email_free(request.form):
-#         return redirect('/register')
-#     if not User.validate_user(request.form):
-#         return redirect('/register')
+@users.route('/register',methods=["POST"])
+def register_user():
+    if not User.email_free(request.form):
+        return redirect('/register')
+    if not User.validate_user(request.form):
+        return redirect('/register')
     
-#     password = User.encrypt_pass(request.form['password'])
+    user = User.create(request.form) #INSERTA AL USUARIO SIN IMPORTAR DE QUE TIPO ES    
 
-#     session['user'] = {
-#         'id': None,
-#         'email' : request.form['email'],
-#         'full_name' : request.form['full_name'],
-#         'password' : password,
-#         'account_type' : request.form['account_type']
-#     }
-
-#     #pdb.set_trace()
-#     if int(request.form['account_type']) == 0: 
-#         #the user type is a therapist
-#         return redirect('/therapist-reg')
-#     else: 
-#         return redirect('/patient-reg')
+    #pdb.set_trace()
+    if int(request.form['account_type']) == 0: 
+        #the user type is a therapist
+        return redirect('/therapist-reg')
+    else: 
+        return redirect('/patient-reg')
 
 
 # TERMINAR EL REGISTRO DEL TERAPEUTA 

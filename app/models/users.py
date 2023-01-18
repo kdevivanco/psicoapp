@@ -5,6 +5,10 @@ from app import app
 from flask_bcrypt import Bcrypt        
 import json
 import pdb
+import hashlib
+import smtplib
+from email.mime.text import MIMEText
+ 
 bcrypt = Bcrypt(app)
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
@@ -80,11 +84,65 @@ class User:
             print( 'Email not available')
             return False
     
+    @staticmethod
+    def generate_confirmation_hash(email):
+        email = email.encode()
+        hash_object = hashlib.sha256()
+        hash_object.update(email)
+        hex_dig = hash_object.hexdigest()
+        conf_string = str(hex_dig)
+        conf_hash = ''
+        for letter in conf_string[:6]:
+            if type(letter) == int:
+                conf_hash+=str(letter)
+            elif type(letter) == str:
+                conf_hash+=letter.upper()
+            else:
+                pass
+        return conf_hash
+
+    @staticmethod
+    def send_confirmation_email(email, confirmation_hash):
+        msg = MIMEText("Your confirmation code is: " + confirmation_hash)
+        msg['Subject'] = 'Email Confirmation'
+        msg['From'] = 'psicoappcd@gmail.com'
+        msg['To'] = email
+
+        # Connect to the email server using SSL
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+
+        # Login to the email server
+        server.login("psicoappcd@gmail.com", "app_password")
+
+        # Send the email
+        server.sendmail(msg['From'], msg['To'], msg.as_string())
+
+        # Close the connection to the email server
+        server.quit()
+
 
     @classmethod
-    def encrypt_pass(cls,pswd):
+    def create(self,form_data):
+
         password = bcrypt.generate_password_hash(pswd)
-        return password
+        confirmation_hash = cls.generate_confirmation_hash(form_data['email'])
+
+        query = '''
+                INSERT INTO users ( name , email , password , type, created_at ) 
+                VALUES ( %(name)s  , %(email)s , %(password)s , %(type)s, NOW());
+                '''
+
+        data = {
+            'email':form_data['email'],
+            'name' :form_data['full_name'],
+            'password': password,
+            'confirmation_hash': confirmation_hash,
+            'validated': 0 #El usuario no ha validado el perfil
+            }
+        
+        
+        return  connectToMySQL('psicoapp').query_db(query,data) #retorna el id del usuario
 
 
     #Crea un nuevo usuario y encrypta su contrasena, esa contrasena encriptada es guardada a la base de datos
