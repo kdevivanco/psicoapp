@@ -49,8 +49,8 @@
                         <h5 class="text-white mb-md-2">Busca en base a tus necesidades</h5>
                         <h5 class="text-white mb-md-4">Maneja tus citas</h5>
                     <div class="pt-2">
-                        <a href="register.html" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">REGISTRARSE</a>
-                        <a href="" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">INICIAR SESIÓN</a>
+                        <button id="scroll-button" clbuttonss="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">REGISTRARSE</button>
+                        <a id="section-to-scroll-to" href="" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">INICIAR SESIÓN</a>
                     </div>
                 </div>
             </div>
@@ -70,8 +70,9 @@
                     </div>
                     <p class="text-white mb-5">Puedes encontrar al psicólogo de tu preferencia, ver artículos y publicaciones por temas de interés, contactar a un profesional y mucho más!</p>
                     <a class="btn btn-outline-dark rounded-pill py-3 px-5" href="">Encuentra a tu psicólogo</a>
+                    <p></p>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 " >
                     <div class="bg-white text-center rounded p-5">
                         <h1 class="mb-4">Registrarse</h1>
                             <p>¿Ya tienes una cuenta?</p><span><a href="log_in.html">Inicia sesión</a></span>
@@ -97,7 +98,7 @@
                                     </select>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Registrarse</button>
+                                    <button href="" class="btn btn-primary w-100 py-3" type="submit">Registrarse</button>
                                 </div>
                             </div>
                         </form>
@@ -183,3 +184,14 @@
         <!-- Blog End -->
 
 {% endblock %}
+
+
+{%block javascript%}
+<script>
+    $("#scroll-button").click(function() {
+        $('html, body').animate({
+            scrollTop: $("#section-to-scroll-to").offset().top
+        }, 300);
+    });
+</script>
+{%endblock%}

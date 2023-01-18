@@ -10,20 +10,12 @@ users = Blueprint('users', __name__, template_folder='templates')
 
 
 # RUTAS DE INICIO
-@users.route('/home')
+@users.route('/') # 1. cambie la ruta base de /home a /
 def home():
-    return render_template('index.html')
-
-@users.route('/')
-def index():
     if 'user' not in session or session['user'] == None:
-        log = 'Log in'
-    else:
-        log = 'Log out'
-
-    therapist = Therapist.classify(session['user']['id']) #FUNCIONA PARA TERAPEUTA Y LISTA DE CATEGORIAS, FALTA EDUCACION! 
-
-    return render_template('index.html', log = log)
+        return render_template('index.html')
+    else: 
+        return redirect('/dashboard') # 2. en esta ruta hay que agregar logica para redireccionar dependiendo del tipo de usuario
 
 
 def mydecorator(): #esta funcion actua como un decorador solo para usarla en el landing page:
