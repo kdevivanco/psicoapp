@@ -15,7 +15,8 @@ def home():
     if 'user' not in session or session['user'] == None:
         return render_template('index.html')
     else: 
-        return redirect('/dashboard') # 2. en esta ruta hay que agregar logica para redireccionar dependiendo del tipo de usuario
+        user_id = session['user']['id']
+        return redirect(f'/tprofile/{user_id}') # 2. en esta ruta hay que agregar logica para redireccionar dependiendo del tipo de usuario
 
 
 def mydecorator(): #esta funcion actua como un decorador solo para usarla en el landing page:
