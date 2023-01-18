@@ -34,16 +34,30 @@
   /* Style for the dropdown content */
   .dropdown-content {
     display: none;
+    height: 20rem;
+    overflow-y: scroll;
     position: absolute;
     background-color: white;
     min-width: 100%;
     z-index: 1;
+    overflow: -moz-scrollbars-vertical; 
   }
 
+  .dropdown-content::-webkit-scrollbar-thumb {
+    width: 0.5rem;
+    background-color: rgb(87, 87, 87);
+    border-radius: 1rem;
+  }
+   
+  .dropdown-content::-webkit-scrollbar {
+    width: 0.5rem;
+    background-color: lightgray;
+    border-radius: 1rem;
+
+  }
   /* Style for the checkboxes and labels */
   .dropdown-content label {
-    display: block;
-    padding: 12px;
+    padding: 3px;
     font-size: smaller;
   }
 
@@ -61,3 +75,32 @@
     margin-bottom: 1rem;
   }
 
+
+  input:disabled {
+    color: black;
+    cursor: default;
+    background-color: -internal-light-dark(rgba(105, 15, 15, 0.3), rgba(106, 61, 61, 0.3));
+    color: -internal-light-dark(rgb(24, 7, 7), rgb(189, 112, 112));
+    border-color: rgba(118, 118, 118, 0.3);
+}
+
+.cat-name{
+  color: black;
+}
+
+.cat-label{
+  height: 2rem;
+  display: flex;
+  margin-left: 5rem;
+  align-items: center;
+
+}
+
+.cat-label p{
+  margin-top: 1rem;
+  
+}
+
+.distext{
+  color: rgb(123, 120, 120);
+}
