@@ -26,6 +26,7 @@ def index():
     return render_template('index.html', log = log)
 
 
+
 def mydecorator(): #esta funcion actua como un decorador solo para usarla en el landing page:
     if 'user' not in session or session['user'] == None : #si no hay sesion:
         return False
@@ -69,37 +70,33 @@ def register_user():
 def show_therapist_register():
     
     all_categories = Category.get_all()
-    
-    #pdb.set_trace()
-    #if ['user'] not in session or session['user'] == None:
-    #    return redirect('/')
 
     return render_template('reg_therapist.html', all_categories = all_categories)
 
+# def check_status(id_usuario):
+
+#     este_usuario = User.get_one(id_usuario)
+#     session['user']['status' ] = este_usuario.validated   
+#     return
 
 @users.route('/therapist-reg', methods = ['POST'])
 def register_therapist():
-    if 'user' not in session or session['user'] == None:
-        return redirect('/')
-    user_data = {
-        'email': session['user']['email'],
-        'full_name' : session['user']['full_name'],
-        'password' : session['user']['password'],
-        'account_type' : session['user']['account_type'],
-        'linkedin' : request.form['linkedin'],
-        'cdr': request.form['cdr'],
-        'age' : request.form['age'],
-        'gender' : request.form['gender'],
-        'modalidad': request.form['modalidad'],
-        'metodo' : request.form['metodo']
-    }
-    selected_categories = request.form.getlist('category')
+    pdb.set_trace()
+    if not User.email_free(request.form):
+        return redirect('/therapist-reg')
+    if not User.validate_user(request.form):
+        return redirect('/therapist-reg')
 
-    session['user']['id'] = Therapist.create(user_data)
+
+    selected_categories = request.form.getlist('category')
+    session['user']['id'] = Therapist.create(request.form)
+
     for cat_id in selected_categories:
         Category.add_to_category(session['user']['id'],int(cat_id))
 
+
     return redirect('/profile_therapist.html')#/add-education.html'
+
 
 
 # TERMINAR EL REGISTRO DEL USUARIO
@@ -127,6 +124,8 @@ def login():
             'profile_url':user.profile_url
         }
     else:
+        return redirect('/falta-validar')
+
         return redirect('/login')
 
     return redirect('/profile_user') # No estoy muy segura a dónde debe llevar al usuario, estaba /dashboard, pero creo que este punto entra al perfil del usuario o del terapeuta
@@ -146,8 +145,11 @@ def logout():
 
 
 
+
+
 # EDITAR LOS USUARIOS
 @users.route('/edit_user/<id>')
+
 @login_required
 def show_edit_profile(id):
     log,user = mydecorator()
