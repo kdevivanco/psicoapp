@@ -27,7 +27,9 @@
         <div class="container">
             <div class=" mb-5" style="max-width: 500px; padding-bottom: 150px;">
                 <h1 class="display-4">Añadir Educación</h1>
+                {% if therapist.education|length == 0 %}
                 <p>Ten en cuenta que esta información es necesaria para acceder a los beneficios de terapeuta</p>
+                {%endif%}
             </div>
             <div class="row position-relative" style="margin-top: -200px; z-index: 1;">
                 <div class="col-lg-8">

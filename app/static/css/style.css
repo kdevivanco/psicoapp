@@ -253,3 +253,38 @@
     padding-top: 1rem;
     border-radius: 1rem;
 }
+
+.especialista{
+    font-size: 1.5rem;
+}
+
+
+.text-black{
+    color: #334061;
+}
+.education-section{
+    background-color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+.education-div{
+    border: 1px solid #a5b1cc;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+.school_name{
+    font-weight: 100;
+}
+
+
+.ed_description{
+    color: #495471;
+    padding-left: 1rem;
+    font-weight: 100;
+}
+
+.date{
+    color: #495471;
+    font-weight: 100;
+    font-style: italic;
+}

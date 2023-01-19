@@ -6,6 +6,7 @@ from flask_bcrypt import Bcrypt
 import json
 from app.models.users import User
 from app.models.categories import Category
+from app.models.educations import Education
 
 import pdb
 bcrypt = Bcrypt(app)
@@ -85,7 +86,7 @@ class Therapist(User):
         #therapist.publications = Publication.get_all_from_user(id)
         #therapist.articles = Article.get_all_from_user(id)
         #therapist.requests  = Message.get_requests(id)
-        #therapist.education = cls.get_education(id) #IMPLEMENTAR ESTE METODO EN ESTE MODELO
+        therapist.education = Education.get_education(id) #IMPLEMENTAR ESTE METODO EN ESTE MODELO
         #therapist.categories = User.get_categories(id) #IMPLEMENTAR METODO EN CLASE USER
     
         #for product in therapist.products:
@@ -110,43 +111,6 @@ class Therapist(User):
             user_categories.append(Category.classify(category_id['category_id']))
 
         return user_categories
-
-
-    @classmethod
-    def add_education(cls,form_data,user_id):
-
-        query = '''
-                INSERT INTO education ( school_name,  title_name, description, therapist_id)
-                VALUES ( %(school_name)s, %(title_name)s, %(description)s, %(therapist_id)s);
-                '''
-
-        data = {
-            'school_name' :form_data['school_name'],
-            'title_name': form_data['title_name'],
-            'description': form_data['description'],
-            'therapist_id': user_id
-            }
-        
-        
-        return  connectToMySQL('psicoapp').query_db(query,data)
-
-    @classmethod
-    def get_education(cls,therapist_id):
-        query = '''
-                SELECT * from education where therapist_id = %(therapist_id)s;
-                '''
-
-        data = {
-            'therapist_id': therapist_id
-        }
-
-        results = connectToMySQL('psicoapp').query_db(query,data)
-        pdb.set_trace()
-        education_list = []
-        for education in results:
-            education_list.append(education)
-        
-        return education_list
 
 
     #Valida al usuario segun el estatus en el que esta

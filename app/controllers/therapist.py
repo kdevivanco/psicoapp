@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, Blueprint,session
 from app.models.categories import Category
 from app.models.therapists import Therapist
 from app.decorators import login_required
+from app.models.educations import Education
 import json
 import pdb
 import pprint
@@ -49,15 +50,16 @@ def register_therapist():
 @therapist.route('/add-education')
 #@login_required
 def show_add_education():
-    return render_template('add_education.html')
+    therapist = Therapist.classify(session['user']['id'])
+    return render_template('add_education.html', therapist = therapist)
 
 @therapist.route('/education', methods = ['POST'])
 #@login_required
 def education_add():
     user_id = session['user']['id']
-    Therapist.add_education(request.form,user_id)
+    Education.add_education(request.form,user_id)
     Therapist.update_validated('education',user_id)
-    Therapist.get_education(user_id)
+    Education.get_education(user_id)
     
     return redirect(f'/tprofile/{user_id}')
 
