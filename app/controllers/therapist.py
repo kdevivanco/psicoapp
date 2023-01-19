@@ -47,10 +47,19 @@ def register_therapist():
 
 
 @therapist.route('/add-education')
-@login_required
+#@login_required
 def show_add_education():
     return render_template('add_education.html')
 
+@therapist.route('/education', methods = ['POST'])
+#@login_required
+def education_add():
+    user_id = session['user']['id']
+    Therapist.add_education(request.form,user_id)
+    Therapist.update_validated('education',user_id)
+    Therapist.get_education(user_id)
+    
+    return redirect(f'/tprofile/{user_id}')
 
 
 # ENTRA AL PERFIL DEL TERAPEUTA

@@ -113,17 +113,65 @@ class Therapist(User):
 
 
     @classmethod
-    def add_education(cls,user_id,form_data):
-        pass 
-        # school_name
-        # title_name
-        # description
-        # therapist_id
+    def add_education(cls,form_data,user_id):
+
+        query = '''
+                INSERT INTO education ( school_name,  title_name, description, therapist_id)
+                VALUES ( %(school_name)s, %(title_name)s, %(description)s, %(therapist_id)s);
+                '''
+
+        data = {
+            'school_name' :form_data['school_name'],
+            'title_name': form_data['title_name'],
+            'description': form_data['description'],
+            'therapist_id': user_id
+            }
+        
+        
+        return  connectToMySQL('psicoapp').query_db(query,data)
 
     @classmethod
-    def get_education(id):
-        #QUERY LLAMA A LA TABLA EDUCATION DONDE EL ID == USER_ID 
-        pass
+    def get_education(cls,therapist_id):
+        query = '''
+                SELECT * from education where therapist_id = %(therapist_id)s;
+                '''
+
+        data = {
+            'therapist_id': therapist_id
+        }
+
+        results = connectToMySQL('psicoapp').query_db(query,data)
+        pdb.set_trace()
+        education_list = []
+        for education in results:
+            education_list.append(education)
+        
+        return education_list
+
+
+    #Valida al usuario segun el estatus en el que esta
+    @classmethod
+    def update_validated(cls,step,user_id):
+        if step == 'email':
+            valid = 1
+        elif step == 'info':
+            valid = 2
+        elif step == 'education':
+            valid = 3
+        else: 
+            return False
+        
+        query = '''
+                UPDATE users
+                SET validated = %(valid)s
+                where id = %(id)s'''
+
+        data = {
+            'valid' : valid,
+            'id' : user_id
+        }
+
+        return connectToMySQL('psicoapp').query_db(query,data)
 
 
     @classmethod

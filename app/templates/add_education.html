@@ -7,28 +7,6 @@
 {% endblock %}
 
 
-<!-- Navbar Start -->
-<!-- <div class="container-fluid sticky-top bg-white shadow-sm">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
-            <a href="index.html" class="navbar-brand">
-                    <h1 class="m-0 text-uppercase text-primary"><span><img src="{{ url_for('static', filename='img/psychologist_icon.png')}}" style="width: 65px; height: 60px; padding-right: 10px;" alt=""></span>PSICOAPP</h1>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div>
-                    <input type="text" class="form-control" placeholder="Busca un psicólogo">
-                    <button class="btn btn-primary px-3"><i class="fa fa-search"></i></button>
-                </div> -->
-                
-                <!-- Navbar Start -->
-                <!-- <div class="container-fluid sticky-top bg-white shadow-sm">
-                    <div class="container">
-                        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
-                            <div class="collapse navbar-collapse" id="navbarCollapse">
-                                <div class="mb-8">
-                                </div> -->
 {% block main %}
                 <div class="navbar-nav ms-auto py-0">
                     <a href="index.html" class="nav-item nav-link active">Home</a>
@@ -44,53 +22,44 @@
 <!-- Navbar End -->
 
 
-    <!-- Appointment (Ver artículos) Start -->
-    <div class="container-fluid py-5">
-        <div class="container" style="height: 50rem;">
-            <div class="row gx-5">
-                <div class="col-lg-10 mb-5 mb-lg-0">
-                    <div class="mb-4">
-                        <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Educación</h5>
-                        <h1 class="display-4">Añadir Educación</h1>
-                        <p style="color:rgb(143, 46, 46); font-size:0.7rem">Si no completas este paso no podrás acceder a los beneficios de terapeuta</p>
-
-                    </div>
-                    <div class="col-12 col-lg-12">
-                        <div class="bg-light text-center rounded p-5">
-                            <form>
-                                <h1 class="display-6">Educación</h1>
-                                <div class="row g-3">
-                                    <div class="col-12 col-sm-12">
-                                        <label for="school_name" hidden></label>
-                                        <input required name="school_name" type="text" name="therapist_pic" class="form-control bg-white border-0"
-                                            placeholder="Institución" style="height: 55px;">
-                                    </div>
-                                    <div class="col-12 col-sm-12">
-                                        <label for="title_name" hidden></label>
-                                        <input required name="title_name" type="text" class="form-control bg-white border-0" placeholder="Título"
-                                            style="height: 55px;">
-                                    </div>
-                                    <div class="col-12 col-sm-12">
-                                        <label for="description" hidden></label>
-                                        <input required name="description" type="text" class="form-control bg-white border-0" placeholder="Descripción"
-                                            style="height: 100px; padding-bottom: 3rem;">
-                                    </div>
-                                    <div class="col-6">
-                                        <button class="btn btn-primary rounded-pill w-100 py-3" type="submit">Guardar</button>
-                                    </div>
-                                    <div class="col-6">
-                                        <button class="btn btn-outline-primary rounded-pill py-3 px-5" type="submit">Guardar y seguir agregando</button>
-                                    </div>
+    <!-- Contact (Register) Start -->
+    <div class="container-fluid pt-5">
+        <div class="container">
+            <div class=" mb-5" style="max-width: 500px; padding-bottom: 150px;">
+                <h1 class="display-4">Añadir Educación</h1>
+                <p>Ten en cuenta que esta información es necesaria para acceder a los beneficios de terapeuta</p>
+            </div>
+            <div class="row position-relative" style="margin-top: -200px; z-index: 1;">
+                <div class="col-lg-8">
+                <!-- Comment Form Start -->
+                    <div class="bg-light rounded p-5 m-5 mb-0">
+                        <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">Educación</h4>
+                        <form action="/education" method="POST">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <input type="text" name="school_name" class="form-control bg-white border-0" placeholder="Institucion" style="height: 55px;">
                                 </div>
-                            </form>
-                        </div>
+                                <div class="col-12">
+                                    <input type="text" name="title_name" class="form-control bg-white border-0" placeholder="Titulo" style="height: 55px;">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="description" class="form-control bg-white border-0" placeholder="Descripción" style="height: 150px;">
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <!-- <p class="mb-5">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
-                    <a class="btn btn-primary rounded-pill py-3 px-5 me-3" href="">Guardar</a>
-                    <a class="btn btn-outline-primary rounded-pill py-3 px-5" href="">tal vez después</a> -->
+                    <!-- Comment Form End -->
+                </div>
+                <div class="col-lg-4">
+                    <a href="/dashboard" class="btn btn-primary rounded-pill">Regresar más tarde</a>
+                </div>
             </div>
         </div>
     </div>
-    <!-- Appointment End -->
+    <!-- Contact (Register) End -->
 
-    {%endblock%}
+
+{% endblock %}
