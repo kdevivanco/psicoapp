@@ -45,8 +45,15 @@ def register_user():
         return redirect('/register')
     if not User.validate_user(request.form):
         return redirect('/register')
-    
+
     user = User.create(request.form) #INSERTA AL USUARIO SIN IMPORTAR DE QUE TIPO ES    
+    if user != False:
+        session['user'] = {
+            'id': user.id,
+            'name':user.name,
+            'email':user.email,
+            'type':user.type
+        }
 
     if int(request.form['account_type']) == 0: 
         #the user type is a therapist
@@ -76,6 +83,7 @@ def login():
             'id': user.id,
             'name':user.name,
             'email':user.email,
+            'type':user.type
         }
     else:
         return redirect('/falta-validar')

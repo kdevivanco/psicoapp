@@ -8,6 +8,15 @@ import pprint
 
 therapist = Blueprint('therapist', __name__, template_folder='templates')
 
+
+#PROTECCION DE RUTA PARA USUARIOS TERAPEUTAS Y DUENOS:
+def therapist_protection(user_id):
+    us_type = session['user']['type']
+    sesus_id = session['user']['id']
+    if us_type != 0 and sesus_id != user_id: #no es terapeuta
+        flash('not allowed on this route!', 'error')
+        return False
+
 # TERMINAR EL REGISTRO DEL TERAPEUTA 
 @therapist.route('/therapist-reg')
 def show_therapist_register():
@@ -25,7 +34,14 @@ def register_therapist():
     for cat_id in selected_categories:
         Category.add_to_category(session['user']['id'],int(cat_id))
 
-    return redirect('/profile_therapist.html')#/add-education.html'
+    return redirect('/add-education')#/add-education.html'
+
+
+@therapist.route('/add-education')
+@login_required
+def show_add_education():
+    return render_template('add_education.html')
+
 
 
 # ENTRA AL PERFIL DEL TERAPEUTA
