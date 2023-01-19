@@ -112,30 +112,30 @@
                     <div class="mb-8">
                     </div>
                     <div class="navbar-nav ms-auto py-0">
-                    <!-- SE INSERTÓ ESTE NUEVO CÓDIGO, PROBAR QUE ESTÁ FUNCIONANDO BIEN Y SSE VE BIEN -->
-                        {%if user%}
-                        <a href="/profile/{{user.id}}" class="user-name-nav wlist-description">{{user.first_name}}</a>
-                        <a href="/edit-profile/{{user.id}}" class="user-name-nav">
-                            <!-- <ion-icon name="cog-outline" style="font-size: 1.5rem; color:white"></ion-icon> -->
-                        </a>
-                        {%endif%}
-                        <!-- <a href="/logout" class="btn btn-primary wlist-description">{{log}}</a> -->
-
-                        <!-- HASTA ACÁ -->
-
-
-                        <main role="main">
-                            {% block main %}
-                            <h2>Página no implementada</h2>
-                            {% endblock %}
-                        </main>
-                        <!-- <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">Acerca</a>
-                        <a href="blog.html" class="nav-item nav-link">Blog</a>
-                        <a href="ini_sesion.html" class="nav-item nav-link">Iniciar sesión</a>
-                        <a href="contact.html" class="nav-item nav-link">Contáctanos</a> -->
-                        <!-- </div>
-                </div> 
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        {% if logged%}
+                        <img class="nav-item" href="/#" src="{{ url_for('static', filename='img/message.png')}}"
+                            style="height: 30px; width: 30px; margin-top: 27px; margin-left: 35px; cursor: pointer;"
+                            alt="Mensajes">
+                        <img class="nav-item" href="edit_user" src="{{ url_for('static', filename='img/edit.png')}}"
+                            style="height: 35px; width: 35px; margin-top: 27px; margin-left: 35px; cursor: pointer;"
+                            alt="editar">
+                        <img class="nav-item" href="/logout" src="{{ url_for('static', filename='img/logout.png')}}"
+                        style="height: 30px; width: 30px; margin-top: 27px; margin-left: 35px; cursor: pointer;"
+                        alt="Cerrar sesión">
+                        <img class="nav-item" href="edit_therapist.html"
+                            src="{{ url_for('static', filename='img/therapist/general_user.jpeg')}}"
+                            style="height: 40px; width: 40px; margin-top: 23px; margin-left: 35px; cursor: pointer;"
+                            style="height: 30px; width: 30px; margin-top: 27px; margin-left: 35px; cursor: pointer;">
+                        <img class="user_img d-inline-block"
+                            src="{{ url_for('static', filename='img/therapist/user1.jpg')}}"
+                            style="height: 40px; width: 40px; margin-top: 23px; margin-left: 35px; cursor: pointer;"
+                            alt="imagen usuario">
+                        {% else %}
+                        <a href="/login" class="nav-item nav-link">Log in</a>
+                        {% endif %}
+                    </div>
+                </div>
             </nav>
         </div>
     </div> -->

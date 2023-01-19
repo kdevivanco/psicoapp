@@ -14,6 +14,7 @@ app.register_blueprint(publications)
 app.register_blueprint(articles)
 app.register_blueprint(page)
 app.register_blueprint(patients)
+#app.register_blueprint(messages)
 
 
 
