@@ -33,6 +33,7 @@ class Therapist(User):
 
     @classmethod
     def create(self,form_data):
+        password = User.encrypt_pass(form_data['password'])
         query = '''
                 INSERT INTO users ( name , email , password , type, linkedin, cdr, age, gender,modalidad,metodo, created_at ) 
                 VALUES ( %(name)s  , %(email)s , %(password)s , %(type)s, %(linkedin)s ,%(cdr)s,%(age)s, %(gender)s , %(modalidad)s, %(metodo)s, NOW());
@@ -41,7 +42,7 @@ class Therapist(User):
         data = {
             'email':form_data['email'],
             'name' :form_data['full_name'],
-            'password' :form_data['password'],
+            'password' :password,
             'type' :int(form_data['account_type']),
             'linkedin' : form_data['linkedin'],
             'cdr': form_data['cdr'],

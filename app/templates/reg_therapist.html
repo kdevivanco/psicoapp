@@ -40,7 +40,6 @@
                     <div class="bg-light text-center rounded p-5">
                         <form action="/therapist-reg" method="POST">
                             <div class="row g-3">
-
                                 <!-- <div class="col-12 col-sm-6">
                                     <input type="text" name="therapist_pic" class="form-control bg-white border-0" placeholder="Sube una foto" style="height: 55px;">
                                 </div>
@@ -217,34 +216,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='scripts/my_select.js') }}"></script>
 
-<script>
-    var checkboxes = document.querySelectorAll(".dropdown-content input[type=checkbox]");
-    var all_spans = document.querySelectorAll('.cat-name')
 
-    for (var i = 0; i < checkboxes.length; i++) {
-    checkboxes[i].addEventListener("change", checkSelection);
-    }
-    function checkSelection() {
-    var selectedOptions = document.querySelectorAll(".dropdown-content input[type=checkbox]:checked");
-    if (selectedOptions.length >= 5) {
-        // alert("You can only select a maximum of 5 options");
-        var otherCheckboxes = document.querySelectorAll(".dropdown-content input[type=checkbox]:not(:checked)");
-        for (var i = 0; i < otherCheckboxes.length; i++) {
-            otherCheckboxes[i].disabled = true;
-            //all_spans[i+1].style.color= 'red'
-        }
-        } else {
-        var allCheckboxes = document.querySelectorAll(".dropdown-content input[type=checkbox]");
-        for (var i = 0; i < allCheckboxes.length; i++) {
-            allCheckboxes[i].disabled = false;
-            //all_spans.style.color= 'black';
-        }
-        }
-    }
-</script>
-
-
-<script>
+<!-- <script>
     $(function() {
         $('#ms').change(function() {
             console.log($(this).val());
@@ -252,7 +225,7 @@
             width: '100%'
         });
     });
-</script>
+</script> -->
 <script>
     // Initialize multiple select on your regular select
     $("#my-select").multipleSelect({

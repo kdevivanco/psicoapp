@@ -18,11 +18,12 @@ def pseudodecorador():
 @users.route('/') # 1. cambie la ruta base de /home a /
 def home():
     logged = pseudodecorador()
-    if not logged
+    if not logged:
         return render_template('index.html',logged=logged)
     else: 
         user_id = session['user']['id']
         return redirect(f'/dashboard') # 2. en esta ruta hay que agregar logica para redireccionar dependiendo del tipo de usuario
+
 
 
 def mydecorator(): #esta funcion actua como un decorador solo para usarla en el landing page:
@@ -40,7 +41,6 @@ def show_register():
 
 @users.route('/register',methods=["POST"])
 def register_user():
-    pdb.set_trace()
     if not User.email_free(request.form):
         return redirect('/register')
     if not User.validate_user(request.form):
@@ -48,7 +48,6 @@ def register_user():
     
     user = User.create(request.form) #INSERTA AL USUARIO SIN IMPORTAR DE QUE TIPO ES    
 
-    pdb.set_trace()
     if int(request.form['account_type']) == 0: 
         #the user type is a therapist
         return redirect('/therapist-reg')
@@ -61,37 +60,27 @@ def register_user():
 def show_therapist_register():
     
     all_categories = Category.get_all()
-    
-    #pdb.set_trace()
-    #if ['user'] not in session or session['user'] == None:
-    #    return redirect('/')
 
     return render_template('reg_therapist.html', all_categories = all_categories)
 
-
 @users.route('/therapist-reg', methods = ['POST'])
 def register_therapist():
-    if 'user' not in session or session['user'] == None:
-        return redirect('/')
-    user_data = {
-        'email': session['user']['email'],
-        'full_name' : session['user']['full_name'],
-        'password' : session['user']['password'],
-        'account_type' : session['user']['account_type'],
-        'linkedin' : request.form['linkedin'],
-        'cdr': request.form['cdr'],
-        'age' : request.form['age'],
-        'gender' : request.form['gender'],
-        'modalidad': request.form['modalidad'],
-        'metodo' : request.form['metodo']
-    }
-    selected_categories = request.form.getlist('category')
+    pdb.set_trace()
+    if not User.email_free(request.form):
+        return redirect('/therapist-reg')
+    if not User.validate_user(request.form):
+        return redirect('/therapist-reg')
 
-    session['user']['id'] = Therapist.create(user_data)
+
+    selected_categories = request.form.getlist('category')
+    session['user']['id'] = Therapist.create(request.form)
+
     for cat_id in selected_categories:
         Category.add_to_category(session['user']['id'],int(cat_id))
 
+
     return redirect('/profile_therapist.html')#/add-education.html'
+
 
 
 # TERMINAR EL REGISTRO DEL USUARIO
@@ -101,10 +90,9 @@ def edit_user():
 
 
 # LOGIN DE CUALQUIER USUARIO
+#falta anadir logica para si el usia
 @users.route('/login')
 def show_login():
-    #if 'user' in session:
-    #    return redirect('/log')
     return render_template('log_in.html')
 
 @users.route('/login',methods=["POST"])
@@ -117,6 +105,8 @@ def login():
             'email':user.email,
         }
     else:
+        return redirect('/falta-validar')
+
         return redirect('/login')
     if user.validated == 0:
         #Falta verificar email 
@@ -144,8 +134,11 @@ def logout():
 
 
 
+
+
 # EDITAR LOS USUARIOS
 @users.route('/edit_user/<id>')
+
 @login_required
 def show_edit_profile(id):
     log,user = mydecorator()
