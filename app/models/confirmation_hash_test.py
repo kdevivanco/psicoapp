@@ -42,4 +42,3 @@ def send_confirmation_email(email, confirmation_hash):
     server.quit()
 
 
-pdb.set_trace()

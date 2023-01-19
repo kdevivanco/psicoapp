@@ -23,116 +23,66 @@
 
 
     <!-- Appointment Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="row gx-5">
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <div class="mb-4">
-                        <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Pefil</h5>
-                        <h1 class="display-4">Edita tu perfil</h1>
+    <div class="container m-auto mt-5">
+        <div class="mb-5">
+            <div class="h2">Edita tu Perfil</div>
+            <div class="col-lg-12">
+                <form action="edit-profile" method="post">
+                <div class="bg-light rounded p-5">
+                    <div class="row">
+                        <div class="col-10">
+                            <input class="h2" name="name" value="{{therapist.name}}"></input>
+                        </div>
                     </div>
-                <div class="col-lg-12   ">
-                    <div class="bg-light text-center rounded p-5">
-                        <form action="edit_therapist"  method="post">
-                            <div class="row g-3">
-                    
-                                <!-- <div class="col-12 col-sm-6">
-                                    <input type="text" name="therapist_pic" class="form-control bg-white border-0" placeholder="Sube una foto" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <input type="email" class="form-control bg-white border-0" placeholder="Adjuntar" style="height: 55px;"> -->
-                                </div>
-
-                                <div class="col-12 col-sm-12">
-                                    <input type="text" name="method" class="form-control bg-white border-0" placeholder="Método" style="height: 55px;" required>
-                                </div>
-                                <div class="col-12 col-sm-12">
-                                    <textarea name="description" class="form-control bg-white border-0" cols="30" rows="5" style="height: 55px;" placeholder="Descripción" required></textarea>
-                                </div>
-                                <div class="col-12 col-sm-12">
-                                    <input type="text" name="linkedin" class="form-control bg-white border-0" placeholder="Linkedin" style="height: 55px;">
-                                </div>
-                                <div class="row g-3">
-                                    <label for="">¿Dónde estás ubicado?</label>
-                                    <div class="col-12 col-sm-6">
-                                        <select class="form-select bg-white border-0" style="height: 55px;" required>
-                                            <option selected>Ciudad</option>
-                                            <option value="1">Arequipa</option>
-                                            <option value="2">Bogotá</option>
-                                            <option value="3">Lima</option>
-                                            <option value="4">Medellín</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12 col-sm-6"> <!--  Este debe activarse de acuerdo con la opción anterior -->
-                                        <select class="form-select bg-white border-0" style="height: 55px;" required>
-                                            <option selected>Distrito/Barrio</option>
-                                            <option value="1">El Poblado</option>
-                                            <option value="2">Belén</option>
-                                            <option value="3">Laureles 3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Guardar</button>
-                                </div>
+                    <div>
+                        <p class="h5 d-flex align-items-center bg-light  mb-2 especialista">Especialista en
+                        <input name="metodo" type="text" class="h5 mx-2" value="{{therapist.metodo}}"></p>
+                    </div>
+                    <div>
+                        <p class="d-flex align-items-center bg-light mb-3 text-black">Descripción:</p>
+                        <textarea type="text" name="description" cols="100" rows="3" class="text-black" value="{{therapist.description}}">{{therapist.description}}</textarea>
+                        <div class="row therapist-stats">
+                            <p class="col-md-2"> Edad: <br> <input class="h6" value="{{therapist.age}}">{{therapist.age}}</input> </p>
+                            <p class="col-md-2"> CDR: <br> <input class="h6" value="{{therapist.cdr}}">{{therapist.cdr}}</input> </p>
+                            <p class="col-md-2"> Género: <br><input class="h6" value="{{therapist.gender}}">{{therapist.gender}}</input> </p>
+                            <p class="col-md-3"> Modalidad:<input class="h6" value="{{therapist.modalidad}}">{{therapist.modalidad}}</input> </p>
+                        </div>
+                        <button type="submit" class="btn btn-primary"> Guardar cambios de perfil</button>
+                    </form>
+                        <p class="mt-5">Temas:</p>
+                        <div class="topics">
+                            {%for category in therapist.categories%}
+                            <p class="profile-category">{{category.name}} <a class="h5" href="/delete/{{category.id}}" style="font-size:0.7rem; color:rgb(6, 64, 117)">X</a></p>
+                            {%endfor%}
+                        </div>
+                    </div>
+                    <div class="education-section mt-4">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <p class="h5 d-flex align-items-center text-primary text-uppercase mb-2 ">Educación
+                                </p>
                             </div>
-                        </form>
-                        <form action="/edit_therapist/changeimg"  method="post" enctype="multipart/form-data"> <!-- Prueba para adjuntar la foto del terapeuta <Con el enctype, le digo que no solo voy a tener archivos de texto, sino documentos>-->
-                            <div class="row g-3">
-                                <div class="col-12 col-sm-6">
-                                    <input type="file" name="file" class="form-control bg-white border-0" placeholder="Sube una imagen" style="height: 55px;" required>  
-                                    <input type = "submit" value="Upload">  
-                                </div>
+                            <div class="col-md-5">
+                                {%if user_id == therapist.id%}
+                                <a href="/add-education" class="btn btn-primary rounded-pill mx-1">+ Agregar más</a>
+                                <a href="/edit-education" class="btn btn-light rounded-pill mx-1">Editar</a>
+                                {%endif%}
                             </div>
-                        </form>       
+                        </div>
+                        {%for education in therapist.education%}
+                        <div class="mt-3 education-div">
+                            <p class="h6 school_title">{{education.title_name}} | <span class="school_name">
+                                    {{education.school_name}}</span> </p>
+                            <p class="h6 date">2022 - 2023</p>
+                            <p class="h6 ed_description">{{education.description}}</p>
+                        </div>
+                        {%endfor%}
+    
                     </div>
-                </div
-                    <!-- <p class="mb-5">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
-                    <a class="btn btn-primary rounded-pill py-3 px-5 me-3" href="">Guardar</a>
-                    <a class="btn btn-outline-primary rounded-pill py-3 px-5" href="">tal vez después</a> -->
-                </div>
-                <div class="col-lg-6">
-                    <div class="bg-light text-center rounded p-5">
-                        <h1 class="mb-4">Hola, (nombre)</h1>
-                        <div class="col-12 col-sm-6">
-                            <img src="" alt="">
-                        </div>
-                        <div>
-                            Especialista en (método)
-                        </div>
-                        <div>
-                            Descripición
-                        </div>
-                        <div>
-                            Educación
-                        </div>
-                    </div>
-                    <br>
-                    <div class="col-lg-12">
-                        <div class="bg-light text-center rounded p-5">
-                            
-                            <form>
-                                <h1 class="display-6">Educación</h1>
-                                <div class="row g-3">
-                                    
-                                    <div class="col-12 col-sm-12">
-                                        <input type="text" name="therapist_pic" class="form-control bg-white border-0" placeholder="Institución" style="height: 55px;">
-                                    </div>
-                                    <div class="col-12 col-sm-12">
-                                        <input type="text" class="form-control bg-white border-0" placeholder="Título" style="height: 55px;">
-                                    </div>
-                                    <div class="col-6">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Guardar</button>
-                                    </div>
-                                    <div class="col-6">
-                                        <button class="btn btn-outline-primary rounded-pill py-3 px-5" type="submit">Agregar estudio</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+    
                 </div>
             </div>
+            <br>
         </div>
     </div>
     <!-- Appointment End -->

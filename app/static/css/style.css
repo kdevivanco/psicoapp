@@ -266,6 +266,8 @@
     background-color: white;
     padding: 1rem;
     border-radius: 1rem;
+    max-height: 30rem;
+    overflow: scroll;
 }
 .education-div{
     border: 1px solid #a5b1cc;
@@ -303,4 +305,44 @@
     padding-right: 1rem;
     border-radius: 1rem;
     margin-right: 0.5rem;
+}
+
+.edit-icon-profile{
+    font-size: 2rem;
+    color: #1D2A4D;
+}
+
+
+.topics{
+    display: flex;
+    flex-wrap: wrap;
+}
+.profile-category{
+    background-color: #98d4dd;
+    padding: 0.5rem;
+    font-size: 0.6rem;
+    color: #1D2A4D;
+    border-radius: 1rem;
+    margin-right: 0.5rem
+}
+
+.profile-category:nth-of-type(2){
+    background-color: #b0cace;
+}
+
+/*Articulos en perfil*/
+
+.body-preview{
+    max-height: 10rem;
+    text-overflow: ellipsis;
+}
+
+.article-text-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.prof-article-div{
+    min-height: 12rem;
 }

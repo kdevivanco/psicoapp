@@ -70,6 +70,10 @@ def education_add():
 def profile_therapist(therapist_id):
     logged = True
     therapist = Therapist.classify(therapist_id)
+    for article in therapist.articles:
+        print(article.img_filename)
+        print(type(article.img_filename))
+    pdb.set_trace()
     if therapist.type == 1:
         return redirect('/dashboard')
     user_id = session['user']['id']
@@ -78,9 +82,11 @@ def profile_therapist(therapist_id):
 
 
 # EDITA EL PERFIL DEL TERAPEUTA
-@therapist.route('/edit_therapist/<id>')
+@therapist.route('/edit-therapist')
 def edit_therapist():
-    return render_template('edit_therapist.html')
+    user_id = session['user']['id']
+    therapist = Therapist.classify(user_id)
+    return render_template('edit_therapist.html',user_id= user_id, therapist = therapist)
 
 
 
