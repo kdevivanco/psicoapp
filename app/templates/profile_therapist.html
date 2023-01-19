@@ -34,20 +34,20 @@
                     <div class="col-lg-12">
                         <div class="bg-light rounded p-5">
                             <h1 class="">{{therapist.name}}</h1>
-                            <div class="therapist-stats">
-                                <p>{{therapist.age}}</p>
-                                <p>{{therapist.gender}}</p>
-                                <p>Modalidad: {{therapist.modalidad}}</p>
-                            </div>
                             <div class="col-12 col-sm-6">
                                 <img src="" alt="">
                             </div>
                             <div>
                                 <p class="h5 d-flex align-items-center bg-light  mb-2 especialista">Especialista en {{therapist.metodo}} </p>
-                                
                             </div>
                             <div>
                                 <p class="d-flex align-items-center bg-light mb-3 text-black">{{therapist.description}} </p>
+                                <div class="therapist-stats">
+                                    <p>Edad: <span class="h6">{{therapist.age}}</span> </p>
+                                    <p>CDR: <span class="h6">{{therapist.cdr}}</span> </p>
+                                    <p>Género: <span class="h6">{{therapist.gender}}</span> </p>
+                                    <p>Modalidad:<span class="h6">{{therapist.modalidad}}</span> </p>
+                                </div>
                             </div>
                             <div class="education-section mt-4">
                                 <div class="row">

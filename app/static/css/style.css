@@ -288,3 +288,19 @@
     font-weight: 100;
     font-style: italic;
 }
+
+.therapist-stats{
+    display: flex;
+    flex-direction: row;
+}
+
+.therapist-stats>*{
+    color: #1D2A4D;
+    background-color: #FFFFFF;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left:1rem;
+    padding-right: 1rem;
+    border-radius: 1rem;
+    margin-right: 0.5rem;
+}
