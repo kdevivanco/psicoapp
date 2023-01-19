@@ -18,7 +18,11 @@
                     <a href="index.html" class="nav-item nav-link active">Home</a>
                     <a href="about.html" class="nav-item nav-link">Acerca</a>
                     <a href="blog.html" class="nav-item nav-link">Blog</a>
-                    <a href="ini_sesion.html" class="nav-item nav-link">Iniciar sesión</a>
+                    {% if logged%}
+                    <a href="/logout" class="nav-item nav-link">Log out</a>
+                    {%else%}
+                    <a href="/login" class="nav-item nav-link">Log in</a>
+                    {%endif%}
                     <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
                     <!-- Desde acá se está implementando el cargue de la imagen ¿Esto debe ir en base? ¿cómo?-->
                     <li class="nav-item">
@@ -28,7 +32,6 @@
                                 <img class="user_img d-inline-block" src="/static/users/general_user.jpeg" alt="imagen usuario">
                             {% endif %}
                         </a>
-
                     </li>
                 </div>
             </div>
@@ -49,8 +52,8 @@
                         <h5 class="text-white mb-md-2">Busca en base a tus necesidades</h5>
                         <h5 class="text-white mb-md-4">Maneja tus citas</h5>
                     <div class="pt-2">
-                        <a href="register.html" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">REGISTRARSE</a>
-                        <a href="" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">INICIAR SESIÓN</a>
+                        <a id="scroll-button" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">REGISTRARSE</a>
+                        <a id="section-to-scroll-to" href="/login" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">INICIAR SESIÓN</a>
                     </div>
                 </div>
             </div>
@@ -69,9 +72,10 @@
                         <h1 class="display-4">Accede a todos nuestros servicios</h1>
                     </div>
                     <p class="text-white mb-5">Puedes encontrar al psicólogo de tu preferencia, ver artículos y publicaciones por temas de interés, contactar a un profesional y mucho más!</p>
-                    <a class="btn btn-outline-dark rounded-pill py-3 px-5" href="">Encuentra a tu psicólogo</a>
+                    <a class="btn btn-outline-dark rounded-pill py-3 px-5" href="/dashboard">Encuentra a tu psicólogo</a>
+                    <p></p>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 " >
                     <div class="bg-white text-center rounded p-5">
                         <h1 class="mb-4">Registrarse</h1>
                             <p>¿Ya tienes una cuenta?</p><span><a href="log_in.html">Inicia sesión</a></span>
@@ -91,13 +95,13 @@
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <select class="form-control bg-light border-0"  style="height: 55px;" name="account_type" id="account_type">
-                                        <option name="type" disabeled>¿Eres psicólogo?</option>
-                                        <option name="type" value="0">Si</option>
-                                        <option name="type" value="1">No</option>
+                                        <option name="account_type" disabeled>¿Eres psicólogo?</option>
+                                        <option name="account_type" value="0">Si</option>
+                                        <option name="account_type" value="1">No</option>
                                     </select>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Registrarse</button>
+                                    <button href="" class="btn btn-primary w-100 py-3" type="submit">Registrarse</button>
                                 </div>
                             </div>
                         </form>
@@ -183,3 +187,14 @@
         <!-- Blog End -->
 
 {% endblock %}
+
+
+{%block javascript%}
+<script>
+    $("#scroll-button").click(function() {
+        $('html, body').animate({
+            scrollTop: $("#section-to-scroll-to").offset().top
+        }, 300);
+    });
+</script>
+{%endblock%}

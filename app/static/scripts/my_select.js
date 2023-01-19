@@ -1,4 +1,3 @@
-
 console.log(document.getElementById('my-select'))
 var checkboxes = document.querySelectorAll(".dropdown-content input[type=checkbox]");
 var inputcheckboxes = document.querySelectorAll(".dropdown-content input")
@@ -28,5 +27,3 @@ function checkSelection() {
       }
     }
   }
-
-

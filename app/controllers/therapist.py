@@ -10,9 +10,11 @@ therapist = Blueprint('therapist', __name__, template_folder='templates')
 
 
 # ENTRA AL PERFIL DEL TERAPEUTA
-@therapist.route('/profile_therapist')
-def profile_therapist():
-    return render_template('profile_therapist.html')
+@therapist.route('/tprofile/<id>')
+@login_required
+def profile_therapist(id):
+    logged = True
+    return render_template('profile_therapist.html',logged = logged)
 
 
 

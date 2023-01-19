@@ -8,22 +8,21 @@ import pdb
 
 users = Blueprint('users', __name__, template_folder='templates')
 
+def pseudodecorador():
+    if 'user' not in session or session['user'] == None:
+        return False
+    else:
+        return True
 
 # RUTAS DE INICIO
-@users.route('/home')
+@users.route('/') # 1. cambie la ruta base de /home a /
 def home():
-    return render_template('index.html')
-
-@users.route('/')
-def index():
-    if 'user' not in session or session['user'] == None:
-        log = 'Log in'
-    else:
-        log = 'Log out'
-
-    therapist = Therapist.classify(session['user']['id']) #FUNCIONA PARA TERAPEUTA Y LISTA DE CATEGORIAS, FALTA EDUCACION! 
-
-    return render_template('index.html', log = log)
+    logged = pseudodecorador()
+    if not logged:
+        return render_template('index.html',logged=logged)
+    else: 
+        user_id = session['user']['id']
+        return redirect(f'/dashboard') # 2. en esta ruta hay que agregar logica para redireccionar dependiendo del tipo de usuario
 
 
 
@@ -47,17 +46,8 @@ def register_user():
     if not User.validate_user(request.form):
         return redirect('/register')
     
-    password = User.encrypt_pass(request.form['password'])
+    user = User.create(request.form) #INSERTA AL USUARIO SIN IMPORTAR DE QUE TIPO ES    
 
-    session['user'] = {
-        'id': None,
-        'email' : request.form['email'],
-        'full_name' : request.form['full_name'],
-        'password' : password,
-        'account_type' : request.form['account_type']
-    }
-
-    #pdb.set_trace()
     if int(request.form['account_type']) == 0: 
         #the user type is a therapist
         return redirect('/therapist-reg')
@@ -72,12 +62,6 @@ def show_therapist_register():
     all_categories = Category.get_all()
 
     return render_template('reg_therapist.html', all_categories = all_categories)
-
-# def check_status(id_usuario):
-
-#     este_usuario = User.get_one(id_usuario)
-#     session['user']['status' ] = este_usuario.validated   
-#     return
 
 @users.route('/therapist-reg', methods = ['POST'])
 def register_therapist():
@@ -106,10 +90,9 @@ def edit_user():
 
 
 # LOGIN DE CUALQUIER USUARIO
+#falta anadir logica para si el usia
 @users.route('/login')
 def show_login():
-    #if 'user' in session:
-    #    return redirect('/log')
     return render_template('log_in.html')
 
 @users.route('/login',methods=["POST"])
@@ -118,16 +101,22 @@ def login():
     if user != False:
         session['user'] = {
             'id': user.id,
-            'first_name':user.first_name,
-            'last_name':user.last_name,
+            'name':user.name,
             'email':user.email,
-            'profile_url':user.profile_url
         }
     else:
         return redirect('/falta-validar')
 
         return redirect('/login')
-
+    if user.validated == 0:
+        #Falta verificar email 
+        #Mandar a verifica tu email
+        pass
+    if user.type == 0 and user.validated == 1: #Ha verificado su email pero no llenado info de psicologo
+        #redirecionamos a terminar perfil
+        return redirect('/therapist-reg')
+    elif user.type == 0 and user.validate == 2:
+        return redirect(f'/profile/{user.id}')
     return redirect('/profile_user') # No estoy muy segura a dónde debe llevar al usuario, estaba /dashboard, pero creo que este punto entra al perfil del usuario o del terapeuta
 
 # ENTRA AL PERFIL DEL USUARIO
