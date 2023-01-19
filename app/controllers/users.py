@@ -46,7 +46,8 @@ def register_user():
     if not User.validate_user(request.form):
         return redirect('/register')
 
-    user = User.create(request.form) #INSERTA AL USUARIO SIN IMPORTAR DE QUE TIPO ES    
+    user_id = User.create(request.form) #INSERTA AL USUARIO SIN IMPORTAR DE QUE TIPO ES    
+    user = User.get_one(user_id)
     if user != False:
         session['user'] = {
             'id': user.id,
@@ -63,10 +64,10 @@ def register_user():
 
 
 
-# TERMINAR EL REGISTRO DEL USUARIO
-@users.route('/user-reg')
-def edit_user():
-    return render_template('reg_user.html')
+# # TERMINAR EL REGISTRO DEL USUARIO
+# @users.route('/user-reg')
+# def edit_user():
+#     return render_template('reg_user.html')
 
 
 # LOGIN DE CUALQUIER USUARIO
@@ -96,9 +97,11 @@ def login():
     if user.type == 0 and user.validated == 1: #Ha verificado su email pero no llenado info de psicologo
         #redirecionamos a terminar perfil
         return redirect('/therapist-reg')
-    elif user.type == 0 and user.validate == 2:
-        return redirect(f'/profile/{user.id}')
-    return redirect('/profile_user') # No estoy muy segura a dónde debe llevar al usuario, estaba /dashboard, pero creo que este punto entra al perfil del usuario o del terapeuta
+    elif user.type == 0 and user.validated == 2:
+        return redirect('/add-education')
+    elif user.type == 0 and user.validated == 3: 
+        return redirect(f'/tprofile/{user.id}')
+    return redirect('/dashboard') # No estoy muy segura a dónde debe llevar al usuario, estaba /dashboard, pero creo que este punto entra al perfil del usuario o del terapeuta
 
 # ENTRA AL PERFIL DEL USUARIO
 

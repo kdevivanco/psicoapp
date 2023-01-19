@@ -17,15 +17,24 @@ def therapist_protection(user_id):
         flash('not allowed on this route!', 'error')
         return False
 
-# TERMINAR EL REGISTRO DEL TERAPEUTA 
+# Mostrar el registro de terapeuta
 @therapist.route('/therapist-reg')
 def show_therapist_register():
-    
+    user = Therapist.classify(session['user']['id'])
+    if user.type == 0 and user.validated == 1: #Ha verificado su email pero no llenado info de psicologo
+        #redirecionamos a terminar perfil
+        return redirect('/therapist-reg')
+    elif user.type == 0 and user.validated == 2:
+        return redirect('/add-education')
+    elif user.type == 0 and user.validated == 3: 
+        return redirect(f'/tprofile/{user.id}')
+
     all_categories = Category.get_all()
 
     return render_template('reg_therapist.html', all_categories = all_categories)
 
 @therapist.route('/therapist-reg', methods = ['POST'])
+@login_required
 def register_therapist():
 
     selected_categories = request.form.getlist('category')
@@ -45,11 +54,15 @@ def show_add_education():
 
 
 # ENTRA AL PERFIL DEL TERAPEUTA
-@therapist.route('/tprofile/<id>')
+@therapist.route('/tprofile/<therapist_id>')
 @login_required
-def profile_therapist(id):
+def profile_therapist(therapist_id):
     logged = True
-    return render_template('profile_therapist.html',logged = logged)
+    therapist = Therapist.classify(therapist_id)
+    if therapist.type == 1:
+        return redirect('/dashboard')
+    user_id = session['user']['id']
+    return render_template('profile_therapist.html',logged = logged, therapist = therapist,user_id = user_id)
 
 
 
