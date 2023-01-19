@@ -23,6 +23,8 @@
                     {%else%}
                     <a href="/login" class="nav-item nav-link">Log in</a>
                     {%endif%}
+                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
+                    <!-- Desde acá se está implementando el cargue de la imagen ¿Esto debe ir en base? ¿cómo?-->
                     <li class="nav-item">
                         <a href="/profile/avatar" class="nav-link disable">
                             {% if session.user %}
@@ -31,8 +33,6 @@
                             {% endif %}
                         </a>
                     </li>
-                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
-                    <!-- Desde acá se está implementando el cargue de la imagen ¿Esto debe ir en base? ¿cómo?-->
                 </div>
             </div>
         </nav>
@@ -72,7 +72,7 @@
                         <h1 class="display-4">Accede a todos nuestros servicios</h1>
                     </div>
                     <p class="text-white mb-5">Puedes encontrar al psicólogo de tu preferencia, ver artículos y publicaciones por temas de interés, contactar a un profesional y mucho más!</p>
-                    <a class="btn btn-outline-dark rounded-pill py-3 px-5" href="">Encuentra a tu psicólogo</a>
+                    <a class="btn btn-outline-dark rounded-pill py-3 px-5" href="/dashboard">Encuentra a tu psicólogo</a>
                     <p></p>
                 </div>
                 <div class="col-lg-6 " >

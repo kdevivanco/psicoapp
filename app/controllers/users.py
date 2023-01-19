@@ -8,12 +8,17 @@ import pdb
 
 users = Blueprint('users', __name__, template_folder='templates')
 
+def pseudodecorador():
+    if 'user' not in session or session['user'] == None:
+        return False
+    else:
+        return True
 
 # RUTAS DE INICIO
 @users.route('/') # 1. cambie la ruta base de /home a /
 def home():
-    if 'user' not in session or session['user'] == None:
-        logged = False
+    logged = pseudodecorador()
+    if not logged
         return render_template('index.html',logged=logged)
     else: 
         user_id = session['user']['id']

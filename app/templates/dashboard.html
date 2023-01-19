@@ -2,8 +2,7 @@
 {% block home %} active {% endblock %}
 
 {% block styles %}
-<style>
-</style>
+<link type="text/css" href="{{ url_for('static', filename='css/dropdown_ms.css')}}" rel="stylesheet">
 {% endblock %}
 
 
@@ -12,7 +11,11 @@
                     <a href="index.html" class="nav-item nav-link active">Home</a>
                     <a href="about.html" class="nav-item nav-link">Acerca</a>
                     <a href="blog.html" class="nav-item nav-link">Blog</a>
-                    <a href="ini_sesion.html" class="nav-item nav-link">Iniciar sesión</a>
+                    {%if logged%}
+                    <a href="/logout" class="nav-item nav-link btn btn-primary">Cerrar sesion</a>
+                    {%else%}
+                    <a href="/login" class="nav-item nav-link btn btn-primary">Iniciar sesion</a>
+                    {%endif%}
                     <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
                 </div>
             </div>
@@ -143,17 +146,22 @@
                 </div>
                 <!-- Plain Text End -->
                 <!-- Category Start -->
-                <div class="mb-5">
-                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Encuentra artículos por tema</h4>
-                    <div class="d-flex flex-column justify-content-start">
-                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Familia</a>
-                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Infancia y adolesencia</a>
-                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Pareja</a>
-                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Sexualidad y género</a>
-                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Adulto</a>
-                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Depresión</a>
-                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Ansiedad</a>
-                        <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Duelo</a>
+                <div class="col-12 mb-3">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Busca psicologos por especialidad</h4>
+                    <div class="bg-light rounded text-center p-3" >
+                        <form action="/search-by-cat" methods="'POST">
+                            <div class="dropdown" id="my-select">
+                                <button class="dropbtn">Escoger 3 como maximo</button>
+                                <div class="dropdown-content">
+                                    {% for category in all_categories %}
+                                    <label for="category"  class="cat-label">
+                                    <input type="checkbox" value="{{category.id}}" class="category" id="{{category.id}}"> <p class="cat-name mx-2" id="cat-name{{category.id}}" >{{category.name}}</p>
+                                    </label>
+                                    {% endfor %}
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 m-2">Search</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <!-- Category End -->
@@ -201,4 +209,12 @@
     <!-- Blog End -->
 
 
+{% endblock %}
+
+
+{%block javascript%}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/my_select.js') }}"></script>
 {% endblock %}
