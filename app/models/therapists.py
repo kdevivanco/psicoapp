@@ -43,7 +43,7 @@ class Therapist(User):
                 modalidad = %(modalidad)s,
                 description = %(description)s,
                 metodo = %(metodo)s,
-                validated = 1
+                validated = 2
                 where id = %(therapist_id)s
                 '''
 

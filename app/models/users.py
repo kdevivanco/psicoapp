@@ -190,6 +190,37 @@ class User:
             return False 
         return (cls(results[0]))
 
+
+
+    @classmethod
+    def fill_info_patient(cls,form_data,user_id):
+        query = '''
+                UPDATE users 
+                SET 
+                age = %(age)s,
+                gender = %(gender)s,
+                modalidad = %(modalidad)s,
+                description = %(description)s,
+                validated = 2
+                where id = %(user_id)s
+                '''
+
+        data = {
+            'user_id':user_id,
+            'age' :form_data['age'],
+            'gender' :form_data['gender'],
+            'modalidad': form_data['modalidad'],
+            'description' : form_data['description']
+        }
+        
+        
+        flash('Register  succesful!','success')
+
+        return  connectToMySQL('psicoapp').query_db(query,data)
+
+
+
+
     @classmethod
     def add_address(cls,user_id,location_id):
         query = '''
