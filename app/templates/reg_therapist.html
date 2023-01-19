@@ -39,13 +39,7 @@
                 <div class="col-lg-12">
                     <div class="bg-light text-center rounded p-5">
                         <form action="/therapist-reg" method="POST">
-                            <div class="row g-3">
-                                <!-- <div class="col-12 col-sm-6">
-                                    <input type="text" name="therapist_pic" class="form-control bg-white border-0" placeholder="Sube una foto" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <input type="email" class="form-control bg-white border-0" placeholder="Adjuntar" style="height: 55px;"> -->
-                            </div>
+                            
 
                             <div class="col-12 col-sm-12">
                                 <input type="text" name="linkedin" id="linkedin" class="form-control bg-white border-0"
@@ -62,7 +56,7 @@
                             <div class="col-12 col-sm-12">
                                 <select name="gender" id="gender" class="form-control bg-white border-0"
                                     placeholder="Género" style="height: 55px;" required>
-                                    <option name="gender" id="" value="" disabled selected>Seleccina tu género</option>
+                                    <option name="gender" id="" value="" disabled selected>Selecciona tu género</option>
                                     <option name="gender" id="" value="female">Muje</option>
                                     <option name="gender" id="" value="male">Hombre</option>
                                     <option name="gender" id="" value="non_binary">No binario</option>
@@ -74,44 +68,34 @@
                                 </select>
                             </div>
                             <div class="row g-3">
-                                <label for="">¿Dónde estás ubicado?</label>
+                                <p>¿Dónde estás ubicado?</p>
                                 <div class="col-12 col-sm-6">
-                                    <select class="form-select bg-white border-0" style="height: 55px;" required>
-                                        <option selected>Ciudad</option>
-                                        <option value="1">Arequipa</option>
-                                        <option value="2">Bogotá</option>
-                                        <option value="3">Lima</option>
-                                        <option value="4">Medellín</option>
-                                    </select>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <!--  Este debe activarse de acuerdo con la opción anterior -->
-                                    <select class="form-select bg-white border-0" style="height: 55px;" required>
-                                        <option selected>Distrito/Barrio</option>
-                                        <option value="1">El Poblado</option>
-                                        <option value="2">Belén</option>
-                                        <option value="3">Laureles 3</option>
+                                    <select name="city" class="form-select bg-white border-0" style="height: 55px;" required>
+                                        <option name="ciudad" selected disabled>Ciudad</option>
+                                        <option name="ciudad" value="Arequipa">Arequipa</option>
+                                        <option name="ciudad" value="Bogota">Bogotá</option>
+                                        <option name="ciudad" value="Lima">Lima</option>
+                                        <option name="ciudad" value="Medellin">Medellín</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-12">
-                                <select name="modalidad" id="gender" class="form-control bg-white border-0"
-                                    placeholder="Modalidad de consulta" style="height: 55px;" required>
-                                    <option name="gender" id="" value="" disabled selected>Seleccina la modalidad de tu
-                                        consulta</option>
-                                    <option name="modalidad" id="" value="office">In person/Office</option>
-                                    <option name="modalidad" id="" value="office">Remote/Virtual</option>
-                                    <option name="modalidad" id="" value="office">Hybrid (both)</option>
-                                </select>
+                            <div class="col-12 col-sm-6">
+                                    <!--  Este debe activarse de acuerdo con name="ciudad" la opción anterior -->
+                                    <select name="distrito" class="form-select bg-white border-0" style="height: 55px;" required>
+                                        <option name="distrito" selected disabled>Distrito/Barrio</option>
+                                        <option name="distrito" value="elpoblado">El Poblado</option>
+                                        <option name="distrito" value="belen">Belén</option>
+                                        <option name="distrito" value="laureles">Laureles 3</option>
+                                    </select>
                             </div>
                             <div class="col-12 col-sm-12">
-                                <select name="modalidad" id="gender" class="form-control bg-white border-0"
+                                <select name="modalidad" id="modalidad" class="form-control bg-white border-0"
                                     placeholder="Modalidad de consulta" style="height: 55px;" required>
-                                    <option name="gender" id="" value="" disabled selected>Seleccina la modalidad de tu
+                                    <option name="modalidad" id="" value="" disabled selected>Selecciona la modalidad de tu
                                         consulta</option>
                                     <option name="modalidad" id="" value="office">In person/Office</option>
                                     <option name="modalidad" id="" value="remote">Remote/Virtual</option>
-                                    <option name="modalidad" id="" value="hybrid">Hybrid (both)</option> 
+                                    <option name="modalidad" id="" value="hybrid">Hybrid (both)</option>
                                 </select>
                             </div>
                             <div class="col-12 col-sm-12">
@@ -124,16 +108,11 @@
                             </div>
                             <div class="col-12 mb-3">
                                 <label for="category" class="form-label">What subjects do you specialize in (choose five as a maximum):</label>
-                                <div class="dropdown" id="my-select">
-                                        <button class="dropbtn">Select Options</button>
-                                        <div class="dropdown-content">
-                                        {% for category in all_categories %}
-                                            <label class="cat-label">
-                                            <input type="checkbox" value="{{category.id}}" class="category" id="{{category.id}}"> <p class="cat-name" id="cat-name{{category.id}}" >{{category.name}}</p>
-                                            </label>
-                                        {% endfor %}
-                                    </div>
-                                </div>
+                                <select name="category" id="category" style="height: 20rem;" multiple>
+                                      {% for category in all_categories %}
+                                    <option name="category" value="{{category.id}}">{{category.name}}</option>
+                                      {% endfor %}
+                                </select>
                             </div>
                                 <button class="btn btn-primary w-100 py-3" type="submit">Guardar</button>
                             </div>

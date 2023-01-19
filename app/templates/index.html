@@ -191,6 +191,7 @@
 
 {%block javascript%}
 <script>
+    console.log(document.getElementById('scroll-button'))
     $("#scroll-button").click(function() {
         $('html, body').animate({
             scrollTop: $("#section-to-scroll-to").offset().top
