@@ -32,23 +32,29 @@ class Therapist(User):
 
 
     @classmethod
-    def create(self,form_data):
-        password = User.encrypt_pass(form_data['password'])
+    def fill_info(self,form_data,therapist_id):
         query = '''
-                INSERT INTO users ( name , email , password , type, linkedin, cdr, age, gender,modalidad,metodo, created_at ) 
-                VALUES ( %(name)s  , %(email)s , %(password)s , %(type)s, %(linkedin)s ,%(cdr)s,%(age)s, %(gender)s , %(modalidad)s, %(metodo)s, NOW());
+                UPDATE users 
+                SET 
+                linkedin = %(linkedin)s,
+                cdr = %(cdr)s,
+                age = %(age)s,
+                gender = %(gender)s,
+                modalidad = %(modalidad)s,
+                description = %(description)s,
+                metodo = %(metodo)s,
+                validated = 1
+                where id = %(therapist_id)s
                 '''
 
         data = {
-            'email':form_data['email'],
-            'name' :form_data['full_name'],
-            'password' :password,
-            'type' :int(form_data['account_type']),
+            'therapist_id':therapist_id,
             'linkedin' : form_data['linkedin'],
-            'cdr': form_data['cdr'],
-            'age' : int(form_data['age']),
-            'gender' : form_data['gender'],
+            'cdr':form_data['cdr'],
+            'age' :form_data['age'],
+            'gender' :form_data['gender'],
             'modalidad': form_data['modalidad'],
+            'description' : form_data['description'],
             'metodo' : form_data['metodo']
             }
         

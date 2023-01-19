@@ -55,33 +55,6 @@ def register_user():
         return redirect('/patient-reg')
 
 
-# TERMINAR EL REGISTRO DEL TERAPEUTA 
-@users.route('/therapist-reg')
-def show_therapist_register():
-    
-    all_categories = Category.get_all()
-
-    return render_template('reg_therapist.html', all_categories = all_categories)
-
-@users.route('/therapist-reg', methods = ['POST'])
-def register_therapist():
-    pdb.set_trace()
-    if not User.email_free(request.form):
-        return redirect('/therapist-reg')
-    if not User.validate_user(request.form):
-        return redirect('/therapist-reg')
-
-
-    selected_categories = request.form.getlist('category')
-    session['user']['id'] = Therapist.create(request.form)
-
-    for cat_id in selected_categories:
-        Category.add_to_category(session['user']['id'],int(cat_id))
-
-
-    return redirect('/profile_therapist.html')#/add-education.html'
-
-
 
 # TERMINAR EL REGISTRO DEL USUARIO
 @users.route('/user-reg')

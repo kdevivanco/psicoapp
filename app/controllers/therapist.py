@@ -18,20 +18,12 @@ def show_therapist_register():
 
 @therapist.route('/therapist-reg', methods = ['POST'])
 def register_therapist():
-    pprint.pprint(request.form)
-    pdb.set_trace()
-    if not User.email_free(request.form):
-        return redirect('/therapist-reg')
-    if not User.validate_user(request.form):
-        return redirect('/therapist-reg')
-
 
     selected_categories = request.form.getlist('category')
-    session['user']['id'] = Therapist.create(request.form)
+    Therapist.fill_info(request.form,session['user']['id'])
 
     for cat_id in selected_categories:
         Category.add_to_category(session['user']['id'],int(cat_id))
-
 
     return redirect('/profile_therapist.html')#/add-education.html'
 
