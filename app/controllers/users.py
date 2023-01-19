@@ -21,7 +21,7 @@ def home():
     if not logged:
         return render_template('index.html',logged=logged)
     else: 
-        user_id = session['user']['id']
+        user_id = int(session['user']['id'])
         return redirect(f'/dashboard') # 2. en esta ruta hay que agregar logica para redireccionar dependiendo del tipo de usuario
 
 
@@ -46,11 +46,11 @@ def register_user():
     if not User.validate_user(request.form):
         return redirect('/register')
 
-    user_id = User.create(request.form) #INSERTA AL USUARIO SIN IMPORTAR DE QUE TIPO ES    
+    user_id = int(User.create(request.form))#INSERTA AL USUARIO SIN IMPORTAR DE QUE TIPO ES    
     user = User.get_one(user_id)
     if user != False:
         session['user'] = {
-            'id': user.id,
+            'id': int(user.id),
             'name':user.name,
             'email':user.email,
             'type':user.type
@@ -81,7 +81,7 @@ def login():
     user = User.login(request.form)
     if user != False:
         session['user'] = {
-            'id': user.id,
+            'id': int(user.id),
             'name':user.name,
             'email':user.email,
             'type':user.type
@@ -122,11 +122,10 @@ def logout():
 
 # EDITAR LOS USUARIOS
 @users.route('/edit_user/<id>')
-
 @login_required
 def show_edit_profile(id):
     log,user = mydecorator()
-    user_id = user['id']
+    user_id = int(user['id'])
     if user['id'] != int(id):
         return redirect('/profile_user')
 
@@ -139,11 +138,15 @@ def show_edit_profile(id):
 @login_required
 def edit_profile(id):
     log,user = mydecorator()
-    user_id = user['id']
+
+    user_id = int(user['id'])
+
     if user['id'] != int(id):
         return redirect('/profile_user')
+
     edited_user = User.get_one(user_id)
     User.edit(user['id'],request.form)
+
     session['user'] = {
             'id': edited_user.id,
             'first_name':edited_user.first_name,
@@ -153,20 +156,3 @@ def edit_profile(id):
         }
     
     return redirect('/profile_user')
-
-
-
-# MUESTRA EL PERFIL DEL USUARIO (Aún falta terminar)
-@users.route('/profile_user/<id>')
-@login_required
-def show_profile(id):
-    if 'user' not in session or session['user'] == None : #si no hay sesion:
-        return False
-    log,user = mydecorator()
-    user_id = user['id']
-    creator = Wishlist.get_all_from_user(id)
-    this_user = User.get_one(id)
-    
-    user_products = Product.get_all_from_user(id)
-
-    return render_template('profile_user.html',user=user,creator=creator, user_products = user_products,this_user = this_user, log = log)

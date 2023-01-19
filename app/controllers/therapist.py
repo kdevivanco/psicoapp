@@ -70,6 +70,7 @@ def education_add():
 def profile_therapist(therapist_id):
     logged = True
     therapist = Therapist.classify(therapist_id)
+    pdb.set_trace()
     if therapist.type == 1:
         return redirect('/dashboard')
     user_id = session['user']['id']

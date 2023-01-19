@@ -43,7 +43,7 @@ class Education:
             '''
 
         data = {
-        'therapist_id': therapist_id
+        'therapist_id': int(therapist_id)
         }
 
         results = connectToMySQL('psicoapp').query_db(query,data)

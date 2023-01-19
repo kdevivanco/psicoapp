@@ -4,7 +4,6 @@ import re
 from app import app
 from flask_bcrypt import Bcrypt        
 from app.models.users import User
-from app.models.therapists import Therapist
 #from app.models.lists import Wishlist
 import pdb
 import time
@@ -62,7 +61,7 @@ class Publication:
                 where id = %(id)s '''
 
         data = {
-            "id": id
+            "id": int(id)
         }
         results = connectToMySQL('psicoapp').query_db(query,data)
         if results == False:
@@ -71,7 +70,7 @@ class Publication:
         result = results[0]
 
         publication = cls(result)
-        publication.creator  = Therapist.get_one(publication.user_id)
+        publication.creator  = User.get_one(publication.user_id)
         return publication
 
     #Devuelve todos los publicationos creados por el usuario
@@ -84,20 +83,19 @@ class Publication:
                 '''
 
         data = {
-            'user_id' : user_id
+            'user_id': int(user_id)
         }
 
-        #results es una lista de todos los publicationos creados por el usuario
         results = connectToMySQL('psicoapp').query_db(query,data)
-        user_publications = []
-        if results == False:
-            return user_publications #evita que la lista itere si esque esta vacia para evitar un error
         
-        for publication_id in results:
-            publication = publication.classify(publication_id['id']) #clasifica cada publicationo: cada id esta en un diccionario por eso se le pasa esa variable
-            user_publications.append(publication) #lo agrega a la lista de publicationos 
+        publications = []
+        if len(results) == 0 or results == False:
+            return publications
         
-        return user_publications
+        for publication in results:
+            publications.append(cls(publication))
+        
+        return publications
     
     #Devuelve todas las publicaciones menos las del terapeuta. 
     #COMENTARIO: ESTA FUNCION SOLO SE LLAMA SI EL TIPO DE CUENTA ES PSICOLOGO
@@ -110,7 +108,7 @@ class Publication:
                 order by publications.created_at desc;'''
 
         data = {
-            'user_id' : user_id
+            'user_id' : int(user_id)
         }
 
         results = connectToMySQL('psicoapp').query_db(query,data)
@@ -146,7 +144,7 @@ class Publication:
             'img_url' : form_data['img_url'],
             'description' : form_data['description'],
             'file' : form_data['file'],
-            'id' : id
+            'id' : int(id)
         }
 
         result = connectToMySQL('psicoapp').query_db(query,data)

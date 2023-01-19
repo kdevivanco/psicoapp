@@ -182,7 +182,7 @@ class User:
         query = "SELECT * FROM users WHERE id = %(id)s;"
 
         data = {
-            'id' : user_id
+            'id' : int(user_id)
         }
         results = connectToMySQL('psicoapp').query_db(query,data)
 
@@ -206,7 +206,7 @@ class User:
                 '''
 
         data = {
-            'user_id':user_id,
+            'user_id':int(user_id),
             'age' :form_data['age'],
             'gender' :form_data['gender'],
             'modalidad': form_data['modalidad'],
@@ -245,7 +245,7 @@ class User:
                 '''
 
         data = {
-                "user_id": user_id,
+                "user_id": int(user_id),
                 "location_id" : location_id
             }
         return connectToMySQL('psicoapp').query_db(query,data) 
@@ -281,7 +281,7 @@ class User:
         '''
 
         data ={
-            'id':user_id,
+            'id':int(user_id),
             'first_name': form_data['first_name'],
             'last_name': form_data['last_name'],
             'profile_url': form_data['profile_url']

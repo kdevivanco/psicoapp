@@ -33,7 +33,7 @@ class Category:
                 '''
 
         data = {
-            'id':category_id
+            'id': int(category_id)
         }
 
         results = connectToMySQL('psicoapp').query_db(query,data) 

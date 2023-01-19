@@ -7,6 +7,10 @@ import json
 from app.models.users import User
 from app.models.categories import Category
 from app.models.educations import Education
+from app.models.publications import Publication
+from app.models.articles import Article
+from app.models.messages import Message
+
 
 import pdb
 bcrypt = Bcrypt(app)
@@ -49,7 +53,7 @@ class Therapist(User):
                 '''
 
         data = {
-            'therapist_id':therapist_id,
+            'therapist_id':int(therapist_id),
             'linkedin' : form_data['linkedin'],
             'cdr':form_data['cdr'],
             'age' :form_data['age'],
@@ -72,7 +76,7 @@ class Therapist(User):
                 where users.id = %(id)s '''
 
         data = {
-            "id": id
+            "id": int(id)
         }
         results = connectToMySQL('psicoapp').query_db(query,data)
         if results == False or len(results) ==0:
@@ -83,15 +87,30 @@ class Therapist(User):
         therapist = cls(result)
         therapist.categories = cls.get_categories(id)
 
-        #therapist.publications = Publication.get_all_from_user(id)
-        #therapist.articles = Article.get_all_from_user(id)
-        #therapist.requests  = Message.get_requests(id)
-        therapist.education = Education.get_education(id) #IMPLEMENTAR ESTE METODO EN ESTE MODELO
-        #therapist.categories = User.get_categories(id) #IMPLEMENTAR METODO EN CLASE USER
-    
-        #for product in therapist.products:
-        #    therapist.product_count +=1
-        
+        therapist.publications = Publication.get_all_from_user(id)
+        therapist.articles = Article.get_all_from_user(id)
+        therapist.requests  = Message.get_requests(id) #FALTA CREAR
+        therapist.education = Education.get_education(id) 
+
+        gender = {
+            'female': 'Mujer',
+            'male': 'Hombre',
+            'non_binary': 'No binario',
+            'genderfluid': 'Fluido de Genero',
+            'trans_female': 'Mujer transgénero',
+            'trans_male': 'Hombre Transgénero',
+            'agender': 'Agender',
+            'other':'No especificado'
+        }
+
+        modalidad = {
+            'office': 'Consultorio - Presencial',
+            'hybrid': 'Hibrido - Presencial/Virtual',
+            'remote': 'Remoto - Virtual'
+        }
+        therapist.modalidad = modalidad[therapist.modalidad]
+        therapist.gender = gender[therapist.gender]
+
         return therapist
 
     @classmethod
@@ -102,7 +121,7 @@ class Therapist(User):
                 '''
 
         data = {
-            'user_id':user_id
+            'user_id':int(user_id)
         }
 
         results = connectToMySQL('psicoapp').query_db(query,data) 
@@ -132,7 +151,7 @@ class Therapist(User):
 
         data = {
             'valid' : valid,
-            'id' : user_id
+            'id' : int(user_id)
         }
 
         return connectToMySQL('psicoapp').query_db(query,data)

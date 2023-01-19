@@ -4,7 +4,6 @@ import re
 from app import app
 from flask_bcrypt import Bcrypt        
 from app.models.users import User
-from app.models.therapists import Therapist
 #from app.models.lists import Wishlist
 import pdb
 import time
@@ -65,7 +64,7 @@ class Article:
                 where id = %(id)s '''
 
         data = {
-            "id": id
+            "id": int(id)
         }
         results = connectToMySQL('psicoapp').query_db(query,data)
         if results == False:
@@ -74,33 +73,32 @@ class Article:
         result = results[0]
 
         publication = cls(result)
-        publication.creator  = Therapist.get_one(publication.user_id)
+        publication.creator  = User.get_one(publication.user_id)
         return publication
 
-    #Devuelve todos los publicationos creados por el usuario
+    #Devuelve todos los articulos creados por el usuario
     @classmethod
     def get_all_from_user(cls,user_id): 
         
         query = '''
-                SELECT id FROM publications
+                SELECT id FROM articles
                 WHERE user_id = %(user_id)s;
                 '''
 
         data = {
             'user_id' : user_id
         }
-
-        #results es una lista de todos los publicationos creados por el usuario
         results = connectToMySQL('psicoapp').query_db(query,data)
-        user_publications = []
-        if results == False:
-            return user_publications #evita que la lista itere si esque esta vacia para evitar un error
         
-        for publication_id in results:
-            publication = publication.classify(publication_id['id']) #clasifica cada publicationo: cada id esta en un diccionario por eso se le pasa esa variable
-            user_publications.append(publication) #lo agrega a la lista de publicationos 
+        articles = []
+        if len(results) == 0 or results == False:
+            return articles
         
-        return user_publications
+        for article in results:
+            articles.append(cls(article))
+        
+        return articles
+        
     
     #Devuelve todas las publicaciones menos las del terapeuta. 
     #COMENTARIO: ESTA FUNCION SOLO SE LLAMA SI EL TIPO DE CUENTA ES PSICOLOGO
@@ -108,32 +106,32 @@ class Article:
     def get_all_but_user(cls,user_id): 
         
         query = '''
-                SELECT publications.id FROM publications
-                WHERE publications.user_id != %(user_id)s
-                order by publications.created_at desc;'''
+                SELECT articles.id FROM articles
+                WHERE articles.user_id != %(user_id)s
+                order by articles.created_at desc;'''
 
         data = {
             'user_id' : user_id
         }
 
         results = connectToMySQL('psicoapp').query_db(query,data)
-        other_publications = []
+        other_articles = []
 
         if results == 0 or len(results) == 0 or results == False:
-            return other_publications #evita que la lista itere si esque esta vacia para evitar un error
+            return other_articles #evita que la lista itere si esque esta vacia para evitar un error
         
-        for publication_id in results:
-            publication = cls.classify(publication_id['id'])
-            other_publications.append(publication)
+        for article_id in results:
+            article = cls.classify(article_id['id'])
+            other_articles.append(article)
         
-        return other_publications
+        return other_articles
 
     #FALTA MODIFICAR
     @classmethod
     def edit(cls,form_data,id):
 
         query = '''
-                UPDATE publications
+                UPDATE articles
                 SET title = %(title)s,
                 link = %(link)s,
                 brand = %(brand)s,
@@ -149,7 +147,7 @@ class Article:
             'img_url' : form_data['img_url'],
             'description' : form_data['description'],
             'file' : form_data['file'],
-            'id' : id
+            'id' : int(id)
         }
 
         result = connectToMySQL('psicoapp').query_db(query,data)
@@ -165,11 +163,11 @@ class Article:
     @classmethod
     def delete(cls,publication_id):
 
-        query = '''DELETE FROM publications 
+        query = '''DELETE FROM articles 
                     where id = %(id)s'''
 
         data = {
-            "id": publication_id
+            "id": int(publication_id)
         }
 
         return connectToMySQL('psicoapp').query_db(query,data)
