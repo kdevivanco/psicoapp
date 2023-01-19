@@ -8,6 +8,12 @@ import pdb
 
 users = Blueprint('users', __name__, template_folder='templates')
 
+# SECCION DE PRUEBA PARA LINA
+@users.route('/prueba')
+def prueba():
+    return render_template('edit_therapist_upload.html')
+# TERMINA SECCION DE PRUEBA PARA LINA  
+
 def pseudodecorador():
     if 'user' not in session or session['user'] == None:
         return False

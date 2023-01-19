@@ -165,6 +165,11 @@ class Therapist(User):
         pass
 
 
+
+
+
+
+
 # METODO PARA EL UPLOAD DE LOS FILES
 # Agrega el path de las imagenes de acá en la base de datos 
     @classmethod
@@ -180,5 +185,5 @@ class Therapist(User):
             'profile_pic': filename
         }
 
-        flash('imagen subida con éxito', 'success')
+        flash('¡La imagen quedó cargada!', 'success')
         return connectToMySQL('psicoapp').query_db(query,data)
