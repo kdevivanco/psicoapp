@@ -4,34 +4,16 @@ from app.controllers.users import users
 from app.controllers.therapist import therapist
 from app.controllers.publications import publications
 from app.controllers.articles import articles 
-<<<<<<< HEAD
-<<<<<<< HEAD
 from app.controllers.page import page
 from app.controllers.patients import patients
-=======
->>>>>>> 6553481ea2490fc488ad15a49d6dc7a250404d94
-=======
-from app.controllers.page import page
-from app.controllers.patients import patients
->>>>>>> 809c292aa7b7d1b2bfbbfd8707132c213e5e99e7
 #from app.controllers.messages import messages
 
 app.register_blueprint(users)
 app.register_blueprint(therapist)
 app.register_blueprint(publications)
 app.register_blueprint(articles)
-<<<<<<< HEAD
-<<<<<<< HEAD
 app.register_blueprint(page)
 app.register_blueprint(patients)
-=======
-#app.register_blueprint(messages)
->>>>>>> 6553481ea2490fc488ad15a49d6dc7a250404d94
-=======
-app.register_blueprint(page)
-app.register_blueprint(patients)
-#app.register_blueprint(messages)
->>>>>>> 809c292aa7b7d1b2bfbbfd8707132c213e5e99e7
 
 
 
