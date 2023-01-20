@@ -215,7 +215,6 @@ CHANGE COLUMN `modalidad` `modalidad` VARCHAR(255) NULL ;
 ALTER TABLE `psicoapp`.`category` 
 RENAME TO  `psicoapp`.`categories` ;
 
-INSERT INTO categories (name) VALUES ("Anxiety"),("Depression"),("Stress"),("Trauma"),("PTSD"),("Grief and Loss"),("Eating Disorders"),("Obsessive-Compulsive Disorder (OCD)"),("Attention-Deficit Hyperactivity Disorder (ADHD)"),("Autism Spectrum Disorder"),("Borderline Personality Disorder"),("Schizophrenia"),("Bipolar Disorder"),("Dissociative Identity Disorder"),("Substance Abuse"),("Addiction"),("Anger Management"),("Relationship Issues"),("Marriage and Couples Counseling"),("Family Therapy"),("Parenting"),("Child Psychology"),("Adolescent Psychology"),("Aging and Geriatric Psychology"),("Career Counseling"),("Workplace Issues"),("Educational Psychology"),("Sports Psychology"),("Forensic Psychology"),("Military Psychology"),("Neuropsychology"),("Evolutionary Psychology"),("Cross-Cultural Psychology"),("Social Psychology"),("Cognitive Psychology"),("Developmental Psychology"),("Abnormal Psychology"),("Personality Psychology"),("Positive Psychology"),("Clinical Psychology"),("Counseling Psychology"),("Community Psychology"),("Health Psychology"),("Rehabilitation Psychology"),("School Psychology"),("Industrial-Organizational Psychology"),("Gender and Sexuality"),("Environmental Psychology"),("Consumer Psychology"),("Political Psychology"),("Media Psychology"),("Spirituality and Religion"),("Technology and Psychology"),("Police and Law Enforcement Psychology"),("Animals and Psychology"),("Disaster and Emergency Psychology"),("Fitness and Exercise Psychology"),("Food and Nutrition Psychology"),("Hospital and Medical Psychology");
 
 ALTER TABLE `psicoapp`.`articles` 
 ADD COLUMN `bibliography` TEXT NULL AFTER `user_id`;
@@ -226,6 +225,16 @@ ADD COLUMN `subtitle` VARCHAR(400) NOT NULL AFTER `bibliography`;
 ALTER TABLE `psicoapp`.`users` 
 ADD COLUMN `city` VARCHAR(255) NULL AFTER `metodo`;
 
+
+ALTER TABLE `psicoapp`.`publications` 
+ADD COLUMN `publisher` VARCHAR(255) NOT NULL AFTER `user_id`,
+ADD COLUMN `date` DATE NOT NULL AFTER `publisher`;
+ALTER TABLE `psicoapp`.`publications` 
+CHANGE COLUMN `file` `file` VARCHAR(255) NOT NULL ,
+CHANGE COLUMN `publication_link` `publication_link` TEXT NOT NULL ;
+
+
+INSERT INTO categories (name) VALUES ("Anxiety"),("Depression"),("Stress"),("Trauma"),("PTSD"),("Grief and Loss"),("Eating Disorders"),("Obsessive-Compulsive Disorder (OCD)"),("Attention-Deficit Hyperactivity Disorder (ADHD)"),("Autism Spectrum Disorder"),("Borderline Personality Disorder"),("Schizophrenia"),("Bipolar Disorder"),("Dissociative Identity Disorder"),("Substance Abuse"),("Addiction"),("Anger Management"),("Relationship Issues"),("Marriage and Couples Counseling"),("Family Therapy"),("Parenting"),("Child Psychology"),("Adolescent Psychology"),("Aging and Geriatric Psychology"),("Career Counseling"),("Workplace Issues"),("Educational Psychology"),("Sports Psychology"),("Forensic Psychology"),("Military Psychology"),("Neuropsychology"),("Evolutionary Psychology"),("Cross-Cultural Psychology"),("Social Psychology"),("Cognitive Psychology"),("Developmental Psychology"),("Abnormal Psychology"),("Personality Psychology"),("Positive Psychology"),("Clinical Psychology"),("Counseling Psychology"),("Community Psychology"),("Health Psychology"),("Rehabilitation Psychology"),("School Psychology"),("Industrial-Organizational Psychology"),("Gender and Sexuality"),("Environmental Psychology"),("Consumer Psychology"),("Political Psychology"),("Media Psychology"),("Spirituality and Religion"),("Technology and Psychology"),("Police and Law Enforcement Psychology"),("Animals and Psychology"),("Disaster and Emergency Psychology"),("Fitness and Exercise Psychology"),("Food and Nutrition Psychology"),("Hospital and Medical Psychology");
 
 --- inserts ---
 INSERT INTO location (city, district) VALUES 
