@@ -5,24 +5,7 @@
 <link type="text/css" href="{{ url_for('static', filename='css/dropdown_ms.css')}}" rel="stylesheet">
 {% endblock %}
 {% block main %}
-                <div class="navbar-nav ms-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">Acerca</a>
-                    <a href="blog.html" class="nav-item nav-link">Blog</a>
-                    {%if logged%}
-                    <a href="/logout" class="nav-item nav-link btn btn-primary">Cerrar sesion</a>
-                    {%else%}
-                    <a href="/login" class="nav-item nav-link btn btn-primary">Iniciar sesion</a>
-                    {%endif%}
-                    {%if user.type == 0%}
-                    <a href="/tprofile/{{user.id}}" class="nav-item nav-link">Tu perfil</a>
-                    {%endif%}
-                </div>
-            </div>
-        </nav>
-    </div>
-</div>
-<!-- Navbar End -->
+                
 
 
     <!-- Blog Start -->
@@ -54,15 +37,14 @@
                 <!-- Recent Post Start -->
                     <div class="mb-5">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                                 <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Lee los últimos artículos</h4>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                                 <form action="/search-article" method="post">
-                                    <p>Busca por tema</p>
                                     <div class="row">
                                         <div class="col-6">
-                                            <select name="category" id="category" class="w-50"> <!--DAR STYLING!! -->
+                                            <select name="category" id="category" class="form-select bg-light m-0 border-0"> <!--DAR STYLING!! -->
                                                 {%for category in categories%}
                                                 <option name="category" value="{{category.id}}">{{category.name}}</option>
                                                 {%endfor%}
@@ -71,30 +53,34 @@
                                         <div class="col-4">
                                             <button type="submit" class="btn btn-primary round-pill">Search</button>
                                         </div>
+                                        <p class="">Busca por tema</p>
                                     </div>
                                 </form>
                             </div>
                         </div>
-                        <div class="d-flex rounded overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/blog-1.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                            <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
-                            </a>
+                        <!--EMPIEZA FOR PARA OTHER ARTICLES-->
+                        {%for article in all_articles%}
+                        <div class="prof-article-div d-flex rounded overflow-hidden mb-3 w-80">
+                            <div class="article-img-div">
+                                <img class="img-fluid" class="col-sm-4" src="" style="width: 15rem; height: 100%; object-fit: cover;" alt="">
+                            </div>
+                            <div class="article-text-div bg-light px-3 mb-0 w-100">
+                                <div class="row p-3 pb-0">
+                                    <div class="col-10">
+                                        <!--AGREGAR LINKS!-->
+                                        <a href="/article/{{article.id}}" class="h3">{{article.title}}</a>
+                                    </div>
+                                </div>
+                                <p class="h5 school_name px-3">{{article.subtitle}}</p>
+                                <div class="article-author bg-white  m-3 p-1 rounded">
+                                    <div class="h6">{{article.creator.name}}</div>
+                                    <div class="h6 school-name">Especialidad del Psicologo</div>
+                                </div>
+                                <p class="date text-end px-5">FECHA 2023</p>
+                            </div>
                         </div>
-                        <div class="d-flex rounded overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/blog-2.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                            <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
-                            </a>
-                        </div>
-                        <div class="d-flex rounded overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/blog-3.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                            <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
-                            </a>
-                        </div>
-                        <div class="d-flex rounded overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/blog-1.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                            <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
-                            </a>
-                        </div>
+                        {%endfor%}
+                        <!--FIN DEL FOR-->
                     </div>
                 <!-- Recent Post End -->
                     <div>

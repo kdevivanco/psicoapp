@@ -14,30 +14,6 @@
 
 
 {% block main %}
-                <div class="navbar-nav ms-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">Acerca</a>
-                    <a href="blog.html" class="nav-item nav-link">Blog</a>
-                    {% if logged%}
-                    <a href="/logout" class="nav-item nav-link">Log out</a>
-                    {%else%}
-                    <a href="/login" class="nav-item nav-link">Log in</a>
-                    {%endif%}
-                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
-                    <!-- Desde acá se está implementando el cargue de la imagen ¿Esto debe ir en base? ¿cómo?-->
-                    <li class="nav-item">
-                        <a href="/profile/avatar" class="nav-link disable">
-                            {% if session.user %}
-                                Hola {{ session.user.name }}
-                                <img class="user_img d-inline-block" src="/static/users/general_user.jpeg" alt="imagen usuario">
-                            {% endif %}
-                        </a>
-                    </li>
-                </div>
-            </div>
-        </nav>
-    </div>
-</div>
 <!-- Navbar End -->
 
     <!-- Hero Start -->

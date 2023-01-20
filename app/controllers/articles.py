@@ -35,3 +35,9 @@ def add_article():
     file_name = file.filename
     Article.create(file_name,request.form,int(session['user']['id']))
     return render_template('add_article.html')
+
+@articles.route('/article/<id>')
+def show_article(id):
+    article = Article.classify(id)
+
+    return render_template('single_article.html', article = article)

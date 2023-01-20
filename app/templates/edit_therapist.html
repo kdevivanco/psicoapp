@@ -8,18 +8,6 @@
 
 
 {% block main %}
-                <div class="navbar-nav ms-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">Acerca</a>
-                    <a href="blog.html" class="nav-item nav-link">Blog</a>
-                    <a href="ini_sesion.html" class="nav-item nav-link">Iniciar sesión</a>
-                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
-                </div>
-            </div>
-        </nav>
-    </div>
-</div>
-<!-- Navbar End -->
 
 
     <!-- Appointment Start -->
@@ -27,25 +15,35 @@
         <div class="mb-5">
             <div class="h2">Edita tu Perfil</div>
             <div class="col-lg-12">
-                <form action="edit-profile" method="post">
+                <form action="edit-profile" method="post" enctype="multipart/form-data">
                 <div class="bg-light rounded p-5">
                     <div class="row">
-                        <div class="col-10">
+                        <div class="col-6">
                             <input class="h2" name="name" value="{{therapist.name}}"></input>
+                        </div>
+                        <div class="col-6">
+                            <div class="h5">Cambiar foto de perfil</div>
+                            <div class="mx-auto" style="width: 100%; max-width: 600px;">
+                                <div class="col-12 col-sm-12">
+                                    <input type="file" name="file" class="form-control bg-white border-0"
+                                        placeholder="Sube una imagen" style="height: 55px;" required>
+                                    <!-- <input class="btn btn-dark border-0 w-25 mt-1 mb-4" type="submit" value="Cargar"> -->
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div>
-                        <p class="h5 d-flex align-items-center bg-light  mb-2 especialista">Especialista en
-                        <input name="metodo" type="text" class="h5 mx-2" value="{{therapist.metodo}}"></p>
+                        <p class="h5 d-flex align-items-center bg-light  mb-2 especialista">Especialista en</p>
+                        <input name="metodo" type="text" class="h5 mx-2" value="{{therapist.metodo}}">
                     </div>
                     <div>
                         <p class="d-flex align-items-center bg-light mb-3 text-black">Descripción:</p>
-                        <textarea type="text" name="description" cols="100" rows="3" class="text-black" value="{{therapist.description}}">{{therapist.description}}</textarea>
+                        <textarea class="col-12 mb-3" type="text" name="description" cols="50" rows="3" class="text-black" value="{{therapist.description}}">{{therapist.description}}</textarea>
                         <div class="row therapist-stats">
-                            <p class="col-md-2"> Edad: <br> <input class="h6" value="{{therapist.age}}">{{therapist.age}}</input> </p>
-                            <p class="col-md-2"> CDR: <br> <input class="h6" value="{{therapist.cdr}}">{{therapist.cdr}}</input> </p>
-                            <p class="col-md-2"> Género: <br><input class="h6" value="{{therapist.gender}}">{{therapist.gender}}</input> </p>
-                            <p class="col-md-3"> Modalidad:<input class="h6" value="{{therapist.modalidad}}">{{therapist.modalidad}}</input> </p>
+                            <p class="col-md-2"> Edad: <br> <input class="h6" value="{{therapist.age}}"></input> </p>
+                            <p class="col-md-2"> CDR: <br> <input class="h6" value="{{therapist.cdr}}"></input> </p>
+                            <p class="col-md-2"> Género: <br><input class="h6" value="{{therapist.gender}}"></input> </p>
+                            <p class="col-md-2"> Modalidad:<input class="h6" value="{{therapist.modalidad}}"></input> </p>
                         </div>
                         <button type="submit" class="btn btn-primary"> Guardar cambios de perfil</button>
                     </form>

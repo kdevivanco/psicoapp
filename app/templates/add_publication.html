@@ -31,25 +31,36 @@
                         <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Publicaciones</h5>
                         <h1 class="display-4">Cargar publicación</h1>
                     </div>
+                    <!--Convertir en form-->
                 <div class="col-lg-12">
                     <div class="bg-light text-center rounded p-5">
                         <form>
                             <div class="row g-3">
-                                
-                                <div class="col-12 col-sm-12">
-                                    <input type="text" name="paper" class="form-control bg-white border-0" placeholder="Título de la publicación" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-12">
-                                    <input type="text" name="paper" class="form-control bg-white border-0" placeholder="¿Dónde fue publicado?" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-12">
-                                    <textarea name="body" class="form-control bg-white border-0" rows="5" placeholder="Referencias/Links"></textarea>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="col-12 col-sm-12 mb-3">
+                                            <input type="text" name="paper" class="form-control bg-white border-0" placeholder="Título de la publicación" style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-sm-12 mb-3">
+                                            <input type="text" name="paper" class="form-control bg-white border-0" placeholder="¿Dónde fue publicado?" style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-sm-12 mb-3">
+                                            <textarea name="body" class="form-control bg-white border-0" rows="5" placeholder="Referencias/Links"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="h5 text-start">Subir archivo PDF</div>
+                                        <div class="mx-auto" style="width: 100%; max-width: 600px;">
+                                            <div class="col-12 col-sm-12">
+                                                <input type="file" name="file" class="form-control bg-white border-0"
+                                                    placeholder="Sube una imagen" style="height: 55px;" required>
+                                                <!-- <input class="btn btn-dark border-0 w-25 mt-1 mb-4" type="submit" value="Cargar"> -->
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-12 col-sm-12">
                                     <textarea name="body" class="form-control bg-white border-0" rows="10" placeholder="Descripción"></textarea>
-                                </div>
-                                <div class="col-3">
-                                    <button class="btn btn-outline-primary rounded-pill py-3 px-5" type="submit">Adjuntar</button>
                                 </div>
                                 <div class="col-12">
                                     <button class="btn btn-primary w-100 py-3" type="submit">Guardar</button>

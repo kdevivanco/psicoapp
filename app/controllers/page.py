@@ -3,6 +3,7 @@ from app.models.users import User
 from app.models.categories import Category
 from app.models.therapists import Therapist
 from app.decorators import login_required
+from app.models.articles import Article
 import json
 import pdb
 
@@ -19,5 +20,14 @@ def home():
         logged = True
         user_id = session['user']['id']
         user = User.get_one(user_id)
+        all_articles = Article.get_all_but_user(user_id)
+    return render_template('dashboard.html',logged = logged, categories = categories, user = user, all_articles = all_articles)
 
-    return render_template('dashboard.html',logged = logged, categories = categories, user = user)
+
+
+
+@page.route('/search-therapist', methods=['POST'])
+def search_a_therapist():
+    pdb.set_trace()
+
+    return render_template('found_therapists.html')

@@ -75,6 +75,7 @@ class Article:
         article = cls(result)
         article.creator  = User.get_one(article.user_id)
         article.file_path = (f'img/articles/{article.img_filename}')
+        article.body = article.body.replace('\n', '<br>')
 
         return article
 
