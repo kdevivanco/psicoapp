@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, Blueprint,session
+from flask import Flask, render_template, request, redirect, Blueprint,session, flash
 from app.models.categories import Category
 from app.models.therapists import Therapist
+from app.models.users import User
 from app.decorators import login_required
 from app.models.educations import Education
 from app.models.users import User
