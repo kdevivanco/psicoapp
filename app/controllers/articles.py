@@ -28,16 +28,36 @@ def show_add_article():
 @login_required
 def add_article():
     user_id = session['user']['id']
+
     file = request.files['file'] # Estamos accediendo al archivo cargado
-    img_hash = generate_confirmation_hash(file.filename)
+
+    img_hash = generate_confirmation_hash(file.filename) #importar generate_confirmation_hash()
+
     file.filename = f'article-{img_hash}-{user_id}.png'
+
     file.save('app/static/img/articles/' + file.filename) 
+
     file_name = file.filename
+
     Article.create(file_name,request.form,int(session['user']['id']))
+    
     return render_template('add_article.html')
 
 @articles.route('/article/<id>')
 def show_article(id):
     article = Article.classify(id)
 
-    return render_template('single_article.html', article = article)
+    return render_template('article.html', article = article)
+
+@articles.route('/edit-article/<id>')
+def show_edit(id):
+    #validacion de ruta
+    article = Article.classify(id)
+    if article.creator.id != session['user']['id']:
+        #flash
+        return redirect('/')
+
+    return render_template('edit_article.html', article = article)
+
+    #ruta post edit - article
+    #actualizar Article.update(form,articleid)

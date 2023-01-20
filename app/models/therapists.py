@@ -68,6 +68,8 @@ class Therapist(User):
 
         return  connectToMySQL('psicoapp').query_db(query,data)
 
+        #UPDATE
+
 
     @classmethod
     def classify(cls,id): 
