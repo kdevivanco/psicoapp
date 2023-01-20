@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block home %} active {% endblock %}
+
+{% block styles %}
+<style>
+</style>
+{% endblock %}
+
+{% block main %}
+
+
+
+<!-- Comment Form Start -->
+<div class="bg-light rounded p-5">
+    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">Leave a comment</h4>
+    <form>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <input type="text" class="form-control bg-white border-0" placeholder="Your Name" style="height: 55px;">
+            </div>
+            <div class="col-12 col-sm-6">
+                <input type="email" class="form-control bg-white border-0" placeholder="Your Email"
+                    style="height: 55px;">
+            </div>
+            <div class="col-12">
+                <input type="text" class="form-control bg-white border-0" placeholder="Website" style="height: 55px;">
+            </div>
+            <div class="col-12">
+                <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary w-100 py-3" type="submit">Leave Your Comment</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- Comment Form End -->
+
+{% endblock %}

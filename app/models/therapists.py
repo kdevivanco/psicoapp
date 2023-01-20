@@ -30,6 +30,26 @@ class Therapist(User):
         self.education =[]
         
 
+    # METODO PARA EL UPLOAD DE LOS FILES - TRABAJO LINA
+# Método para guardar las imágenes en esta carpeta local
+    @classmethod
+    def set_profile_pic(self, email, filename):
+        query = '''
+                UPDATE users 
+                SET profile_pic = %(profile_pic)s
+                WHERE email = %(email)s
+                '''
+
+        data = {
+            'email': email,
+            'profile_pic': filename
+        }
+
+        flash('¡La imagen quedó cargada!', 'success')
+        return connectToMySQL('psicoapp').query_db(query,data)
+
+
+
     @classmethod
     def validate_form(self,form_data):
         #VALIDACION
@@ -163,27 +183,3 @@ class Therapist(User):
     def editar(self,form_data):
         #EDITAR PERFIL DESPUES DE CREADO
         pass
-
-
-
-
-
-
-
-# METODO PARA EL UPLOAD DE LOS FILES
-# Agrega el path de las imagenes de acá en la base de datos 
-    @classmethod
-    def set_profile_pic(self, email, filename):
-        query = '''
-                UPDATE users 
-                SET profile_pic = %(profile_pic)s
-                WHERE email = %(email)s
-                '''
-
-        data = {
-            'email': email,
-            'profile_pic': filename
-        }
-
-        flash('¡La imagen quedó cargada!', 'success')
-        return connectToMySQL('psicoapp').query_db(query,data)

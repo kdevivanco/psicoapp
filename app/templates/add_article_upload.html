@@ -7,52 +7,28 @@
 {% endblock %}
 
 
-
 {% block main %}
 
-    <!-- Appointment (Ver artículos) Start -->
-    <div class="container-fluid py-5">
+    <!-- Search Start -->
+    <div class="container-fluid pt-5">
         <div class="container">
-            <div class="row gx-5">
-                <div class="col-lg-10 mb-5 mb-lg-0">
-                    <div class="mb-4">
-                        <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Artículos</h5>
-                        <h1 class="display-4">Nuevo Artículo</h1>
-                    </div>
-                <div class="col-lg-12">
-                    <div class="bg-light text-center rounded p-5">
-                        <form>
-                            <div class="row g-3">
-                                
-                                <div class="col-12 col-sm-12">
-                                    <input type="text" name="paper" class="form-control bg-white border-0" placeholder="Título del artículo" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-12">
-                                    <textarea name="body" class="form-control bg-white border-0" rows="20" placeholder="Cuerpo"></textarea>
-                                </div>
-                                <div class="col-12 col-sm-12">
-                                    <input type="text" name="references" class="form-control bg-white border-0" placeholder="Referencias/Links" style="height: 55px;">
-                                </div>
-                                <div class="col-3">
-                                    <button class="btn btn-outline-primary rounded-pill py-3 px-5" type="submit">Agregar foto</button>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Publicar</button>
-                                </div>
-                            </div>
-                        </form>
+            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+                <h1 class="display-5 mb-4">Agrega una foto de perfil para tu artículo</h1>
+                <h5 class="fw-normal">La imagen debe estar en formato jpg o png</h5>
+            </div>
+            <form action="/add_article/changeimg" method="POST" enctype="multipart/form-data">
+                <div class="mx-auto" style="width: 100%; max-width: 330px;">
+                    <div class="col-12 col-sm-12" >
+                        <input type="file" name="file" class="form-control bg-white border-0" placeholder="Sube una imagen" style="height: 55px;" required>  
+                        <input class="btn btn-dark border-0 w-25 mt-4" type="submit" value="Cargar">  
                     </div>
                 </div>
-                    <!-- <p class="mb-5">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
-                    <a class="btn btn-primary rounded-pill py-3 px-5 me-3" href="">Guardar</a>
-                    <a class="btn btn-outline-primary rounded-pill py-3 px-5" href="">tal vez después</a> -->
-            </div>
+            </form>
         </div>
     </div>
-    <!-- Appointment End -->
+    <!-- Search End -->
 
 
 {% endblock %}
-
 
 
