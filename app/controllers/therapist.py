@@ -125,3 +125,9 @@ def edit_therapist():
     therapist = Therapist.classify(user_id)
     return render_template('edit_therapist.html',user_id= user_id, therapist = therapist)
 
+
+@therapist.route('/therapist_edited', methods = ['POST'])
+def save_therapist_edited():
+    user_id = session['user']['id']
+    therapist = Therapist.classify(user_id)
+    return render_template('edit_therapist.html',user_id= user_id, therapist = therapist)

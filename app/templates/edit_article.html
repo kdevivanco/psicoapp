@@ -8,73 +8,31 @@
 
 
 {% block main %}
-                
 
-<!-- Contact (Register) Start -->
-<div class="container-fluid px-5 pt-5">
-    <div class="col-lg-8 m-auto">
-        <div class="article-info px-5">
-            <a href="/tprofile/{{article.creator.id}}" class="text-primary  h4"> {{article.creator.name}}</p></a>
-            <p class="date text-primary">Lunes 29 de Abril 2022</p>
-        </div>
-    <form action="/edit-article" methods="post">
-        <div class="container bg-light p-5">
-            <hr>
-            <input name="title" class="px-5 pt-5 title h2" value={{article.title}}>
-            <input name="subtitle"  class="px-5 subtitle h3 school_name">{{article.subtitle}}>
-            <div class="img-container" style="margin: auto; width: 50%;">
-                <img class="img-fluid" src="{{ url_for('static', filename=article.file_path)}}" style="width: 500px; height: 100%; object-fit: cover;" alt="">            
-            </div>
-            <div class="p-5 body text-dark">{{article.body | safe}}</div>
-        </div>
-    </form>
-    </div>
-</div>
-<!-- Contact (Register) End -->
-
-<div class="container py-5">
-    <div class="row g-5">
-        <div class="col-lg-8">
-            <div class="d-flex justify-content-between p-4 mt-4 mb-4">
-            </div>
-            <!-- Blog Detail Start -->
-            <div class="mb-4">
-                
-                <h1 class="mb-2">Título del artículo</h1>
-                <div class="d-flex align-items-center mb-3">
-                    <img class="rounded-circle me-2" src="{{ url_for('static', filename='img/therapist/user1.jpg')}}" width="40" height="40" alt="">
-                    <span><b>Escrito por XXX xxx</b></span>
+<!-- Edit article Start -->
+<form action="/edit-art/{{article.id}}/editado" method="post">
+    <div class="container-fluid px-5 pt-5 w-100">
+        <div class="col-lg-8 m-auto">
+            <div class="container bg-light p-5">
+                <div class="article-info px-5">
+                    <a href="/tprofile/{{article.creator.id}}" class="text-primary  h4"> {{article.creator.name}}</p></a>
+                    <p class="date text-primary">Lunes 29 de Abril 2022</p>
                 </div>
-                <div class=" mb-3"><i>Fecha</i></div>
-                
-                <p>Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
-                    magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
-                    amet magna accusam consetetur eirmod. Kasd accusam sit ipsum sadipscing et at at
-                    sanctus et. Ipsum sit gubergren dolores et, consetetur justo invidunt at et
-                    aliquyam ut et vero clita. Diam sea sea no sed dolores diam nonumy, gubergren
-                    sit stet no diam kasd vero.
-                </p>
-                <div style="text-align: center;" >
-                    <img class="img-fluid w-70 rounded mb-5" src="{{ url_for('static', filename='img/articles/article_img.jpeg')}}" alt="">
+                <hr>
+                <input class="px-5 pt-5 title h2 width-100% w-100" type="text" name="title" value="{{article.title}}">
+                <input class="px-5 subtitle h3 school_name w-100" type="text" name="subtitle" value="{{article.subtitle}}">
+                <div class="img-container mb-4 mt-4" style="margin: auto; width: 50%;">
+                    <img class="img-fluid" src="{{ url_for('static', filename=article.file_path)}}" style="width: 500px; height: 100%; object-fit: cover;" alt="">            
                 </div>
-                    Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
-                    magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
-                    amet magna accusam consetetur eirmod. Kasd accusam sit ipsum sadipscing et at at
-                    sanctus et. Ipsum sit gubergren dolores et, consetetur justo invidunt at et
-                    aliquyam ut et vero clita. Diam sea sea no sed dolores diam nonumy, gubergren
-                    sit stet no diam kasd vero.
-                <p>Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
-                    magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
-                    amet magna accusam consetetur eirmod. Kasd accusam sit ipsum sadipscing et at at
-                    sanctus et. Ipsum sit gubergren dolores et, consetetur justo invidunt at et
-                    aliquyam ut et vero clita. Diam sea sea no sed dolores diam nonumy, gubergren
-                    sit stet no diam kasd vero.
-                </p>
-                <div class=" mb-3"><i>Referencias: </i></div>
+                <input class="p-5 body text-dark w-100 h-100" type="text" name="body" value="{{article.body | safe}}" style="height: 1000px;">
+                
+                <div class="col-6 mt-5">
+                    <button class="btn btn-primary w-25 py-3" type="submit">Guardar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-    
+</form>
+<!-- Edit article End -->
 
 {% endblock %}
