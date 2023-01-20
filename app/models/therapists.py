@@ -178,6 +178,83 @@ class Therapist(User):
 
         return connectToMySQL('psicoapp').query_db(query,data)
 
+    @classmethod
+    def search(self,text):
+        query = '''
+                SELECT id FROM users WHERE LOCATE(%(name)s, name) > 0 and type = 0 and validated = 3
+                '''
+
+        data = {
+            'name': text
+        }
+
+        results = connectToMySQL('psicoapp').query_db(query,data) 
+
+        search_results = []
+        if len(results) == 0 or results == False:
+            return False
+        else:
+            for result in results:
+                search_results.append(Therapist.classify(result['id']))
+            
+
+            return search_results
+
+    #Devuelve todos los articulos creados por el usuario
+    @classmethod
+    def get_all_articles(cls,user_id): 
+        
+        query = '''
+                SELECT id FROM articles
+                WHERE user_id = %(user_id)s;
+                '''
+
+        data = {
+            'user_id' : user_id
+        }
+        results = connectToMySQL('psicoapp').query_db(query,data)
+        
+        articles = []
+        if len(results) == 0 or results == False:
+            return articles
+
+        for article in results:
+            article = Article.classify(article['id'])
+            article.therapist = Therapist.classify(article.user_id)
+            articles.append(article)
+        
+        return articles
+        
+    
+    #Devuelve todas las publicaciones menos las del terapeuta. 
+    #COMENTARIO: ESTA FUNCION SOLO SE LLAMA SI EL TIPO DE CUENTA ES PSICOLOGO
+    @classmethod
+    def get_other_articles(cls,user_id): 
+        
+        query = '''
+                SELECT articles.id FROM articles
+                WHERE articles.user_id != %(user_id)s
+                order by articles.created_at desc;'''
+
+        data = {
+            'user_id' : user_id
+        }
+
+        results = connectToMySQL('psicoapp').query_db(query,data)
+        other_articles = []
+
+        if results == 0 or len(results) == 0 or results == False:
+            return other_articles #evita que la lista itere si esque esta vacia para evitar un error
+        
+
+        for article_id in results:
+            article = Article.classify(article_id['id'])
+            article.therapist = Therapist.classify(article.user_id)
+            other_articles.append(article)
+        
+        return other_articles
+
+
 
     @classmethod
     def editar(self,form_data):

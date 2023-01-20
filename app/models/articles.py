@@ -27,6 +27,7 @@ class Article:
         self.bibliography = data['bibliography']
         self.user_id = data['user_id']
         self.file_path = ''
+        self.therapist = ''
 
     #Protege la pagina de rutas ingresadas manualmente por el usuario
     @classmethod
@@ -74,8 +75,6 @@ class Article:
 
         article = cls(result)
         
-        article.creator  = User.get_one(article.user_id)
-
         article.file_path = (f'img/articles/{article.img_filename}')
         article.body = article.body.replace('\n', '<br>')
 

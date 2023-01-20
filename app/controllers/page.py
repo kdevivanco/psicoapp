@@ -20,7 +20,7 @@ def home():
         logged = True
         user_id = session['user']['id']
         user = User.get_one(user_id)
-        all_articles = Article.get_all_but_user(user_id)
+        all_articles = Therapist.get_other_articles(user_id)
     return render_template('dashboard.html',logged = logged, categories = categories, user = user, all_articles = all_articles)
 
 

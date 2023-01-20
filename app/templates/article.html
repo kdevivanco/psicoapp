@@ -10,56 +10,21 @@
 {% block main %}
                 
 
-<div class="container py-5">
-    <div class="row g-5">
-        <div class="col-lg-8">
-            <div class="d-flex justify-content-between p-4 mt-4 mb-4">
-            </div>
-            <!-- Blog Detail Start -->
-            <div class="mb-4">
-                
-                <h1 class="mb-2">Título del artículo</h1>
-                <div class="d-flex align-items-center mb-3">
-                    <img class="rounded-circle me-2" src="{{ url_for('static', filename='img/therapist/user1.jpg')}}" width="40" height="40" alt="">
-                    <span><b>Escrito por XXX xxx</b></span>
-                </div>
-                <div class=" mb-3"><i>Fecha</i></div>
-                
-                <p>Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
-                    magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
-                    amet magna accusam consetetur eirmod. Kasd accusam sit ipsum sadipscing et at at
-                    sanctus et. Ipsum sit gubergren dolores et, consetetur justo invidunt at et
-                    aliquyam ut et vero clita. Diam sea sea no sed dolores diam nonumy, gubergren
-                    sit stet no diam kasd vero.
-                </p>
-                <div style="text-align: center;" >
-                    <img class="img-fluid w-70 rounded mb-5" src="{{ url_for('static', filename='img/articles/article_img.jpeg')}}" alt="">
-                </div>
-                    Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
-                    magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
-                    amet magna accusam consetetur eirmod. Kasd accusam sit ipsum sadipscing et at at
-                    sanctus et. Ipsum sit gubergren dolores et, consetetur justo invidunt at et
-                    aliquyam ut et vero clita. Diam sea sea no sed dolores diam nonumy, gubergren
-                    sit stet no diam kasd vero.
-                <p>Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
-                    magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
-                    amet magna accusam consetetur eirmod. Kasd accusam sit ipsum sadipscing et at at
-                    sanctus et. Ipsum sit gubergren dolores et, consetetur justo invidunt at et
-                    aliquyam ut et vero clita. Diam sea sea no sed dolores diam nonumy, gubergren
-                    sit stet no diam kasd vero.
-                </p>
-                <div class=" mb-3"><i>Referencias: </i></div>
-            </div>
-        </div>
-    </div>
-</div>
+
     <!-- Contact (Register) Start -->
     <div class="container-fluid px-5 pt-5">
         <div class="col-lg-8 m-auto">
             <div class="container bg-light p-5">
                 <div class="article-info px-5">
-                    <a href="/tprofile/{{article.creator.id}}" class="text-primary  h4"> {{article.creator.name}}</p></a>
-                    <p class="date text-primary">Lunes 29 de Abril 2022</p>
+                    <div class="d-flex align-items-center mb-3" style="height: 3rem;">
+                        <div class="col-1">
+                            <img class="rounded-circle me-2" src="{{ url_for('static', filename='img/therapist/user1.jpg')}}" width="40" height="40" alt="">
+                        </div>
+                        <div class="col-10 g-0">
+                            <a href="/tprofile/{{article.creator.id}}" class="text-primary  h4 m-0"> {{article.creator.name}}</p></a>
+                            <p class="date text-primary m-0">Lunes 29 de Abril 2022</p>
+                        </div>
+                    </div>
                 </div>
                 <hr>
                 <div class="px-5 pt-5 title h2">{{article.title}}</div>

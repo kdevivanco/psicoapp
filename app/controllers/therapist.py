@@ -113,9 +113,16 @@ def show_search():
 
 @therapist.route('/search-therapist',methods=['POST'])
 def search_therapist():
-    results = Therapist.search(request.form)
-    return render_template('search_results.html')
+    text = request.form['text']
+    path = (f'/search/{text}')
 
+    return redirect(path)
+
+
+@therapist.route('/search/<text>')
+def show_results(text):
+    results = Therapist.search(text)
+    return render_template('search_results.html',text = text,results=results)
 
 # EDITA EL PERFIL DEL TERAPEUTA
 @therapist.route('/edit-therapist')
