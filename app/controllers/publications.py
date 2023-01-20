@@ -24,27 +24,31 @@ def show_add_publication():
         flash('Falta que termines de completar tu perfil','error')
         return redirect('/therapist-reg')
     logged = True
+
     return render_template('add_publication.html', user=user, logged = logged)
 
 
 @publications.route('/add-publication', methods = ['POST'])
+@login_required
 def add_publication():
+
+    #Verificacion de pdf
     file_name = request.files['file'].filename
     if file_name[-4:] != ".pdf":
         flash('ONLY PDFS ARE ACCEPTED!','error')
         return redirect('/add_publication')
-
+    
+    #Creacion de nombre del archivo
     user_id = session['user']['id']
-    file = request.files['file'] # Estamos accediendo al archivo cargado
-    file_hash = generate_confirmation_hash(file.filename) #importar generate_confirmation_hash()
-    file.filename = f'article-{file_hash}-{user_id}.pdf'
+    file = request.files['file'] 
+    file_hash = generate_confirmation_hash(file.filename) 
+    title_hash = generate_confirmation_hash(request.form['title'])
+    file.filename = f'publication{file_hash}{title_hash}{user_id}.pdf'
     file.save('app/static/pdf/publications/' + file.filename) 
     file_name = file.filename
+
+    #Creacion de la publicacion en la base de datos
     pdb.set_trace()
-    Publication.create(file_name,request.form,int(session['user']['id']))
-    
-    user = User.get_one(session['user']['id'])
-    if user.type == 1: #es paciente
-        flash('Usted no tiene permiso para acceder a esta ruta', 'error')
-        return redirect('/dashboard')
-    return render_template('add_publication.html')
+    publication = Publication.create(file_name,request.form,int(session['user']['id']))
+    pdb.set_trace()
+    return redirect(f'/tprofile/{user_id}')

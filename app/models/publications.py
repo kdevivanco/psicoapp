@@ -18,38 +18,34 @@ class Publication:
         self.id = data['id']
         self.title = data['title']
         self.description = data['description']
-        self.created_at = data['created_at']
         self.file = data['file']
         self.publication_link = data['publication_link']
         self.user_id = data['user_id']
+        self.publisher = data['publisher']
+        self.date = data['date']
+        self.created_at = data['created_at']
 
-    #Protege la pagina de rutas ingresadas manualmente por el usuario
-    @classmethod
-    def route_protection(cls,id,user_id):
-        pass
 
     @classmethod 
-    def create(cls,form_data,user_id):
-        #MODIFICAR EL CREATE
+    def create(cls,file_name,form_data,user_id):
 
         query = '''
-                INSERT INTO publications ( title , description,brand,link,file,img_url,user_id, created_at, publication_link ) 
-                VALUES ( %(title)s , %(description)s,%(brand)s,  %(link)s, %(file)s, %(img_url)s, %(user_id)s, NOW() , NOW());
+                INSERT INTO publications (title , description, file, publication_link, user_id, publisher, date, created_at)
+                VALUES ( %(title)s , %(description)s,%(file)s , %(publication_link)s, %(user_id)s , %(publisher)s,%(date)s , NOW());
                 '''
 
         data = {
-                "title": form_data['title'],
-                "description" : form_data['description'],
-                "brand" : form_data['brand'],
-                "link": form_data['link'],
-                "file" : form_data['file'],
-                "img_url" : form_data['img_url'],
-                "user_id" : user_id
+            'title' : form_data['title'],
+            'description' : form_data['description'],
+            'file' : file_name,
+            'publication_link' : form_data['publication_link'],
+            'user_id' : user_id,
+            'publisher' : form_data['publisher'],
+            'date' : form_data['date']
             }
 
         publication_id = connectToMySQL('psicoapp').query_db(query,data)  
-        publication = publication.classify(publication_id) 
-        publication.add_to_wishlist(wishlist_id,user_id,publication_id) #Agrega el publicationo al wishlist 
+        publication = cls.classify(publication_id) 
 
         return publication
 
@@ -78,7 +74,7 @@ class Publication:
     def get_all_from_user(cls,user_id): 
         
         query = '''
-                SELECT id FROM publications
+                SELECT * FROM publications
                 WHERE user_id = %(user_id)s;
                 '''
 

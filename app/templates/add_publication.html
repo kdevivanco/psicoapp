@@ -32,22 +32,24 @@
                                             <input required type="text" name="publisher" class="form-control bg-white border-0" placeholder="¿Dónde fue publicado?" style="height: 55px;">
                                         </div>
                                         <div class="col-12 col-sm-12 mb-3">
-                                            <input required type="text" name="publisher" class="form-control bg-white border-0" placeholder="Descripción" style="height: 55px;">
-                                        </div>
-                                        <div class="col-12 col-sm-12 mb-3">
-                                            <label for="date">Fecha de publicación</label>
-                                            <input required type="date" name="publisher" class="form-control bg-white border-0" style="height: 55px;">
-                                        </div>
-                                        <div class="col-12 col-sm-12 mb-3">
-                                            <input name="publication_link" class="form-control bg-white border-0" placeholder="Link de la publicación">
+                                            <textarea required type="text" name="description" class="form-control bg-white border-0" placeholder="Descripción" rows="3"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="h5 text-start">Subir archivo PDF</div>
                                         <div class="mx-auto" style="width: 100%; max-width: 600px;">
                                             <div class="col-12 col-sm-12">
-                                                <input type="file" name="file" class="form-control bg-white border-0" placeholder="Sube una imagen" style="height: 55px;" required>
+                                                <input type="file" name="file" class="form-control bg-white border-0" placeholder="Sube una imagen" rows="4" required>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-md-6 mb-3">
+                                            <label for="date">Fecha de publicación</label>
+                                            <input required type="date" name="date" class="form-control bg-white border-0" style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-md-6 mb-3 mt-4">
+                                            <input name="publication_link" class="form-control bg-white border-0"  style="height: 55px;" placeholder="Link de la publicación">
                                         </div>
                                     </div>
                                 </div>
