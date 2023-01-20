@@ -52,7 +52,7 @@ class Message:
         return connectToMySQL('psicoapp').query_db(query,data) 
 
     @classmethod
-    def get_all_messages(cls,reciever_id): #FALTA MODIFICAR!!!
+    def get_recieved(cls,reciever_id): #FALTA MODIFICAR!!!
         query = '''SELECT * FROM mensajes 
                 where reciever_id = %(reciever_id)s '''
 

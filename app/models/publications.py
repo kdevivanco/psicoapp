@@ -57,7 +57,7 @@ class Publication:
                 where id = %(id)s '''
 
         data = {
-            "id": int(id)
+            "id": id
         }
         results = connectToMySQL('psicoapp').query_db(query,data)
         if results == False:
@@ -67,6 +67,7 @@ class Publication:
 
         publication = cls(result)
         publication.creator  = User.get_one(publication.user_id)
+        publication.file_path = (f'/pdfs/{publication.file}')
         return publication
 
     #Devuelve todos los publicationos creados por el usuario
@@ -74,7 +75,7 @@ class Publication:
     def get_all_from_user(cls,user_id): 
         
         query = '''
-                SELECT * FROM publications
+                SELECT id FROM publications
                 WHERE user_id = %(user_id)s;
                 '''
 
@@ -89,7 +90,7 @@ class Publication:
             return publications
         
         for publication in results:
-            publications.append(cls(publication))
+            publications.append(cls.classify(publication['id']))
         
         return publications
     

@@ -140,7 +140,7 @@
                         {%endfor%}
                     </div>
                     <br>
-                    <a href="/all-messages" class="btn btn-primary py-2 px-4">Ver todos</a>
+                    <a href="/messages" class="btn btn-primary py-2 px-4">Ver todos</a>
                 </div>
                 {%else%}
                 <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">Enviar
@@ -178,11 +178,18 @@
                 </div>
                 {%for publication in therapist.publications%}
                 <div class="d-flex rounded overflow-hidden mb-3">
-                    <img class="img-fluid" src="img/blog-1.jpg" style="width: 100px; height: 100px; object-fit: cover;"
-                        alt="">
-                    <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec
-                        adipis elit Lorem ipsum dolor sit amet consec adipis elit
-                    </a>
+                    <div class="row bg-light p-3" style="height: 15rem;">
+                        <div class="col-5">
+                            <embed src="{{ url_for('static', filename=publication.file_path)}}" width="100%" height="100%" />. 
+                        </div>
+                        <div class="col-7">
+                            <a href="/publication/{{publication.id}}" class="h5">{{publication.title}}</a>
+                            <div class="h6 school_name">{{publication.description}}</div>
+                            <div class="h6 ">{{publication.publisher}}</div>
+                            <div class="h6 date">{{publication.date}}</div>
+                            <a href="/publication/{{publication.id}}" class="btn btn-primary">Ver PDF</a>
+                        </div>
+                    </div>
                 </div>
                 {%endfor%}
             </div>
