@@ -20,9 +20,12 @@
                         <div class="col-1">
                             <img class="rounded-circle me-2" src="{{ url_for('static', filename='img/therapist/user1.jpg')}}" width="40" height="40" alt="">
                         </div>
-                        <div class="col-10 g-0">
-                            <a href="/tprofile/{{article.creator.id}}" class="text-primary  h4 m-0"> {{article.creator.name}}</p></a>
-                            <p class="date text-primary m-0">Lunes 29 de Abril 2022</p>
+                        <div class="col-10">
+                            <div class="article-info">
+                                <a href="/tprofile/{{author.id}}" class="text-primary  h4 m-0" style="height: 2rem; display: block;"> {{author.name}}</p></a>
+                                <p class="text-dark m-0">Especialista {{author.metodo}}</p>
+                                <p class="date text-dark m-0">Lunes 29 de Abril 2022</p>
+                            </div>
                         </div>
                     </div>
                 </div>

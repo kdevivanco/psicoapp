@@ -260,3 +260,4 @@ class Therapist(User):
     def editar(self,form_data):
         #EDITAR PERFIL DESPUES DE CREADO
         pass
+
