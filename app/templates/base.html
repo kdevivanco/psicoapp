@@ -113,11 +113,8 @@
                     <div class="navbar-nav ms-auto py-0">
                         <a href="/" class="nav-item nav-link">Home</a>
                         {% if logged%}
-                        <a href="/edit_pic" class="nav-item nav-link">
-                            <img src="{{ url_for('static', filename='img/therapist/general_user.jpeg')}}"
-                                style="height: 35px; width: 35px;" alt="imagen psicólogo">
-                        </a>
-                            {%if user.type == 0%}
+                        {%if user.type == 0%}
+                            <a href="/tprofile/{{user.id}}"  class="nav-item nav-link"><ion-icon class="edit-icon-profile" name="person-circle-outline"></ion-icon></a>
                             <a href="/edit-therapist" class="nav-item nav-link"><ion-icon class="edit-icon-profile" name="cog-outline"></ion-icon></a>
                             {%elif user.type == 1%}
                             <a href="/edit-patient" class="nav-item nav-link"><ion-icon class="edit-icon-profile" name="cog-outline"></ion-icon></a>
@@ -143,7 +140,7 @@
         <h2>Página no implementada</h2>
         {% endblock %}
     </main>
-    
+
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light mt-5 py-5">
         <div class="container py-5">
