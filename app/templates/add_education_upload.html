@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block home %} active {% endblock %}
+
+{% block styles %}
+<style>
+</style>
+{% endblock %}
+
+{% block main %}
+
+    <!-- Appointment (Ver artículos) Start -->
+    <div class="container-fluid py-5">
+        <div class="container" style="height: 50rem;">
+            <div class="row gx-5">
+                <div class="col-lg-10 mb-5 mb-lg-0">
+                    <div class="mb-4">
+                        <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Educación</h5>
+                        <h1 class="display-4">Añadir Educación</h1>
+                    </div>
+                    <div class="col-12 col-lg-12">
+                        <div class="bg-light text-center rounded p-5">
+                            <form>
+                                <h1 class="display-6">Educación</h1>
+                                <div class="row g-3">
+                                    <div class="col-12 col-sm-12">
+                                        <label for="school_name" hidden></label>
+                                        <input required name="school_name" type="text" name="therapist_pic" class="form-control bg-white border-0"
+                                            placeholder="Institución" style="height: 55px;">
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <label for="title_name" hidden></label>
+                                        <input required name="title_name" type="text" class="form-control bg-white border-0" placeholder="Título"
+                                            style="height: 55px;">
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <label for="description" hidden></label>
+                                        <input required name="description" type="text" class="form-control bg-white border-0" placeholder="Descripción"
+                                            style="height: 100px; padding-bottom: 3rem;">
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-primary w-100 py-3" type="submit">Guardar</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-outline-primary rounded-pill py-3 px-5" type="submit">Agregar
+                                            estudio</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- <p class="mb-5">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
+                    <a class="btn btn-primary rounded-pill py-3 px-5 me-3" href="">Guardar</a>
+                    <a class="btn btn-outline-primary rounded-pill py-3 px-5" href="">tal vez después</a> -->
+            </div>
+        </div>
+    </div>
+    <!-- Appointment End -->
+
+    {%endblock%}

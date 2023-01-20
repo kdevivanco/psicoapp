@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -128,7 +128,7 @@
                                     style="height: 30px; width: 30px;" alt="Cerrar sesión">
                             </a>
                         {% else %}
-                        <a href="/login" class="nav-item nav-link">Log in</a>
+                            <a href="/login" class="nav-item nav-link">Log in</a>
                         {% endif %}
                     </div>
                 </div>
@@ -144,6 +144,11 @@
         {% endblock %}
     </main>
 
+    <main role="main">
+        {% block main %}
+        <h2>Página no implementada</h2>
+        {% endblock %}
+    </main>
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light mt-5 py-5">

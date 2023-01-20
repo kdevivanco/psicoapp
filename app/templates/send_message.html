@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block home %} active {% endblock %}
+
+{% block styles %}
+<style>
+</style>
+{% endblock %}
+
+{% block main %}
+
+
+<!-- Mensajes del usuario al psicólogo -->
+<div class="container py-5">
+    <div class="row col-sm-8">
+        <div class="bg-light rounded p-5">
+            <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">Envía un mensaje al piscólogo</h4>
+            <form>
+                <div class="row g-3">
+                    <div class="col-12 col-sm-6">
+                        <input type="text" class="form-control bg-white border-0" placeholder="Nombre completo" style="height: 55px;">
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <input type="email" class="form-control bg-white border-0" placeholder="email"
+                            style="height: 55px;">
+                    </div>
+                    <div class="col-12">
+                        <textarea class="form-control bg-white border-0" rows="5" placeholder="Escribe tu mensaje"></textarea>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary w-100 py-3" type="submit">Enviar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Termina mensaje del usuario al psicólogo -->
+
+<!-- Inicia mensajes del psicólogo al usuario -->
+<div class="container py-5">
+    <div class="row col-sm-8">
+        <div class="bg-light rounded p-5">
+            <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">Responde el mensaje que te enviaron</h4>
+            <div class="d-flex justify-content-between bg-white rounded p-4 mt-4 mb-4">
+                <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                        <h6>Jaime Molina<small><br><i>Enero 12, 2023</i></small></h6>
+                        <p>Quería preguntarte sobre una situación familiar</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;" >
+            <form>
+                <div class="row g-3">
+                    <div class="col-12">
+                        <textarea class="form-control bg-white border-0" rows="5" placeholder="Escribe tu respuesta"></textarea>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary w-100 py-3" type="submit">Enviar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Termina mensajes del psicólogo al usuario -->
+
+{% endblock %}

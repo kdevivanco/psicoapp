@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block home %} active {% endblock %}
+
+{% block styles %}
+<style>
+</style>
+{% endblock %}
+
+
+{% block main %}
+
+
+    <!-- Search Start -->
+    <div class="container-fluid pt-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+                <!-- <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Psicólogos</h5> -->
+                <h1 class="display-5 mb-4">Oops! Parece que no has finalizado la validación de tu cuenta</h1>
+                <h5 class="fw-normal">Aprovecha para terminar y acceder a todos los servicios que te ofrecemos</h5>
+            </div>
+                <form action="/#" method="POST">
+                        <div class="mx-auto" style="width: 100%; max-width: 600px;">
+                            <div class="input-group">
+                                <input class="form-control border-primary" type="text" name="email_code" style="height: 65px;" placeholder="Digita el código de validación que llegó a tu correo" required>
+                            </div>
+                            <div>
+                                <a href="/#">
+                                    <h5 class="fw-normal pt-3" style="text-align: center;">Reenviar código de verificación</h5>
+                                </a>
+                            </div>
+                            <div style="text-align: center;">
+                                <button class="btn btn-dark border-0 w-25" style="margin-top: 40px;">Validar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+    <!-- Search End -->
+
+
+{% endblock %}

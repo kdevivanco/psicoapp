@@ -6,6 +6,6 @@ __pycache__
 .terragrunt-cache
 .terraform.lock.hcl
 terragrunt
-.DS_Store
+*.DS_Store
 .mwb
 .mwb.bak

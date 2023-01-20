@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block home %} active {% endblock %}
+
+{% block styles %}
+<style>
+</style>
+{% endblock %}
+
+
+{% block main %}
+
+    <!-- Search Start -->
+    <div class="container-fluid pt-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+                <h1 class="display-5 mb-4">Cambia tu foto de perfil</h1>
+                <h5 class="fw-normal">La imagen debe estar en formato jpg o png</h5>
+            </div>
+            <form action="/edit_therapist/changeimg" method="POST" enctype="multipart/form-data">
+                <div class="mx-auto" style="width: 100%; max-width: 330px;">
+                    <div class="col-12 col-sm-12" >
+                        <input type="file" name="file" class="form-control bg-white border-0" placeholder="Sube una imagen" style="height: 55px;" required>  
+                        <input class="btn btn-dark border-0 w-25 mt-4" type="submit" value="Cargar">  
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+
+
+{% endblock %}
