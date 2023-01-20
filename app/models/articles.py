@@ -177,6 +177,24 @@ class Article:
         }
 
         return connectToMySQL('psicoapp').query_db(query,data)
+
+    
+    # Método para cargar la foto del artículo
+    @classmethod
+    def set_profile_pic(self, email, filename):
+        query = '''
+                UPDATE users 
+                SET profile_pic = %(img_url)s
+                WHERE email = %(email)s
+                '''
+
+        data = {
+            'email': email,
+            'img_url': filename
+        }
+
+        flash('¡La imagen del artículo se cargó con éxito!', 'success')
+        return connectToMySQL('psicoapp').query_db(query,data)
     
 
 
