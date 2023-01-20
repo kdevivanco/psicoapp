@@ -22,7 +22,7 @@
                             <div class="col-10">
                                 <h1 class="">{{therapist.name}}</h1>
                             </div>
-                            {%if user_id == therapist.id%}
+                            {%if user.id == therapist.id%}
                             <div class="col-2">
                                 <a href="/edit-therapist"><ion-icon class="edit-icon-profile"
                                         name="cog-outline"></ion-icon></a>
@@ -58,7 +58,7 @@
                                     </p>
                                 </div>
                                 <div class="col-md-5">
-                                    {%if user_id == therapist.id%}
+                                    {%if user.id == therapist.id%}
                                     <a href="/add-education" class="btn btn-primary rounded-pill mx-1">+ Agregar más</a>
                                     <a href="/edit-education" class="btn btn-light rounded-pill mx-1">Editar</a>
                                     {%endif%}
@@ -81,14 +81,15 @@
                 <div class="mb-5">
                     <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Artículos
                         publicados</h4>
-                    {%if user_id == therapist.id%}
+                    {%if user.id == therapist.id%}
                     <a href="/add_article" class="btn btn-primary rounded-pill mx-5">+ Crear Articulo</a>
                     {%endif%}
                     {%for article in therapist.articles%}
                     <div class="prof-article-div d-flex rounded overflow-hidden mb-3 w-100">
                         <div class="article-img-div">
-                            
-                            <img class="img-fluid" src="{{ url_for('static', filename=article.file_path)}}" style="width: 15rem; height: 100%; object-fit: cover;" alt="">
+
+                            <img class="img-fluid" src="{{ url_for('static', filename=article.file_path)}}"
+                                style="width: 15rem; height: 100%; object-fit: cover;" alt="">
                         </div>
                         <div class="article-text-div bg-light px-3 mb-0 w-100">
                             <div class="row p-3 pb-0">
@@ -115,45 +116,50 @@
         <div class="col-lg-4">
             <!-- MENSAJES -->
             <div style="margin-bottom: 50px;">
-                {%if therapist.id == user_id%}
+                {%if therapist.id == user.id%}
                 <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Nuevos mensajes</h4>
                 <div class="bg-light rounded text-center" style="padding: 30px;">
                     <div class="col-12 col-sm-12">
-                        <div class="btn bg-white border-0 col-sm-12 mb-3" style="height: 55px; ">
-                            <a href="" class="mensaje">Mensaje 1</a>
+                        {%for message in therapist.messages%}
+                        <div class="btn bg-white border-0 col-sm-12 mb-3" style="height: 10rem; ">
+                            {%if message.status == 'sent'%}
+                            <div class="row" style="background-color: green; border-radius: 1rem; width: 30%; margin: 0.5rem; align-items: center;">
+                                <div class="col-1">
+                                    <ion-icon style="color:white" name="alert-circle-outline"></ion-icon>
+                                </div>
+                                <div class="col-3">
+                                    <p class="h5 mt-2" style="color:white" class="col-10">NEW</p>
+                                </div>
+                            </div>
+                            {%endif%}
+                            <div class="message-info">
+                                <p class="h5 text-start" style="font-size: 1.2rem;">From: {{message.sender.name}}</p>
+                                <p class="h5 text-start school_name" style="font-size: 1rem;">{{message.text[:60]}}...</p>
+                            </div>
                         </div>
-                        <div class="btn bg-white border-0 col-sm-12 mb-3" style="height: 55px;">
-                            <a href="" class="mensaje">Mensaje 2</a>
-                        </div>
-                        <div class="btn bg-white border-0 col-sm-12 mb-3" style="height: 55px;">
-                            <a href="" class="mensaje">Mensaje 3</a>
-                        </div>
+                        {%endfor%}
                     </div>
                     <br>
-                    <a href="" class="btn btn-primary py-2 px-4">Ver más</a>
+                    <a href="/all-messages" class="btn btn-primary py-2 px-4">Ver todos</a>
                 </div>
                 {%else%}
                 <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">Enviar
                     un mensaje</h4>
                 <div class="bg-light rounded p-5">
                     <!--VOLVER ESTO EN UN FORM!! -->
-                    <div class="row g-3">
-                        <p>Si quieres agendar una cita con {{therapist.name}}, deja tus datos para que te contacte
+                    <div class="row g-2">
+                        <p class="p-0">Si quieres agendar una cita con {{therapist.name}}, deja tus datos para que te
+                            contacte
                             via email o telefono!</p>
-                        <div class="col-12 col-sm-6">
-                            <input type="text" class="form-control bg-white border-0" placeholder="Your Name"
-                                style="height: 55px;">
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <input type="email" class="form-control bg-white border-0" placeholder="Your Email"
-                                style="height: 55px;">
-                        </div>
-                        <div class="col-12">
-                            <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
-                        </div>
+                        <form action="/send-msg/{{therapist.id}}" , method="post">
+                            <div class="col-12 mb-2">
+                                <textarea name="text" class="form-control bg-white border-0" rows="5"
+                                    placeholder="Hola! {{therapist.name}}, me gustaria agendar una cita contigo, por favor contactame. Mi email es: {{user.email}}"></textarea>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <button class="btn btn-primary w-100 py-3 mt-2" type="submit">Enviar mensaje</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 {%endif%}
@@ -165,7 +171,7 @@
                         <h4 class="text-primary text-uppercase border-bottom border-5 mb-4">publicaciones</h4>
                     </div>
                     <div class="col-7">
-                        {%if user_id == therapist.id%}
+                        {%if user.id == therapist.id%}
                         <a href="/add_publication" class="btn btn-primary rounded-pill mx-5">+ Subir Nueva</a>
                         {%endif%}
                     </div>

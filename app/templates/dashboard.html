@@ -62,7 +62,7 @@
                         {%for article in all_articles%}
                         <div class="prof-article-div d-flex rounded overflow-hidden mb-3 w-80">
                             <div class="article-img-div">
-                                <img class="img-fluid" class="col-sm-4" src="" style="width: 15rem; height: 100%; object-fit: cover;" alt="">
+                                <img class="img-fluid" src="{{ url_for('static', filename=article.file_path)}}" style="width: 20rem; height: 100%; object-fit: cover;" alt="">
                             </div>
                             <div class="article-text-div bg-light px-3 mb-0 w-100">
                                 <div class="row p-3 pb-0">
@@ -72,9 +72,14 @@
                                     </div>
                                 </div>
                                 <p class="h5 school_name px-3">{{article.subtitle}}</p>
-                                <div class="article-author bg-white  m-3 p-1 rounded">
-                                    <div class="h6">{{article.creator.name}}</div>
-                                    <div class="h6 school-name">Especialidad del Psicologo</div>
+                                <div class="article-author bg-white  m-3 p-1 rounded row">
+                                    <div class="col-1">
+                                        <a href="/tprofile/{{article.creator.id}}"  class="nav-item nav-link"><ion-icon class="edit-icon-profile" name="person-circle-outline"></ion-icon></a>
+                                    </div>
+                                    <div class="col-10 mx-1">
+                                        <div class="h6 m-0">{{article.creator.name}}</div>
+                                        <div class="h6 school_name m-0">Especialidad del Psicologo</div>
+                                    </div>
                                 </div>
                                 <p class="date text-end px-5">FECHA 2023</p>
                             </div>

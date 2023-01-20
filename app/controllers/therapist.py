@@ -99,12 +99,22 @@ def profile_therapist(therapist_id):
     for article in therapist.articles:
         print(article.img_filename)
         print(type(article.img_filename))
-    pdb.set_trace()
     if therapist.type == 1:
         return redirect('/dashboard')
-    user_id = session['user']['id']
-    return render_template('profile_therapist.html',logged = logged, therapist = therapist,user_id = user_id)
+    user = User.get_one(session['user']['id'])
+    return render_template('profile_therapist.html',logged = logged, therapist = therapist,user = user)
 
+
+# BUSCA UN TERAPEUTA
+@therapist.route('/show-search')
+def show_search():
+    return render_template('search_therapist.html')
+
+
+@therapist.route('/search-therapist',methods=['POST'])
+def search_therapist():
+    results = Therapist.search(request.form)
+    return render_template('search_results.html')
 
 
 # EDITA EL PERFIL DEL TERAPEUTA
@@ -114,8 +124,3 @@ def edit_therapist():
     therapist = Therapist.classify(user_id)
     return render_template('edit_therapist.html',user_id= user_id, therapist = therapist)
 
-
-# BUSCA UN TERAPEUTA
-@therapist.route('/search_therapist')
-def search_therapist():
-    return render_template('search_therapist.html')

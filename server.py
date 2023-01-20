@@ -6,7 +6,7 @@ from app.controllers.publications import publications
 from app.controllers.articles import articles 
 from app.controllers.page import page
 from app.controllers.patients import patients
-#from app.controllers.messages import messages
+from app.controllers.messages import messages
 
 app.register_blueprint(users)
 app.register_blueprint(therapist)
@@ -14,6 +14,7 @@ app.register_blueprint(publications)
 app.register_blueprint(articles)
 app.register_blueprint(page)
 app.register_blueprint(patients)
+app.register_blueprint(messages)
 
 
 

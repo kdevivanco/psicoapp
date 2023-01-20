@@ -111,7 +111,7 @@ class Therapist(User):
 
         therapist.publications = Publication.get_all_from_user(id)
         therapist.articles = Article.get_all_from_user(id)
-        therapist.requests  = Message.get_requests(id) #FALTA CREAR
+        therapist.messages  = Message.get_all_messages(id) 
         therapist.education = Education.get_education(id) 
 
         gender = {

@@ -99,14 +99,16 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="row px-5 mx-5">
-                    <div class="col-10 p-0">
-                        <input type="text" class="form-control m-0" placeholder="Busca un psicólogo">
+                <form action="/search-therapist" method="post">
+                    <div class="row px-5 mx-5">
+                        <div class="col-10 p-0">
+                            <input name="text" type="text" class="form-control m-0" placeholder="Busca un psicólogo">
+                        </div>
+                        <div class="col-2 p-0">
+                            <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        </div>
                     </div>
-                    <div class="col-2 p-0">
-                        <button class="btn btn-primary"><i class="fa fa-search"></i></button>
-                    </div>
-                </div>
+                </form>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="mb-8">
                     </div>
@@ -114,18 +116,22 @@
                         <a href="/" class="nav-item nav-link">Home</a>
                         {% if logged%}
                         {%if user.type == 0%}
-                            <a href="/tprofile/{{user.id}}"  class="nav-item nav-link"><ion-icon class="edit-icon-profile" name="person-circle-outline"></ion-icon></a>
-                            <a href="/edit-therapist" class="nav-item nav-link"><ion-icon class="edit-icon-profile" name="cog-outline"></ion-icon></a>
-                            {%elif user.type == 1%}
-                            <a href="/edit-patient" class="nav-item nav-link"><ion-icon class="edit-icon-profile" name="cog-outline"></ion-icon></a>
-                            {%endif%}
-                            <a href="/messages" class="nav-item nav-link"><ion-icon class="edit-icon-profile" name="mail-unread-outline"></ion-icon></a>
-                            <a href="/logout" class="nav-item nav-link">
-                                <img src="{{ url_for('static', filename='img/logout.png')}}"
-                                    style="height: 30px; width: 30px;" alt="Cerrar sesión">
-                            </a>
+                        <a href="/tprofile/{{user.id}}" class="nav-item nav-link"><ion-icon class="edit-icon-profile"
+                                name="person-circle-outline"></ion-icon></a>
+                        <a href="/edit-therapist" class="nav-item nav-link"><ion-icon class="edit-icon-profile"
+                                name="cog-outline"></ion-icon></a>
+                        {%elif user.type == 1%}
+                        <a href="/edit-patient" class="nav-item nav-link"><ion-icon class="edit-icon-profile"
+                                name="cog-outline"></ion-icon></a>
+                        {%endif%}
+                        <a href="/messages" class="nav-item nav-link"><ion-icon class="edit-icon-profile"
+                                name="mail-unread-outline"></ion-icon></a>
+                        <a href="/logout" class="nav-item nav-link">
+                            <img src="{{ url_for('static', filename='img/logout.png')}}"
+                                style="height: 30px; width: 30px;" alt="Cerrar sesión">
+                        </a>
                         {% else %}
-                            <a href="/login" class="nav-item nav-link">Log in</a>
+                        <a href="/login" class="nav-item nav-link">Log in</a>
                         {% endif %}
                     </div>
                 </div>
@@ -234,15 +240,15 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/main.js')}}"></script>
 
     <script>
-        {% with messages = get_flashed_messages(with_categories=true) %} 
-            {% if messages %}
-                {% for category, message in messages %}
-                    toastr.{{category}}("{{message}}");
-                {% endfor %}
-            {% endif %}
+        {% with messages = get_flashed_messages(with_categories = true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        toastr.{ { category } } ("{{message}}");
+        {% endfor %}
+        {% endif %}
         {% endwith %}
     </script>
-    
+
     {% block javascript %}{% endblock %}
 </body>
 
