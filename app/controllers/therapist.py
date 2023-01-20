@@ -3,6 +3,7 @@ from app.models.categories import Category
 from app.models.therapists import Therapist
 from app.decorators import login_required
 from app.models.educations import Education
+from app.models.users import User
 import json
 import pdb
 import pprint
@@ -21,7 +22,7 @@ def therapist_protection(user_id):
 # Mostrar el registro de terapeuta
 @therapist.route('/therapist-reg')
 def show_therapist_register():
-    user = Therapist.classify(session['user']['id'])
+    user = User.get_one(session['user']['id'])
     if user.type == 0 and user.validated == 1: #Ha verificado su email pero no llenado info de psicologo
         #redirecionamos a terminar perfil
         return redirect('/therapist-reg')

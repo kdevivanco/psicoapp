@@ -10,14 +10,16 @@ patients = Blueprint('patients', __name__, template_folder='templates')
 
 def permiso_paciente():
     user = User.get_one(session['user']['id'])
-    if user.type == 0: #es psicologo
+    if user.type == 1: #es paciente
+        return True
+    else:
         flash('Usted no tiene permiso para acceder a esta ruta', 'error')
-        return False
+        return False 
 
 # TERMINAR EL REGISTRO DEL Paciente 
 @patients.route('/patient-reg')
 def show_patient_register():
-    if not permiso_paciente():
+    if permiso_paciente() != True:
         return redirect('/dashboard')
     user = User.get_one(session['user']['id'])
     all_categories = Category.get_all()

@@ -127,7 +127,7 @@ class User:
 
         password = bcrypt.generate_password_hash(form_data['password'])
         confirmation_hash = User.generate_confirmation_hash(form_data['email'])
-
+    
         query = '''
                 INSERT INTO users ( name , email , password , type, confirmation_hash, validated,created_at ) 
                 VALUES ( %(name)s  , %(email)s , %(password)s , %(account_type)s, %(confirmation_hash)s, %(validated)s, NOW());

@@ -117,12 +117,16 @@
                             <img src="{{ url_for('static', filename='img/therapist/general_user.jpeg')}}"
                                 style="height: 35px; width: 35px;" alt="imagen psicólogo">
                         </a>
-                        <a href="/messages" class="nav-item nav-link"><ion-icon class="edit-icon-profile" name="mail-unread-outline"></ion-icon></a>
-                        <a href="/edit-therapist" class="nav-item nav-link"><ion-icon class="edit-icon-profile" name="cog-outline"></ion-icon></a>
-                        <a href="/logout" class="nav-item nav-link">
-                            <img src="{{ url_for('static', filename='img/logout.png')}}"
-                                style="height: 30px; width: 30px;" alt="Cerrar sesión">
-                        </a>
+                            {%if user.type == 0%}
+                            <a href="/edit-therapist" class="nav-item nav-link"><ion-icon class="edit-icon-profile" name="cog-outline"></ion-icon></a>
+                            {%elif user.type == 1%}
+                            <a href="/edit-patient" class="nav-item nav-link"><ion-icon class="edit-icon-profile" name="cog-outline"></ion-icon></a>
+                            {%endif%}
+                            <a href="/messages" class="nav-item nav-link"><ion-icon class="edit-icon-profile" name="mail-unread-outline"></ion-icon></a>
+                            <a href="/logout" class="nav-item nav-link">
+                                <img src="{{ url_for('static', filename='img/logout.png')}}"
+                                    style="height: 30px; width: 30px;" alt="Cerrar sesión">
+                            </a>
                         {% else %}
                         <a href="/login" class="nav-item nav-link">Log in</a>
                         {% endif %}
@@ -234,15 +238,15 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/main.js')}}"></script>
 
     <script>
-        {% with messages = get_flashed_messages(with_categories = true) %}
-        {% if messages %}
-        {% for category, message in messages %}
-        toastr.{ { category } } ("{{message}}");
-        {% endfor %}
-        {% endif %}
+        {% with messages = get_flashed_messages(with_categories=true) %} 
+            {% if messages %}
+                {% for category, message in messages %}
+                    toastr.{{category}}("{{message}}");
+                {% endfor %}
+            {% endif %}
         {% endwith %}
     </script>
-
+    
     {% block javascript %}{% endblock %}
 </body>
 
