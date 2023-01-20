@@ -95,9 +95,9 @@
                     <div class="col-12 col-sm-12">
                         <select class="form-select bg-white border-0" style="height: 55px;">
                             <option selected>Distrito/Barrio</option>
-                            <option value="1">El Poblado</option>
-                            <option value="2">Belén</option>
-                            <option value="3">Laureles 3</option>
+                            {%for location in locations%}
+                            <option value="{{location.id}}">{{location.district}}</option>
+                            {%endfor%}
                         </select>
                     </div>
                     <br>

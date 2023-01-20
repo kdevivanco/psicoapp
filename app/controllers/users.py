@@ -85,21 +85,22 @@ def show_login():
 @users.route('/login',methods=["POST"])
 def login():
     user = User.login(request.form)
-    if user != False:
-        session['user'] = {
-            'id': int(user.id),
-            'name':user.name,
-            'email':user.email,
-            'type':user.type
-        }
-    else:
-        return redirect('/falta-validar')
-
+    if user == False:
         return redirect('/login')
+
+    session['user'] = {
+        'id': int(user.id),
+        'name':user.name,
+        'email':user.email,
+        'type':user.type
+    }
+    
     if user.validated == 0:
         #Falta verificar email 
         #Mandar a verifica tu email
         pass
+    if user.type == 0 and user.validated < 2:
+        return redirect('/patient-reg')
     if user.type == 0 and user.validated == 1: #Ha verificado su email pero no llenado info de psicologo
         #redirecionamos a terminar perfil
         return redirect('/therapist-reg')

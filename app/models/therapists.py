@@ -33,15 +33,15 @@ class Therapist(User):
     # METODO PARA EL UPLOAD DE LOS FILES - TRABAJO LINA
 # Método para guardar las imágenes en esta carpeta local
     @classmethod
-    def set_profile_pic(self, email, filename):
+    def set_profile_pic(self, id, filename):
         query = '''
                 UPDATE users 
                 SET profile_pic = %(profile_pic)s
-                WHERE email = %(email)s
+                WHERE id = %(id)s
                 '''
 
         data = {
-            'email': email,
+            'id': id,
             'profile_pic': filename
         }
 
@@ -58,6 +58,7 @@ class Therapist(User):
 
     @classmethod
     def fill_info(self,form_data,therapist_id):
+        pdb.set_trace()
         query = '''
                 UPDATE users 
                 SET 
@@ -68,6 +69,7 @@ class Therapist(User):
                 modalidad = %(modalidad)s,
                 description = %(description)s,
                 metodo = %(metodo)s,
+                city = %(city)s,
                 validated = 2
                 where id = %(therapist_id)s
                 '''
@@ -75,6 +77,7 @@ class Therapist(User):
         data = {
             'therapist_id':int(therapist_id),
             'linkedin' : form_data['linkedin'],
+            'city': form_data['city'],
             'cdr':form_data['cdr'],
             'age' :form_data['age'],
             'gender' :form_data['gender'],
@@ -192,7 +195,7 @@ class Therapist(User):
 
         search_results = []
         if len(results) == 0 or results == False:
-            return False
+            return search_results
         else:
             for result in results:
                 search_results.append(Therapist.classify(result['id']))

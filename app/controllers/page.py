@@ -4,6 +4,7 @@ from app.models.categories import Category
 from app.models.therapists import Therapist
 from app.decorators import login_required
 from app.models.articles import Article
+from app.models.locations import Location
 import json
 import pdb
 
@@ -16,12 +17,14 @@ def home():
         #return redirect('/')
         logged = False
         return render_template('dashboard.html',logged = logged, categories = categories)
-    else: 
-        logged = True
-        user_id = session['user']['id']
-        user = User.get_one(user_id)
-        all_articles = Therapist.get_other_articles(user_id)
-    return render_template('dashboard.html',logged = logged, categories = categories, user = user, all_articles = all_articles)
+
+    logged = True
+    user_id = session['user']['id']
+    user = User.get_one(user_id)
+    all_articles = Therapist.get_other_articles(user_id)
+    locations = Location.city_districts(user.city)
+
+    return render_template('dashboard.html',logged = logged, categories = categories, user = user, all_articles = all_articles,locations=locations)
 
 
 
