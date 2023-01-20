@@ -9,31 +9,51 @@
 {% block main %}
 
 
-
-<!-- Comment Form Start -->
-<div class="bg-light rounded p-5">
-    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">Leave a comment</h4>
-    <form>
-        <div class="row g-3">
-            <div class="col-12 col-sm-6">
-                <input type="text" class="form-control bg-white border-0" placeholder="Your Name" style="height: 55px;">
-            </div>
-            <div class="col-12 col-sm-6">
-                <input type="email" class="form-control bg-white border-0" placeholder="Your Email"
-                    style="height: 55px;">
-            </div>
-            <div class="col-12">
-                <input type="text" class="form-control bg-white border-0" placeholder="Website" style="height: 55px;">
-            </div>
-            <div class="col-12">
-                <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
-            </div>
-            <div class="col-12">
-                <button class="btn btn-primary w-100 py-3" type="submit">Leave Your Comment</button>
+<!-- Mensajes -->
+<div class="container py-5">
+    <div class="row col-sm-8">
+        <!-- mensajes recibidos -->
+        <div class="bg-light rounded p-5">
+            <div class="mb-5">
+                <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4"># Mensajes</h4>
+                <div class="d-flex">
+                <!-- Empieza plantilla para mensajes recibidos del usuario -->
+                    <div class="ps-3">
+                        <h6>Tu mensaje<small><br><i>Fecha</i></small></h6>
+                        <p>Quería preguntarte sobre una situación familiar</p>
+                    </div>
+                </div>
+                <div style="padding-left: 40px; margin-top: 5px;">
+                    <!-- Así se vería la respuesta del psicólogo -->
+                    <div class="d-flex ms-6 mb-4">
+                        <div class="ps-3">
+                            <h6><a href="">Nombre psicólogo</a> <small><i>01 Jan 2045</i></small></h6>
+                            <p>Entiendo tu situación. Lo más importante es la comprensión, la confianza y la comunicación. Te invito a que agendes una cita conmigo para orientarte mejor</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Termina plantilla para mensajes recibidos del usuario -->
+                <!-- Empieza plantilla para mensajes recibidos del psicólogo -->
+                <div class="d-flex mb-4">
+                    <div class="ps-3 mb-4">
+                        <h6>Nombre<small><br><i>Fecha</i></small></h6>
+                        <p>Hola, necesito ayuda porque no me he sentido bien</p>
+                        <button class="btn btn-sm btn-dark">Responder</button>
+                    </div>
+                </div>
+                <div class="d-flex mb-4">
+                    <div class="ps-3 mb-4">
+                        <h6>Nombre<small><br><i>Fecha</i></small></h6>
+                        <p>Hola, busco el mejor psicólgo para mi hijo</p>
+                        <button class="btn btn-sm btn-dark">Responder</button>
+                    </div>
+                </div>
+                <!-- Termina plantilla para mensajes recibidos del psicólogo -->
             </div>
         </div>
-    </form>
+        <!-- mensajes recibidos -->
+    </div>
 </div>
-<!-- Comment Form End -->
+<!-- Mensajes End -->
 
 {% endblock %}

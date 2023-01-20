@@ -11,7 +11,7 @@ users = Blueprint('users', __name__, template_folder='templates')
 # SECCION DE PRUEBA PARA LINA
 @users.route('/prueba')
 def prueba():
-    return render_template('publication.html')
+    return render_template('send_message.html')
 # TERMINA SECCION DE PRUEBA PARA LINA  
 
 def pseudodecorador():
