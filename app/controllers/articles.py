@@ -7,6 +7,12 @@ from app.decorators import login_required
 import json
 import pdb
 from app.models.confirmation_hash_test import generate_confirmation_hash
+from datetime import datetime
+import locale
+
+
+
+
 
 articles = Blueprint('articles', __name__, template_folder='templates')
 
@@ -56,17 +62,23 @@ def show_article(id):
 
     article = Article.classify(id)
     author = Therapist.classify(article.user_id)
-    return render_template('article.html', article = article, author = author, logged = logged, user = user)
+    date_string = article.created_at
+    date_object = datetime.strptime(date_string, "%Y-%m-%d %H:%M:%S")
+    locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+    date = date_object.strftime("%A %d de %B de %Y")
+
+    return render_template('article.html', article = article, author = author, logged = logged, user = user,date= date)
 
 @articles.route('/edit-article/<id>')
 @login_required
 def show_edit(id):
     article = Article.classify(id)
-    if article.creator.id != session['user']['id']:
+    author = Therapist.classify(article.user_id)
+    if author.id != session['user']['id']:
         flash("Lo sentimos, no estás autorizado para realizar esta acción",'error')
         return redirect('/')
-
-    return render_template('edit_article.html', article = article)
+    body = article.body.replace('<br>','')
+    return render_template('edit_article.html', article = article, author = author,body = body)
 
 
 @articles.route('/edit-art/<int:id>/editado', methods = ['POST'])

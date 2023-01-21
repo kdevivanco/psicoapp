@@ -141,9 +141,11 @@ def add_district():
 # EDITA EL PERFIL DEL TERAPEUTA
 @therapist.route('/edit-therapist')
 def edit_therapist():
+    logged = True
     user_id = session['user']['id']
     therapist = Therapist.classify(user_id)
-    return render_template('edit_therapist.html',user_id= user_id, therapist = therapist)
+    user = therapist
+    return render_template('edit_therapist.html',user_id= user_id, therapist = therapist,user = user, logged = logged)
 
 
 @therapist.route('/therapist_edited', methods = ['POST'])
