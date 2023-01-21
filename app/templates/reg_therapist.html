@@ -57,10 +57,10 @@
                             <div class="row g-3">
                                 <p>¿Dónde estás ubicado?</p>
                                 <div class="col-12 g-3 w-50">
-                                    <select name="ciudad" id="ciudad" class="form-select bg-white border-0" style="height: 55px;">
-                                        <option name="ciudad" selected disabled>Escoger ciudad</option>
+                                    <select name="city" id="city" class="form-select bg-white border-0" style="height: 55px;">
+                                        <option name="city" selected disabled>Escoger ciudad</option>
                                         {%for city in all_cities%}
-                                        <option name="ciudad" value="{{city}}">{{city}}</option>
+                                        <option name="city" value="{{city}}">{{city}}</option>
                                         {%endfor%}
                                     </select>
                                 </div>
