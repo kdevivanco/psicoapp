@@ -21,22 +21,22 @@ def edit_pic():
     return render_template('add_picture.html')
 
 
-@therapist.route('/edit_therapist/changeimg', methods=['POST'])
-def change_profile_img():
-    user_id = session['user']['id']
-    file = request.files['file']  # Estamos accediendo al archivo cargado
-    img_hash = generate_confirmation_hash(file.filename) #importar generate_confirmation_hash()
+# @therapist.route('/therapist_edited', methods=['POST'])
+# def change_profile_img():
+#     user_id = session['user']['id']
+#     file = request.files['file']  # Estamos accediendo al archivo cargado
+#     img_hash = generate_confirmation_hash(file.filename) #importar generate_confirmation_hash()
 
-    file.filename = f'article-{img_hash}-{user_id}.png'
-    file.save('app/static/img/therapist/' + file.filename)
-    print(request)
+#     file.filename = f'profile-{img_hash}-{user_id}.png'
+#     file.save('app/static/img/therapist/' + file.filename)
+#     print(request)
 
-    Therapist.set_profile_pic(
-        session['user']['email'], 
-        file.filename
-    )            
-    session['user']['profile_pic'] = file.filename
-    return redirect(f"/tprofile/{session['user']['id']}")
+#     Therapist.set_profile_pic(
+#         session['user']['email'], 
+#         file.filename
+#     )            
+#     session['user']['profile_pic'] = file.filename
+#     return redirect(f"/tprofile/{session['user']['id']}")
 
 
 
@@ -131,9 +131,19 @@ def edit_therapist():
 
 
 @therapist.route('/therapist_edited', methods = ['POST'])
+@login_required
 def save_therapist_edited():
-    therapist_id = session['user']['id']
-    Therapist.save_therapist_edited(request.form, therapist_id)
-    return redirect(f"/tprofile/{session['user']['id']}")
+    user_id = session['user']['id']
+    file = request.files['file']  
+    img_hash = generate_confirmation_hash(file.filename) 
 
-# user_id= user_id, therapist = therapist
+    file.filename = f'profile-{img_hash}-{user_id}.png'
+    file.save('app/static/img/therapist/' + file.filename)
+
+    file_path = f'/img/therapist/{file.filename}'
+    # Therapist.set_profile_pic(
+    #     session['user']['email'], 
+    #     file.filename
+    # )            
+    Therapist.save_therapist_edited(request.form, user_id, file_path)
+    return redirect(f"/tprofile/{session['user']['id']}")

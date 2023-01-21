@@ -24,30 +24,29 @@ class Therapist(User):
         self.linkedin = data['linkedin']
         self.cdr = data['cdr']
         self.metodo = data['metodo']
-        # self.img_filename = data['img_filename']
+        self.profile_path = data['profile_path']
         self.categories = []
         self.publications = []
         self.articles = []
         self.education =[]
-        # self.file_path = ''
         
 
 
-    @classmethod
-    def set_profile_pic(self, email, filename):
-        query = '''
-                UPDATE users 
-                SET profile_pic = %(profile_pic)s
-                WHERE email = %(email)s
-                '''
+    # @classmethod
+    # def set_profile_pic(self, email, filename):
+    #     query = '''
+    #             UPDATE users 
+    #             SET profile_pic = %(profile_pic)s
+    #             WHERE email = %(email)s
+    #             '''
 
-        data = {
-            'email': email,
-            'profile_pic': filename
-        }
+    #     data = {
+    #         'email': email,
+    #         'profile_pic': filename
+    #     }
 
-        flash('¡La imagen quedó cargada!', 'success')
-        return connectToMySQL('psicoapp').query_db(query,data)
+    #     flash('¡La imagen quedó cargada!', 'success')
+    #     return connectToMySQL('psicoapp').query_db(query,data)
 
 
     @classmethod
@@ -108,9 +107,6 @@ class Therapist(User):
         result = results[0]
         therapist = cls(result)
         therapist.categories = cls.get_categories(id)
-
-        therapist.file_path = (f'img/therapist/{therapist.img_filename}')
-
         therapist.publications = Publication.get_all_from_user(id)
         therapist.articles = Article.get_all_from_user(id)
         therapist.messages  = Message.get_all_messages(id) 
@@ -182,7 +178,7 @@ class Therapist(User):
 
 
     @classmethod
-    def save_therapist_edited(cls, file_name, form_data, therapist_id):
+    def save_therapist_edited(cls, form_data, therapist_id, profile_path ):
         query = '''
                 UPDATE users 
                 SET 
@@ -193,7 +189,7 @@ class Therapist(User):
                 cdr = %(cdr)s,
                 gender = %(gender)s,
                 modalidad = %(modalidad)s,
-                img_filename = %(file)s
+                profile_path = %(profile_path)s
                 where id = %(therapist_id)s;
                 '''
 
@@ -206,7 +202,7 @@ class Therapist(User):
             'cdr':form_data['cdr'],
             'gender' :form_data['gender'],
             'modalidad': form_data['modalidad'],
-            'img_filename': file_name
+            'profile_path': profile_path
             }
         
         result = connectToMySQL('psicoapp').query_db(query,data)
