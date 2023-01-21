@@ -40,10 +40,10 @@
                         <p class="d-flex align-items-center bg-light mb-3 text-black">Descripción:</p>
                         <textarea class="col-12 mb-3" type="text" name="description" cols="50" rows="3" class="text-black" value="{{therapist.description}}">{{therapist.description}}</textarea>
                         <div class="row therapist-stats">
-                            <p class="col-md-2"> Edad: <br> <input class="h6" value="{{therapist.age}}"></input> </p>
-                            <p class="col-md-2"> CDR: <br> <input class="h6" value="{{therapist.cdr}}"></input> </p>
-                            <p class="col-md-2"> Género: <br><input class="h6" value="{{therapist.gender}}"></input> </p>
-                            <p class="col-md-2"> Modalidad:<input class="h6" value="{{therapist.modalidad}}"></input> </p>
+                            <p class="col-md-2"> Edad: <br> <input class="h6" name="age" value="{{therapist.age}}"></input> </p>
+                            <p class="col-md-2"> CDR: <br> <input class="h6" name="cdr" value="{{therapist.cdr}}"></input> </p>
+                            <p class="col-md-2"> Género: <br><input class="h6" name="gender" value="{{therapist.gender}}"></input> </p>
+                            <p class="col-md-2"> Modalidad:<input class="h6" name="modalidad" value="{{therapist.modalidad}}"></input> </p>
                         </div>
                         <button type="submit" class="btn btn-primary"> Guardar cambios de perfil</button>
                     </form>

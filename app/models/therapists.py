@@ -24,14 +24,15 @@ class Therapist(User):
         self.linkedin = data['linkedin']
         self.cdr = data['cdr']
         self.metodo = data['metodo']
+        # self.img_filename = data['img_filename']
         self.categories = []
         self.publications = []
         self.articles = []
         self.education =[]
+        # self.file_path = ''
         
 
-    # METODO PARA EL UPLOAD DE LOS FILES - TRABAJO LINA
-# Método para guardar las imágenes en esta carpeta local
+
     @classmethod
     def set_profile_pic(self, email, filename):
         query = '''
@@ -47,7 +48,6 @@ class Therapist(User):
 
         flash('¡La imagen quedó cargada!', 'success')
         return connectToMySQL('psicoapp').query_db(query,data)
-
 
 
     @classmethod
@@ -108,6 +108,8 @@ class Therapist(User):
         result = results[0]
         therapist = cls(result)
         therapist.categories = cls.get_categories(id)
+
+        therapist.file_path = (f'img/therapist/{therapist.img_filename}')
 
         therapist.publications = Publication.get_all_from_user(id)
         therapist.articles = Article.get_all_from_user(id)
@@ -180,6 +182,37 @@ class Therapist(User):
 
 
     @classmethod
-    def editar(self,form_data):
-        #EDITAR PERFIL DESPUES DE CREADO
-        pass
+    def save_therapist_edited(cls, file_name, form_data, therapist_id):
+        query = '''
+                UPDATE users 
+                SET 
+                name = %(name)s,
+                metodo = %(metodo)s,
+                description = %(description)s,
+                age = %(age)s,
+                cdr = %(cdr)s,
+                gender = %(gender)s,
+                modalidad = %(modalidad)s,
+                img_filename = %(file)s
+                where id = %(therapist_id)s;
+                '''
+
+        data = {
+            'therapist_id':int(therapist_id),
+            'name' : form_data['name'],
+            'metodo' : form_data['metodo'],
+            'description' : form_data['description'],
+            'age' :form_data['age'],
+            'cdr':form_data['cdr'],
+            'gender' :form_data['gender'],
+            'modalidad': form_data['modalidad'],
+            'img_filename': file_name
+            }
+        
+        result = connectToMySQL('psicoapp').query_db(query,data)
+        if not result:
+            flash('Lo sentimos, algo salió mal','danger')
+            return False
+        
+        flash('Tu perfil se ha editado exitosamente','success')
+        return True

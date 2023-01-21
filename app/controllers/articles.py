@@ -62,7 +62,6 @@ def show_edit(id):
 
 @articles.route('/edit-art/<int:id>/editado', methods = ['POST'])
 def edited_article(id):
-    print(request.form)
     Article.save_edited_article(request.form, id)
     print(session['user']['id'])
     return redirect(f"/tprofile/{session['user']['id']}")

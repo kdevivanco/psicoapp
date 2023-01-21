@@ -24,8 +24,7 @@
                 <div class="img-container mb-4 mt-4" style="margin: auto; width: 50%;">
                     <img class="img-fluid" src="{{ url_for('static', filename=article.file_path)}}" style="width: 500px; height: 100%; object-fit: cover;" alt="">            
                 </div>
-                <input class="p-5 body text-dark w-100 h-100" type="text" name="body" value="{{article.body | safe}}" style="height: 1000px;">
-                
+                <textarea class="p-5 body text-dark w-100 h-100" type="text" name="body"  cols="30" rows="10" value="{{article.body | safe}}"></textarea> 
                 <div class="col-6 mt-5">
                     <button class="btn btn-primary w-25 py-3" type="submit">Guardar</button>
                 </div>
