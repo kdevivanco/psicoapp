@@ -22,7 +22,7 @@
                         <h4>{{message.sender.name}}</h4>
                         <p>{{message.created_at}}</p>
                         <p class="text-dark">{{message.text}}</p>
-                        <a href="/message-update" class="btn btn-sm btn-dark rounded-pill">Me pondre en contacto contigo</a>
+                        <a href="/message-update/{{message.id}}" class="btn btn-sm btn-dark rounded-pill">Me pondre en contacto contigo</a>
                         <a href="/message-seen/{{message.id}}" class="btn btn-sm btn-primary rounded-pill">Marcar como visto</a>
                     </div>
                 </div>

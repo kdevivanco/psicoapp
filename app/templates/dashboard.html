@@ -42,7 +42,7 @@
                     </div>
                     <!--EMPIEZA FOR PARA OTHER ARTICLES-->
                     {%for article in all_articles%}
-                    <div class="prof-article-div d-flex rounded overflow-hidden mb-3 w-80">
+                    <div class="d-flex rounded overflow-hidden mb-3 w-80">
                         <div class="article-img-div">
                             <img class="img-fluid" src="{{ url_for('static', filename=article.file_path)}}"
                                 style="width: 20rem; height: 100%; object-fit: cover;" alt="">
@@ -109,23 +109,19 @@
             <!-- Plain Text End -->
             <!-- Category Start -->
             <div class="col-12 mb-3">
-                <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Busca psicologos por
-                    especialidad</h4>
+                <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Busca psicologos por especialidad</h4>
                 <div class="bg-light rounded text-center p-3">
-                    <form action="/search-by-cat" methods="'POST">
-                        <div class="dropdown" id="my-select">
-                            <button class="dropbtn">Escoger 3 como maximo</button>
-                            <div class="dropdown-content">
-                                {% for category in all_categories %}
-                                <label for="category" class="cat-label">
-                                    <input type="checkbox" value="{{category.id}}" class="category"
-                                        id="{{category.id}}">
-                                    <p class="cat-name mx-2" id="cat-name{{category.id}}">{{category.name}}</p>
-                                </label>
-                                {% endfor %}
+                    <form action="/search-cat" method="POST">
+                        <div class="bg-light rounded text-center" style="padding: 30px;">
+                            <div class="col-12 col-sm-12">
+                                <select name='category_id' class="form-select bg-white border-0" style="height: 55px;">
+                                    <option selected disabled>Selecciona una categoria</option>
+                                    {%for category in categories%}
+                                    <option name='category_id' value="{{category.id}}">{{category.name}}</option>
+                                    {%endfor%}
+                                </select>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100 m-2">Search</button>
-                        </div>
+                        <button type="submit" class="btn btn-primary m-5">Agregar distrito</button>
                     </form>
                 </div>
             </div>

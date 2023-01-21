@@ -14,7 +14,6 @@ page = Blueprint('page', __name__, template_folder='templates')
 def home():
     categories = Category.get_all()
     if 'user' not in session or session['user'] == None:
-        #return redirect('/')
         logged = False
         return render_template('dashboard.html',logged = logged, categories = categories)
 
@@ -91,6 +90,21 @@ def search_district():
     text = (f'{location.city}, {location.district}')
 
     return render_template('search_results.html',results=results,text=text,user=user, location = location, logged = logged)
+
+@page.route('/search-cat', methods=['POST'])
+def search_category():
+    if 'user' not in session or session['user']==None:
+        logged = False
+    else:
+        logged = True
+        category_id = request.form['category_id']
+        results = Therapist.search_cat(category_id)
+        category = Category.classify(category_id)
+        text = category.name
+        user = User.get_one(session['user']['id'])
+
+    return render_template('search_results.html',results=results,text=text,user=user, logged = logged)
+    
 
 
 

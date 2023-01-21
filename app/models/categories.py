@@ -51,7 +51,6 @@ class Category:
         return connectToMySQL('psicoapp').query_db(query) 
 
 
-
     @classmethod
     def add_to_category(cls,user_id,category_id):
         query = '''

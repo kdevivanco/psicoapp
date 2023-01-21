@@ -303,3 +303,27 @@ class Therapist(User):
         flash('Tu perfil se ha editado exitosamente','success')
         return True
 
+    @classmethod
+    def search_cat(cls,category_id):
+        query = '''
+                SELECT user_id from user_categories
+                WHERE category_id =%(category_id)s;
+                '''
+
+        data = {
+                "category_id" : category_id
+            }
+        
+        results = connectToMySQL('psicoapp').query_db(query,data) 
+        if results == False or len(results) == 0 or results == []:
+            return ''
+        
+        therapists = []
+        for result in results:
+            therapists.append(cls.classify(result['user_id']))
+
+        for therapist in therapists:
+            if therapist.type == 1:
+                therapists.remove(therapist)
+
+        return therapists
