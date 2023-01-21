@@ -27,7 +27,7 @@ class User:
         self.created_at = data['created_at']
         self.modalidad = data['modalidad']
         self.confirmation_hash = data['confirmation_hash']
-        self.validated = data['city']
+        self.validated = data['validated']
         self.city = data['city']
         self.messages = []
         #self.linkedin = data['linkedin']

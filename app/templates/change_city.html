@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block home %} active {% endblock %}
+
+{% block styles %}
+<style>
+</style>
+{% endblock %}
+
+
+{% block main %}
+                
+
+
+    <!-- Contact (Register) Start -->
+    <div class="container-fluid px-5 pt-5">
+        <div class="container bg-light" style="height: 80vh;">
+            <form action="/change-city" class="form" method="post">
+                <div class="col-12 g-3 w-50 p-5">
+                    <h3>Cambia tu ciudad...</h3>
+                    <select name="city" id="city" class="form-select bg-white border-0" style="height: 55px;">
+                        <option name="city" selected disabled>Escoger ciudad</option>
+                        {%for city in all_cities%}
+                        <option name="city" value="{{city}}">{{city}}</option>
+                        {%endfor%}
+                    </select>
+                    <button type="submit" class="btn btn-primary rounded-pill mt-5 ">Cambiar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Contact (Register) End -->
+
+    
+
+{% endblock %}

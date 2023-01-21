@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block home %} active {% endblock %}
+
+{% block styles %}
+<style>
+</style>
+{% endblock %}
+
+
+{% block main %}
+
+
+    <!-- Search Start -->
+    <div class="container-fluid pt-5" style="height:60vh ;">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+                <h1 class="display-5 mb-4">Dónde estas ubicado/a...</h1>
+                <p>Este paso es opcional. Si quieres que otros psicologos y pacientes puedan encontrarte por dónde estás completa esta información!</p>
+            </div>
+                <form action="/add-district" method="POST">
+                    <div class="bg-light rounded text-center" style="padding: 30px;">
+                        <div class="col-12 col-sm-12">
+                            <select name='location_id' class="form-select bg-white border-0" style="height: 55px;">
+                                <option selected disabled>Distrito/Barrio</option>
+                                {%for location in locations%}
+                                <option name='location_id' value="{{location.id}}">{{location.district}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                    <button type="submit" class="btn btn-primary m-5">Agregar distrito</button>
+                </form>
+                <a href="/dashboard" class="btn btn-secondary rounded-pill">Regreso más tarde</a>
+        </div>
+    </div>
+    <!-- Search End -->
+
+
+{% endblock %}

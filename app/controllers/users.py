@@ -99,6 +99,7 @@ def login():
         #Falta verificar email 
         #Mandar a verifica tu email
         pass
+    pdb.set_trace()
     if user.type == 0 and user.validated < 2:
         return redirect('/patient-reg')
     if user.type == 0 and user.validated == 1: #Ha verificado su email pero no llenado info de psicologo

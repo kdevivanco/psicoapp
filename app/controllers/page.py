@@ -27,10 +27,64 @@ def home():
     return render_template('dashboard.html',logged = logged, categories = categories, user = user, all_articles = all_articles,locations=locations)
 
 
+# @page.route('/search-therapist', methods=['POST'])
+# def search_a_therapist():
+#     pdb.set_trace()
 
+#     return render_template('found_therapists.html')
 
-@page.route('/search-therapist', methods=['POST'])
-def search_a_therapist():
+@page.route('/change-city')
+@login_required
+def show_change_city():
+    all_cities = Location.get_all()
+
+    return render_template('change_city.html', all_cities = all_cities)
+
+@page.route('/change-city', methods=['POST'])
+@login_required
+def change_city():
     pdb.set_trace()
+    Location.change(request.form,session['user']['id'])
 
-    return render_template('found_therapists.html')
+    return redirect('/dashboard')
+
+#SEARCHES
+
+
+@page.route('/search-therapist',methods=['POST'])
+def search_therapist():
+    text = request.form['text']
+    path = (f'/search/{text}')
+
+    return redirect(path)
+
+@page.route('/search/<text>')
+def show_results(text):
+    results = Therapist.search(text)
+    return render_template('search_results.html',text = text,results=results)
+
+#SEARCH CITY
+@page.route('/search-city')
+def search_city():
+    pdb.set_trace()
+    Location.change(request.form,session['user']['id'])
+
+    return redirect('/dashboard')
+
+@page.route('/search-district',methods=['POST'])
+def search_district():
+    if 'user' not in session or session['user']==None:
+        flash('Debes registrate para acceder a esta función', 'primary')
+        return redirect('/register')
+    
+    user = User.get_one(session['user']['id'])
+    city = user.city
+    pdb.set_trace()
+    district = request.form['district']
+
+    results = Therapist.search_location(city,district)
+
+    return render_template('search_results.html',text = text,results=results)
+
+
+

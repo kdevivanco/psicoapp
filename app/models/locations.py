@@ -39,7 +39,7 @@ class Location:
     def city_districts(cls,city_name):
 
         query = '''
-            SELECT * from location where city = %(city_name)s;
+            SELECT * from location where city = %(city_name)s order by district ASC;
             '''
 
         data = {
@@ -52,3 +52,59 @@ class Location:
             locations.append(cls(location))
         
         return locations
+
+    @classmethod
+    def change(cls,form_data,user_id):
+        query = '''
+            UPDATE users
+            SET city = %(city_name)s
+            WHERE id = %(id)s;
+            '''
+
+        data = {
+        'city_name': form_data['city'],
+        'id': user_id
+        }
+
+        connectToMySQL('psicoapp').query_db(query,data)
+        
+        return 
+
+    @classmethod
+    def log_location(cls,location_id,user_id):
+        query = '''
+                INSERT INTO address ( location_id , user_id) 
+                VALUES ( %(location_id)s , %(user_id)s);
+                '''
+
+        data = {
+                "location_id": location_id,
+                "user_id" : user_id
+            }
+        
+        connectToMySQL('psicoapp').query_db(query,data) 
+        
+        return
+
+    @classmethod
+    def get_address(cls,user_id):
+        query = '''
+                SELECT * from location
+                WHERE id =
+                (SELECT location_id from address
+                WHERE user_id = %(user_id)s);
+                '''
+
+        data = {
+                "user_id" : user_id
+            }
+        
+        results = connectToMySQL('psicoapp').query_db(query,data) 
+        if results == False or len(results) == 0 or results == []:
+            return ''
+        
+        location = cls(results[0])
+    
+        return location
+
+    

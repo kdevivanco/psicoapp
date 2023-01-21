@@ -10,6 +10,8 @@ from app.models.educations import Education
 from app.models.publications import Publication
 from app.models.articles import Article
 from app.models.messages import Message
+from app.models.locations import Location
+
 
 
 import pdb
@@ -28,12 +30,13 @@ class Therapist(User):
         self.publications = []
         self.articles = []
         self.education =[]
+        self.address = ''
         
 
     # METODO PARA EL UPLOAD DE LOS FILES - TRABAJO LINA
 # Método para guardar las imágenes en esta carpeta local
     @classmethod
-    def set_profile_pic(self, id, filename):
+    def set_profile_pic(cls, id, filename):
         query = '''
                 UPDATE users 
                 SET profile_pic = %(profile_pic)s
@@ -51,13 +54,13 @@ class Therapist(User):
 
 
     @classmethod
-    def validate_form(self,form_data):
+    def validate_form(cls,form_data):
         #VALIDACION
         pass
 
 
     @classmethod
-    def fill_info(self,form_data,therapist_id):
+    def fill_info(cls,form_data,therapist_id):
         pdb.set_trace()
         query = '''
                 UPDATE users 
@@ -116,6 +119,7 @@ class Therapist(User):
         therapist.articles = Article.get_all_from_user(id)
         therapist.messages  = Message.get_recieved(id) 
         therapist.education = Education.get_education(id) 
+        therapist.address = Location.get_address(id)
 
         gender = {
             'female': 'Mujer',
@@ -182,7 +186,7 @@ class Therapist(User):
         return connectToMySQL('psicoapp').query_db(query,data)
 
     @classmethod
-    def search(self,text):
+    def search(cls,text):
         query = '''
                 SELECT id FROM users WHERE LOCATE(%(name)s, name) > 0 and type = 0 and validated = 3
                 '''
@@ -252,12 +256,38 @@ class Therapist(User):
 
         for article_id in results:
             article = Article.classify(article_id['id'])
-            article.therapist = Therapist.classify(article.user_id)
+            article.therapist = cls.classify(article.user_id)
             other_articles.append(article)
         
         return other_articles
 
+    @classmethod
+    def search_location(cls,city,district):
+        query = '''
+                SELECT user_id from address
+                WHERE location_id = 
+                (SELECT location.id from location
+                WHERE city = %(city)s and district = %(district)s)
+                '''
 
+        data = {
+                'city' : city,
+                'district':district
+            }
+        
+        results = connectToMySQL('psicoapp').query_db(query,data) 
+        
+        search_results = []
+
+        if results == False or len(results) == 0 or results == []:
+            return search_results
+        
+        for result in results:
+            search_results.append(cls.classify(result['user_id']))
+        
+    
+        return search_results
+    
 
     @classmethod
     def editar(self,form_data):

@@ -84,7 +84,7 @@
             <div style="margin-bottom: 50px;">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Encuentra psicólogos en tu ciudad</h4>
+                        <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Encuentra psicólogos en tu distrito</h4>
                     </div>
                     <div class="col-4">
                         <a href="/change-city" class="btn btn-light">Cambiar ciudad</a>
@@ -92,16 +92,19 @@
                         
                 </div>
                 <div class="bg-light rounded text-center" style="padding: 30px;">
-                    <div class="col-12 col-sm-12">
-                        <select class="form-select bg-white border-0" style="height: 55px;">
-                            <option selected>Distrito/Barrio</option>
-                            {%for location in locations%}
-                            <option value="{{location.id}}">{{location.district}}</option>
-                            {%endfor%}
-                        </select>
-                    </div>
+                    <form action="/search-district" method="POST">
+                        <div class="bg-light rounded text-center" style="padding: 30px;">
+                            <div class="col-12 col-sm-12">
+                                <select name='location_id' class="form-select bg-white border-0" style="height: 55px;">
+                                    <option selected disabled>Distrito/Barrio</option>
+                                    {%for location in locations%}
+                                    <option name='location_id' value="{{location.id}}">{{location.district}}</option>
+                                    {%endfor%}
+                                </select>
+                            </div>
+                        <button type="submit" class="btn btn-primary m-5">Agregar distrito</button>
+                    </form>
                     <br>
-                    <a href="" class="btn btn-primary py-2 px-4">Buscar</a>
                 </div>
             </div>
             <!-- Plain Text End -->

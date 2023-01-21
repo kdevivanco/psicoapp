@@ -56,14 +56,12 @@
                             </div>
                             <div class="row g-3">
                                 <p>¿Dónde estás ubicado?</p>
-                                <div class="col-12 col-sm-6">
-                                    <select name="city" class="form-select bg-white border-0" style="height: 55px;"
-                                        required>
-                                        <option name="ciudad" selected disabled>Ciudad</option>
-                                        <option name="ciudad" value="Arequipa">Arequipa</option>
-                                        <option name="ciudad" value="Bogota">Bogotá</option>
-                                        <option name="ciudad" value="Lima">Lima</option>
-                                        <option name="ciudad" value="Medellin">Medellín</option>
+                                <<div class="col-12 g-3 w-50">
+                                    <select name="ciudad" id="ciudad" class="form-select bg-white border-0" style="height: 55px;">
+                                        <option name="ciudad" selected disabled>Escoger ciudad</option>
+                                        {%for city in all_cities%}
+                                        <option name="ciudad" value="{{city}}">{{city}}</option>
+                                        {%endfor%}
                                     </select>
                                 </div>
                             </div>
