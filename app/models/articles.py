@@ -4,9 +4,11 @@ import re
 from app import app
 from flask_bcrypt import Bcrypt        
 from app.models.users import User
-#from app.models.lists import Wishlist
 import pdb
 import time
+from datetime import datetime
+import locale
+
 bcrypt = Bcrypt(app)
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
@@ -28,6 +30,7 @@ class Article:
         self.user_id = data['user_id']
         self.file_path = ''
         self.therapist = ''
+        self.date = ''
 
     #Protege la pagina de rutas ingresadas manualmente por el usuario
     @classmethod
@@ -78,7 +81,34 @@ class Article:
         article.file_path = (f'img/articles/{article.img_filename}')
         article.body = article.body.replace('\n', '<br>')
 
+        date_string = article.created_at
+        date_object = datetime.strptime(date_string, "%Y-%m-%d %H:%M:%S")
+        locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+        article.date = date_object.strftime("%A %d de %B de %Y")
+
         return article
+    
+    @classmethod
+    def get_all(cls): 
+        
+        query = '''
+                SELECT id FROM articles;
+                '''
+
+
+        results = connectToMySQL('psicoapp').query_db(query)
+        
+        articles = []
+        if len(results) == 0 or results == False:
+            return articles
+
+        for article in results:
+            articles.append(cls.classify(article['id']))
+        
+        return articles
+        
+
+
 
     #Devuelve todos los articulos creados por el usuario
     @classmethod
@@ -187,7 +217,7 @@ class Article:
 
         flash('¡La imagen del artículo se cargó con éxito!', 'success')
         return connectToMySQL('psicoapp').query_db(query,data)
-    
 
 
+        
 

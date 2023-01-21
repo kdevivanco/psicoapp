@@ -25,4 +25,54 @@ def send_message(reciever_id):
 @login_required
 def show_message(): #hay que pasarle el id
     recieved_messages = Message.get_recieved(session['user']['id'])
-    return render_template('message.html',recieved_messages = recieved_messages)
+    sent_messages = Message.get_sent(session['user']['id'])
+    user = User.get_one(session['user']['id'])
+    logged = True
+    for message in recieved_messages:
+        if message.status == 'deleted':
+            recieved_messages.remove(message)
+
+    return render_template('message.html',recieved_messages = recieved_messages, sent_messages = sent_messages, user = user, logged = logged)
+
+
+@messages.route('/message-update/<message_id>')
+@login_required
+def contact_message(message_id):
+    user = User.get_one(session['user']['id'])
+    message = Message.get_one(int(message_id))
+    if message == False:
+        return redirect('/messages')
+    if user.id != message.reciever_id:
+        flash('Not your message!','error')
+        return redirect('/dashboard')
+    status = 'contacto'
+    Message.update_message(message_id,status)
+    return redirect('/messages')
+
+@messages.route('/message-seen/<message_id>')
+@login_required
+def read_message(message_id):
+    user = User.get_one(session['user']['id'])
+    message = Message.get_one(message_id)
+    if message == False:
+        return redirect('/messages')
+    if user.id != message.reciever_id:
+        flash('Not your message!','error')
+        return redirect('/dashboard')
+    status = 'read'
+    Message.update_message(message_id,status)
+    return redirect('/messages')
+
+@messages.route('/message-delete/<message_id>')
+@login_required
+def delete_message(message_id):
+    user = User.get_one(session['user']['id'])
+    message = Message.get_one(message_id)
+    if message == False:
+        return redirect('/messages')
+    if user.id != message.reciever_id:
+        flash('Not your message!','error')
+        return redirect('/dashboard')
+    status = 'deleted'
+    Message.update_message(message_id,status)
+    return redirect('/messages')

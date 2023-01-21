@@ -11,22 +11,57 @@
 
 <!-- Mensajes -->
 <div class="container py-5">
-    <div class="row col-sm-8">
+    <div class="row">
         <!-- mensajes recibidos -->
-        <div class="bg-light rounded p-5">
+        <div class="bg-white rounded p-5">
             <div class="mb-5">
-                <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Mensajes Recibidos</h4>
-                {%for message in recieved_messages%}
-                <div class="d-flex mb-4 bg-white p-4 rounded">
-                    <div class="ps-3 mb-4">
-                        <h4>{{message.sender.name}}</h4>
-                        <p>{{message.created_at}}</p>
-                        <p class="text-dark">{{message.text}}</p>
-                        <a href="/message-update/{{message.id}}" class="btn btn-sm btn-dark rounded-pill">Me pondre en contacto contigo</a>
-                        <a href="/message-seen/{{message.id}}" class="btn btn-sm btn-primary rounded-pill">Marcar como visto</a>
+                <div class="row g-2">
+                    <div class="col-5 bg-light rounded p-4 mx-2">
+                        <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Mensajes Recibidos</h4>
+                        {%for message in recieved_messages%}
+                        <div class="d-flex mb-4 bg-white p-4 rounded">
+                            <div class="ps-3 mb-4">
+                                <h4>{{message.sender.name}}</h4>
+                                <p>{{message.created_at}}</p>
+                                <p class="text-dark">{{message.text}}</p>
+                                {%if message.status == 'sent'%}
+                                <a href="/message-update/{{message.id}}" class="btn btn-sm btn-dark rounded-pill">Me
+                                    pondre en contacto contigo</a>
+                                <a href="/message-seen/{{message.id}}"
+                                    class="btn btn-sm btn-primary rounded-pill">Marcar como visto</a>
+                                {%elif message.status == 'read'%}
+                                <a href="/message-update/{{message.id}}" class="btn btn-sm btn-dark rounded-pill">Me
+                                    pondre en contacto contigo</a>
+                                <p class="btn btn-sm btn-light rounded-pill">Visto</p>
+                                {%elif message.status == 'contacto'%}
+                                <p class="btn btn-sm btn-light rounded-pill">Respondido</p>
+                                {%endif%}
+                                <a href="/message-delete/{{message.id}}"><ion-icon style="color:rgb(172, 63, 63);font-size: 1.5rem;" name="trash-outline"></ion-icon></a>
+                            </div>
+                        </div>
+                        {%endfor%}
+                    </div>
+                    <div class="col-5 bg-light rounded p-4 mx-2">
+                        <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Mensajes Enviados</h4>
+                        {%for message in sent_messages%}
+                        <div class="d-flex mb-4 bg-white p-4 rounded">
+                            <div class="ps-3 mb-4">
+                                <h5>Enviado a: {{message.reciever.name}}</h5>
+                                <p>{{message.created_at}}</p>
+                                <p class="text-dark">{{message.text}}</p>
+                                {%if message.status == 'sent'%}
+                                <p class="btn btn-sm btn-outline-dark rounded-pill">Enviado</p>
+                                {%elif message.status == 'contact'%}
+                                <p class="btn btn-sm btn-primary rounded-pill">{{message.reciever.name}} ha respondido, se pondrá en contacto contigo!</p>
+                                {%elif message.status =='read'%}
+                                <p class="btn btn-sm btn-outline-dark rounded-pill">{{message.reciever.name}} ha visto tu mensaje, aun no hay respuesta</p>
+                                {%endif%}
+                            </div>
+                        </div>
+                        {%endfor%}
                     </div>
                 </div>
-                {%endfor%}
+
                 <!-- Termina plantilla para mensajes recibidos del psicólogo -->
             </div>
         </div>

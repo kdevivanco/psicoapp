@@ -14,8 +14,9 @@
         <div class="col-lg-8">
             <!-- Blog Detail Start -->
             <div class="mb-5">
+                {%if user != None%}
                 <h1 class="mb-4">Bienvenido, {{user.name}}</h1>
-
+                {%endif%}
                 <div class="mb-5">
                     <div class="row">
                         <div class="col-12 col-md-6">
@@ -65,7 +66,7 @@
                                     <div class="h6 school_name m-0">Especalista en {{article.therapist.metodo}}</div>
                                 </div>
                             </div>
-                            <p class="date text-end px-5">FECHA 2023</p>
+                            <p class="date text-end px-5">{{article.date}}</p>
                         </div>
                     </div>
                     {%endfor%}

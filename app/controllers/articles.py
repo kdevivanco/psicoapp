@@ -25,6 +25,7 @@ def check_logged():
 @articles.route('/add_article')
 @login_required
 def show_add_article():
+    logged = True
     user = User.get_one(session['user']['id'])
     therapist = Therapist.classify(session['user']['id'])
     if user.type == 1: #es paciente
@@ -33,7 +34,7 @@ def show_add_article():
     if therapist.validated != 3:
         flash('Falta que termines de completar tu perfil','error')
         return redirect('/therapist-reg')
-    return render_template('add_article.html')
+    return render_template('add_article.html',user=user,logged=logged)
 
 @articles.route('/add-article', methods=['POST'])
 @login_required
@@ -57,6 +58,7 @@ def add_article():
 @articles.route('/article/<id>')
 def show_article(id):
     logged = check_logged()
+    user = None
     if logged == True:
         user = User.get_one(session['user']['id'])
 
@@ -72,13 +74,15 @@ def show_article(id):
 @articles.route('/edit-article/<id>')
 @login_required
 def show_edit(id):
+    user = User.get_one(session['user']['id'])
+    logged = True
     article = Article.classify(id)
     author = Therapist.classify(article.user_id)
     if author.id != session['user']['id']:
         flash("Lo sentimos, no estás autorizado para realizar esta acción",'error')
         return redirect('/')
     body = article.body.replace('<br>','')
-    return render_template('edit_article.html', article = article, author = author,body = body)
+    return render_template('edit_article.html', article = article, author = author,body = body, user=user, logged = logged)
 
 
 @articles.route('/edit-art/<int:id>/editado', methods = ['POST'])

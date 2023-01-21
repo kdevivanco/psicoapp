@@ -4,7 +4,6 @@ import re
 from app import app
 from flask_bcrypt import Bcrypt        
 from app.models.users import User
-#from app.models.lists import Wishlist
 import pdb
 import time
 bcrypt = Bcrypt(app)
@@ -112,7 +111,7 @@ class Publication:
         other_publications = []
 
         if results == 0 or len(results) == 0 or results == False:
-            return other_publications #evita que la lista itere si esque esta vacia para evitar un error
+            return other_publications 
         
         for publication_id in results:
             publication = cls.classify(publication_id['id'])

@@ -8,27 +8,6 @@ import pdb
 
 users = Blueprint('users', __name__, template_folder='templates')
 
-# SECCION DE PRUEBA PARA LINA
-@users.route('/prueba')
-def prueba():
-    return render_template('send_message.html')
-# TERMINA SECCION DE PRUEBA PARA LINA  
-
-def pseudodecorador():
-    if 'user' not in session or session['user'] == None:
-        return False
-    else:
-        return True
-
-# RUTAS DE INICIO
-@users.route('/') # 1. cambie la ruta base de /home a /
-def home():
-    logged = pseudodecorador()
-    if not logged:
-        return render_template('index.html',logged=logged)
-    else: 
-        user_id = int(session['user']['id'])
-        return redirect(f'/dashboard') # 2. en esta ruta hay que agregar logica para redireccionar dependiendo del tipo de usuario
 
 
 
@@ -96,25 +75,17 @@ def login():
     }
     
     if user.validated == 0:
-        #Falta verificar email 
         #Mandar a verifica tu email
         pass
-    if user.type == 0 and user.validated < 2:
+    if user.type == 1 and user.validated < 2:
         return redirect('/patient-reg')
     if user.type == 0 and user.validated == 1: #Ha verificado su email pero no llenado info de psicologo
-        #redirecionamos a terminar perfil
         return redirect('/therapist-reg')
-    elif user.type == 0 and user.validated == 2:
+    elif user.type == 0 and user.validated == 2: #Ha llenado informacion de psicologo
         return redirect('/add-education')
-    elif user.type == 0 and user.validated == 3: 
+    elif user.type == 0 and user.validated == 3:  #ha llenado informacion de educacion
         return redirect(f'/tprofile/{user.id}')
-    return redirect('/dashboard') # No estoy muy segura a dónde debe llevar al usuario, estaba /dashboard, pero creo que este punto entra al perfil del usuario o del terapeuta
-
-# ENTRA AL PERFIL DEL USUARIO
-
-@users.route('/profile_user')
-def profile_user():
-    return render_template('profile_user.html')
+    return redirect('/dashboard') #
 
 
 # LOG OUT DE CUALQUIER USUARIO
@@ -122,8 +93,6 @@ def profile_user():
 def logout():
     session['user'] = None
     return redirect('/')
-
-
 
 
 

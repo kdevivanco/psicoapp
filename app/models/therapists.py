@@ -43,7 +43,6 @@ class Therapist(User):
 
     @classmethod
     def fill_info(cls,form_data,therapist_id):
-        pdb.set_trace()
         query = '''
                 UPDATE users 
                 SET 

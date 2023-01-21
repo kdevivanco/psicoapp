@@ -19,16 +19,19 @@
                 <div class="col-lg-12">
                     <div class="bg-light rounded p-5">
                         <div class="row m-0">
-                            <div class="col-10 m-0">
+                            <div class="col-8 m-0">
                                 <h1 class="">{{therapist.name}}</h1>
                                 {%if therapist.addres != ''%}
-                                <p class="mb-0 date">{{therapist.address.city}}, {{therapist.address.district}}</p>
+            
+                                    <p class="mb-0 date">{{therapist.address.city}}, {{therapist.address.district}}</p>
+                                    <a href="/add-district" class="text-primary text-underline">Cambiar tu distrito</a>
+                                {%else%}
+                                <a href="/add-district" class="text-primary">Añadir tu distrito</a>
                                 {%endif%}
                             </div>
                             {%if user.id == therapist.id%}
-                            <div class="col-2">
-                                <a href="/edit-therapist"><ion-icon class="edit-icon-profile"
-                                        name="cog-outline"></ion-icon></a>
+                            <div class="col-4">
+                                <a href="/edit-therapist"><ion-icon class="edit-icon-profile" name="cog-outline"></ion-icon></a>
                             </div>
                             {%endif%}
                         </div>
@@ -53,6 +56,7 @@
                                 <p class="profile-category">{{category.name}}</p>
                                 {%endfor%}
                             </div>
+                            
                         </div>
                         <div class="education-section mt-4">
                             <div class="row">
@@ -63,7 +67,7 @@
                                 <div class="col-md-5">
                                     {%if user.id == therapist.id%}
                                     <a href="/add-education" class="btn btn-primary rounded-pill mx-1">+ Agregar más</a>
-                                    <a href="/edit-education" class="btn btn-light rounded-pill mx-1">Editar</a>
+                                    <!-- <a href="/edit-education" class="btn btn-light rounded-pill mx-1">Editar</a> -->
                                     {%endif%}
                                 </div>
                             </div>
@@ -123,7 +127,7 @@
                 <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Nuevos mensajes</h4>
                 <div class="bg-light rounded text-center" style="padding: 30px;">
                     <div class="col-12 col-sm-12">
-                        {%for message in therapist.messages%}
+                        {%for message in recieved_messages%}
                         <div class="btn bg-white border-0 col-sm-12 mb-3" style="height: 10rem; ">
                             {%if message.status == 'sent'%}
                             <div class="row" style="background-color: green; border-radius: 1rem; width: 30%; margin: 0.5rem; align-items: center;">

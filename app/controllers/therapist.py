@@ -5,7 +5,7 @@ from app.models.users import User
 from app.decorators import login_required
 from app.models.educations import Education
 from app.models.locations import Location
-
+from app.models.messages import Message
 from app.models.users import User
 from app.models.confirmation_hash_test import generate_confirmation_hash
 import json
@@ -53,7 +53,9 @@ def therapist_protection(user_id):
 
 # Mostrar el registro de terapeuta
 @therapist.route('/therapist-reg')
+@login_required
 def show_therapist_register():
+    logged = True
     user = User.get_one(session['user']['id'])
     if user.type == 0 and user.validated == 1: #Ha verificado su email pero no llenado info de psicologo
         # redirecionamos a terminar perfil
@@ -65,7 +67,7 @@ def show_therapist_register():
 
     all_categories = Category.get_all()
 
-    return render_template('reg_therapist.html', all_categories = all_categories)
+    return render_template('reg_therapist.html', all_categories = all_categories,logged=logged,user = user)
 
 @therapist.route('/therapist-reg', methods = ['POST'])
 @login_required
@@ -81,10 +83,12 @@ def register_therapist():
 
 
 @therapist.route('/add-education')
-# @login_required
+@login_required
 def show_add_education():
+    user = User.get_one(session['user']['id'])
+    logged = True
     therapist = Therapist.classify(session['user']['id'])
-    return render_template('add_education.html', therapist = therapist)
+    return render_template('add_education.html', therapist = therapist,user=user,logged=logged)
 
 @therapist.route('/education', methods = ['POST'])
 # @login_required
@@ -99,29 +103,43 @@ def education_add():
 
 # ENTRA AL PERFIL DEL TERAPEUTA
 @therapist.route('/tprofile/<therapist_id>')
-@login_required
 def profile_therapist(therapist_id):
-    logged = True
+    this_user = User.get_one(therapist_id)
+    if this_user.validated < 2:
+        flash('Debe terminar la validacion de registro','error')
+        return redirect('/dashboard')
+
     therapist = Therapist.classify(therapist_id)
+    recieved_messages = []
+    if 'user' not in session or session['user']==None:
+        user = None
+        logged = False
+    else:
+        logged = True
+        user = User.get_one(session['user']['id'])
+        if therapist.id == user.id:
+            recieved_messages = Message.get_recieved(session['user']['id'])
+            for message in recieved_messages:
+                if message.status == 'deleted':
+                    recieved_messages.remove(message)
+
     for article in therapist.articles:
         print(article.img_filename)
         print(type(article.img_filename))
-    if therapist.type == 1:
-        return redirect('/dashboard')
-    user = User.get_one(session['user']['id'])
-    return render_template('profile_therapist.html',logged = logged, therapist = therapist,user = user)
+    
+
+
+    return render_template('profile_therapist.html',logged = logged, therapist = therapist,user = user, recieved_messages = recieved_messages)
 
 
 @therapist.route('/add-district')
+@login_required
 def show_add_district():
-    #proteccion de ruta
     logged = True
     user = User.get_one(session['user']['id'])
     if user.type == 1:
         return redirect('/dashboard')
-
     locations = Location.city_districts(user.city)
-
 
     return render_template('add_district.html',logged=logged, user=user,locations = locations)
 
@@ -140,7 +158,12 @@ def add_district():
 
 # EDITA EL PERFIL DEL TERAPEUTA
 @therapist.route('/edit-therapist')
+@login_required
 def edit_therapist():
+    this_user = User.get_one(session['user']['id'])
+    if this_user.validated < 2:
+        flash('Debe terminar la validacion de registro','error')
+        return redirect('/therapist-reg')
     logged = True
     user_id = session['user']['id']
     therapist = Therapist.classify(user_id)

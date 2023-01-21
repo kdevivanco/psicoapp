@@ -38,22 +38,41 @@ class Message:
             return message_id
 
     @classmethod
-    def respond_msg(cls,id):
+    def get_one(cls,id):
+        query = "SELECT * FROM mensajes WHERE id = %(id)s;"
+
+        data = {
+            'id' : int(id)
+        }
+        results = connectToMySQL('psicoapp').query_db(query,data)
+        if results == False or len(results)==0:
+            return False 
+        message = cls(results[0])
+        message.reciever = User.get_one(message.reciever_id)
+        message.sender = User.get_one(message.sender_id)
+
+
+        return message
+
+
+    @classmethod
+    def update_message(cls,id,status):
         query = '''
                 UPDATE mensajes
-                SET status = "read"
+                SET status = %(status)s
                 WHERE id = %(id)s
                 '''
 
         data = {
-                'id':id
+                'id':id,
+                'status':status
             }
         
         return connectToMySQL('psicoapp').query_db(query,data) 
 
     @classmethod
     def get_recieved(cls,reciever_id): #FALTA MODIFICAR!!!
-        query = '''SELECT * FROM mensajes 
+        query = '''SELECT id FROM mensajes 
                 where reciever_id = %(reciever_id)s '''
 
         data = {
@@ -68,8 +87,29 @@ class Message:
             return messages
 
         for result in results:
-            message = (cls(result))
-            message.sender = User.get_one(message.sender_id)
+            message = cls.get_one(result['id'])
+            messages.append(message)
+
+        return messages
+
+    @classmethod
+    def get_sent(cls,sender_id): #FALTA MODIFICAR!!!
+        query = '''SELECT * FROM mensajes 
+                where sender_id = %(sender_id)s '''
+
+        data = {
+            "sender_id": int(sender_id)
+        }
+        
+        results = connectToMySQL('psicoapp').query_db(query,data) 
+
+        messages =[] 
+
+        if results == False or len(results) == 0:
+            return messages
+
+        for result in results:
+            message = cls.get_one(result['id'])
             messages.append(message)
 
         return messages

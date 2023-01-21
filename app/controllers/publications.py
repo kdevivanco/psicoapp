@@ -48,9 +48,7 @@ def add_publication():
     file_name = file.filename
 
     #Creacion de la publicacion en la base de datos
-    pdb.set_trace()
     publication = Publication.create(file_name,request.form,int(session['user']['id']))
-    pdb.set_trace()
     return redirect(f'/tprofile/{user_id}')
 
 
@@ -60,8 +58,8 @@ def show_publication(id):
     if 'user' not in session or session['user'] == None:
         logged = False
         user = None
-    
-    logged = True
-    user = User.get_one(session['user']['id'])
+    else:
+        logged = True
+        user = User.get_one(session['user']['id'])
 
     return render_template('publication.html',publication = publication, user=user, logged = logged)
