@@ -1,11 +1,13 @@
-from flask import Flask, render_template, request, redirect, Blueprint,session
+from flask import Flask, render_template, request, redirect, Blueprint, session, flash
 from app.models.categories import Category
 from app.models.therapists import Therapist
+from app.models.users import User
 from app.decorators import login_required
 from app.models.educations import Education
 from app.models.locations import Location
 
 from app.models.users import User
+from app.models.confirmation_hash_test import generate_confirmation_hash
 import json
 import pdb
 import pprint
@@ -13,32 +15,35 @@ import pprint
 therapist = Blueprint('therapist', __name__, template_folder='templates')
 
 
-#UPLOAD DE ARCHIVOS EN EL PERFIL DEL TERAPEUTA
-#Ruta para cambiar la imagen desde el avatar (Decidir si este enlace lleva directamente o si llleva al perfil)
+# UPLOAD DE ARCHIVOS EN EL PERFIL DEL TERAPEUTA
+# Ruta para cambiar la imagen desde el avatar (Decidir si este enlace lleva directamente o si llleva al perfil)
 @therapist.route('/edit_pic')
 # @login_required
 def edit_pic():
     return render_template('add_picture.html')
 
 
-@therapist.route('/edit_therapist/changeimg', methods = ['POST'])
-def change_profile_img():
-    file = request.files['file'] # Estamos accediendo al archivo cargado
-    file.save('app/static/img/therapist/' + file.filename ) # Se guarda la imagen con el nombre original del archivo
-    # accedemos al método en Therapist para agregarlo en la base de datos
-    Therapist.set_profile_pic(
-        session['user']['email'],   # Necesito sacar el email de la sesión
-        file.filename
-    )             # Necesito el nombre del archivo que llega
-    session['user']['profile_pic'] = file.filename
-    return redirect('edit_therapist_upload.html')
-    # Faltaría guardar en session, la imagen para que siga apareciendo en la app cada vez que el usuario ingresa
+# @therapist.route('/therapist_edited', methods=['POST'])
+# def change_profile_img():
+#     user_id = session['user']['id']
+#     file = request.files['file']  # Estamos accediendo al archivo cargado
+#     img_hash = generate_confirmation_hash(file.filename) #importar generate_confirmation_hash()
 
-# En el modelo de Therapist se creó un método para agregar la ruta en la basse de datos, del archivo que el usuario adjunta 
+#     file.filename = f'profile-{img_hash}-{user_id}.png'
+#     file.save('app/static/img/therapist/' + file.filename)
+#     print(request)
+
+#     Therapist.set_profile_pic(
+#         session['user']['email'], 
+#         file.filename
+#     )            
+#     session['user']['profile_pic'] = file.filename
+#     return redirect(f"/tprofile/{session['user']['id']}")
 
 
 
-#PROTECCION DE RUTA PARA USUARIOS TERAPEUTAS Y DUENOS:
+
+# PROTECCION DE RUTA PARA USUARIOS TERAPEUTAS Y DUENOS:
 def therapist_protection(user_id):
     us_type = session['user']['type']
     sesus_id = session['user']['id']
@@ -51,7 +56,7 @@ def therapist_protection(user_id):
 def show_therapist_register():
     user = User.get_one(session['user']['id'])
     if user.type == 0 and user.validated == 1: #Ha verificado su email pero no llenado info de psicologo
-        #redirecionamos a terminar perfil
+        # redirecionamos a terminar perfil
         return redirect('/therapist-reg')
     elif user.type == 0 and user.validated == 2:
         return redirect('/add-education')
@@ -76,13 +81,13 @@ def register_therapist():
 
 
 @therapist.route('/add-education')
-#@login_required
+# @login_required
 def show_add_education():
     therapist = Therapist.classify(session['user']['id'])
     return render_template('add_education.html', therapist = therapist)
 
 @therapist.route('/education', methods = ['POST'])
-#@login_required
+# @login_required
 def education_add():
     user_id = session['user']['id']
     Education.add_education(request.form,user_id)
@@ -140,3 +145,21 @@ def edit_therapist():
     therapist = Therapist.classify(user_id)
     return render_template('edit_therapist.html',user_id= user_id, therapist = therapist)
 
+
+@therapist.route('/therapist_edited', methods = ['POST'])
+@login_required
+def save_therapist_edited():
+    user_id = session['user']['id']
+    file = request.files['file']  
+    img_hash = generate_confirmation_hash(file.filename) 
+
+    file.filename = f'profile-{img_hash}-{user_id}.png'
+    file.save('app/static/img/therapist/' + file.filename)
+
+    file_path = f'/img/therapist/{file.filename}'
+    # Therapist.set_profile_pic(
+    #     session['user']['email'], 
+    #     file.filename
+    # )            
+    Therapist.save_therapist_edited(request.form, user_id, file_path)
+    return redirect(f"/tprofile/{session['user']['id']}")

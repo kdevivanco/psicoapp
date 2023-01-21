@@ -63,10 +63,19 @@ def show_article(id):
 def show_edit(id):
     article = Article.classify(id)
     if article.creator.id != session['user']['id']:
-        #flash
+        flash("Lo sentimos, no estás autorizado para realizar esta acción",'error')
         return redirect('/')
 
     return render_template('edit_article.html', article = article)
+
+
+@articles.route('/edit-art/<int:id>/editado', methods = ['POST'])
+def edited_article(id):
+    Article.save_edited_article(request.form, id)
+    print(session['user']['id'])
+    return redirect(f"/tprofile/{session['user']['id']}")
+
+
 
     #ruta post edit - article
     #actualizar Article.update(form,articleid)

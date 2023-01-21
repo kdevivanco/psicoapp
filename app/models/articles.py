@@ -133,34 +133,27 @@ class Article:
 
     #FALTA MODIFICAR
     @classmethod
-    def edit(cls,form_data,id):
-
+    def save_edited_article(cls,form_data,id):
         query = '''
                 UPDATE articles
                 SET title = %(title)s,
-                link = %(link)s,
-                brand = %(brand)s,
-                img_url = %(img_url)s,
-                description = %(description)s,
-                file = %(file)s
-                where id = %(id)s'''
+                subtitle = %(subtitle)s,
+                body = %(body)s
+                where id = %(id)s;'''
 
         data = {
             'title' : form_data['title'],
-            'link' : form_data['link'],
-            'brand' : form_data['brand'],
-            'img_url' : form_data['img_url'],
-            'description' : form_data['description'],
-            'file' : form_data['file'],
-            'id' : int(id)
+            'subtitle' : form_data['subtitle'],
+            'body' : form_data['body'],
+            'id' : int(id) 
         }
 
         result = connectToMySQL('psicoapp').query_db(query,data)
         if not result:
-            flash('something went wrong','danger')
+            flash('Lo sentimos, algo salió mal','danger')
             return False
         
-        flash('publication edited','success')
+        flash('El artículo se ha editado exitosamente','success')
         return True
 
     #Borra un publication
