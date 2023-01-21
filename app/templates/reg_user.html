@@ -76,10 +76,9 @@
                         <div class="col-12 g-3 w-50">
                             <select name="ciudad" id="ciudad" class="form-select bg-white border-0" style="height: 55px;">
                                 <option name="ciudad" selected disabled>Escoger ciudad</option>
-                                <option name="ciudad" value="Arequipa">Arequipa</option>
-                                <option name="ciudad" value="Bogota">Bogotá</option>
-                                <option name="ciudad" value="Lima">Lima</option>
-                                <option name="ciudad" value="Medellin">Medellín</option>
+                                {%for city in all_cities%}
+                                <option name="ciudad" value="{{city}}">{{city}}</option>
+                                {%endfor%}
                             </select>
                         </div>
                         <!-- <div class="col-12 col-sm-6">  Este debe activarse de acuerdo con la opción anterior 

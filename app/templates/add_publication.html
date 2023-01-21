@@ -9,60 +9,64 @@
 
 {% block main %}
 
-    <!-- Appointment Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="row gx-5">
-                <div class="col-lg-10 mb-5 mb-lg-0">
-                    <div class="mb-4">
-                        <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Publicaciones</h5>
-                        <h1 class="display-4">Cargar publicación</h1>
-                    </div>
-                    <!--Convertir en form-->
+<!-- Appointment Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row gx-5">
+            <div class="col-lg-10 mb-5 mb-lg-0">
+                <div class="mb-4">
+                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Publicaciones</h5>
+                    <h1 class="display-4">Cargar publicación</h1>
+                </div>
+                <!--Convertir en form-->
                 <div class="col-lg-12">
                     <div class="bg-light text-center rounded p-5">
-                        <form>
-                            <div class="row g-3">
+                        <div class="row g-3">
+                            <form method="post" action="/add-publication" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="col-12 col-sm-12 mb-3">
-                                            <input type="text" name="paper" class="form-control bg-white border-0" placeholder="Título de la publicación" style="height: 55px;">
+                                            <input required type="text" name="title" class="form-control bg-white border-0" placeholder="Título de la publicación" style="height: 55px;">
                                         </div>
                                         <div class="col-12 col-sm-12 mb-3">
-                                            <input type="text" name="paper" class="form-control bg-white border-0" placeholder="¿Dónde fue publicado?" style="height: 55px;">
+                                            <input required type="text" name="publisher" class="form-control bg-white border-0" placeholder="¿Dónde fue publicado?" style="height: 55px;">
                                         </div>
                                         <div class="col-12 col-sm-12 mb-3">
-                                            <textarea name="body" class="form-control bg-white border-0" rows="5" placeholder="Referencias/Links"></textarea>
+                                            <textarea required type="text" name="description" class="form-control bg-white border-0" placeholder="Descripción" rows="3"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="h5 text-start">Subir archivo PDF</div>
                                         <div class="mx-auto" style="width: 100%; max-width: 600px;">
                                             <div class="col-12 col-sm-12">
-                                                <input type="file" name="file" class="form-control bg-white border-0"
-                                                    placeholder="Sube una imagen" style="height: 55px;" required>
-                                                <!-- <input class="btn btn-dark border-0 w-25 mt-1 mb-4" type="submit" value="Cargar"> -->
+                                                <input type="file" name="file" class="form-control bg-white border-0" placeholder="Sube una imagen" rows="4" required>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-12 col-sm-12">
-                                    <textarea name="body" class="form-control bg-white border-0" rows="10" placeholder="Descripción"></textarea>
+                                    <div class="row">
+                                        <div class="col-12 col-md-6 mb-3">
+                                            <label for="date">Fecha de publicación</label>
+                                            <input required type="date" name="date" class="form-control bg-white border-0" style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-md-6 mb-3 mt-4">
+                                            <input name="publication_link" class="form-control bg-white border-0"  style="height: 55px;" placeholder="Link de la publicación">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-12">
                                     <button class="btn btn-primary w-100 py-3" type="submit">Guardar</button>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                    <!-- <p class="mb-5">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
+                <!-- <p class="mb-5">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
                     <a class="btn btn-primary rounded-pill py-3 px-5 me-3" href="">Guardar</a>
                     <a class="btn btn-outline-primary rounded-pill py-3 px-5" href="">tal vez después</a> -->
-                </div>
             </div>
         </div>
     </div>
-    <!-- Appointment End -->
+</div>
+<!-- Appointment End -->
 
 {% endblock %}

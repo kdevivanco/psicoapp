@@ -10,6 +10,11 @@ from app.models.confirmation_hash_test import generate_confirmation_hash
 
 articles = Blueprint('articles', __name__, template_folder='templates')
 
+def check_logged():
+    if 'user' not in session or session['user'] == None:
+        return False
+    else:
+        return True
 
 @articles.route('/add_article')
 @login_required
@@ -45,13 +50,17 @@ def add_article():
 
 @articles.route('/article/<id>')
 def show_article(id):
-    article = Article.classify(id)
+    logged = check_logged()
+    if logged == True:
+        user = User.get_one(session['user']['id'])
 
-    return render_template('article.html', article = article)
+    article = Article.classify(id)
+    author = Therapist.classify(article.user_id)
+    return render_template('article.html', article = article, author = author, logged = logged, user = user)
 
 @articles.route('/edit-article/<id>')
+@login_required
 def show_edit(id):
-    #validacion de ruta
     article = Article.classify(id)
     if article.creator.id != session['user']['id']:
         flash("Lo sentimos, no estás autorizado para realizar esta acción",'error')

@@ -56,26 +56,14 @@
                             </div>
                             <div class="row g-3">
                                 <p>¿Dónde estás ubicado?</p>
-                                <div class="col-12 col-sm-6">
-                                    <select name="city" class="form-select bg-white border-0" style="height: 55px;"
-                                        required>
-                                        <option name="ciudad" selected disabled>Ciudad</option>
-                                        <option name="ciudad" value="Arequipa">Arequipa</option>
-                                        <option name="ciudad" value="Bogota">Bogotá</option>
-                                        <option name="ciudad" value="Lima">Lima</option>
-                                        <option name="ciudad" value="Medellin">Medellín</option>
+                                <div class="col-12 g-3 w-50">
+                                    <select name="ciudad" id="ciudad" class="form-select bg-white border-0" style="height: 55px;">
+                                        <option name="ciudad" selected disabled>Escoger ciudad</option>
+                                        {%for city in all_cities%}
+                                        <option name="ciudad" value="{{city}}">{{city}}</option>
+                                        {%endfor%}
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <!--  Este debe activarse de acuerdo con name="ciudad" la opción anterior -->
-                                <select name="distrito" class="form-select bg-white border-0" style="height: 55px;"
-                                    required>
-                                    <option name="distrito" selected disabled>Distrito/Barrio</option>
-                                    <option name="distrito" value="elpoblado">El Poblado</option>
-                                    <option name="distrito" value="belen">Belén</option>
-                                    <option name="distrito" value="laureles">Laureles 3</option>
-                                </select>
                             </div>
                             <div class="col-12 col-sm-12">
                                 <select name="modalidad" id="modalidad" class="form-control bg-white border-0"

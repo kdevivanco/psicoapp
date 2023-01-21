@@ -10,13 +10,24 @@
 {% block main %}
                 
 
+
     <!-- Contact (Register) Start -->
     <div class="container-fluid px-5 pt-5">
         <div class="col-lg-8 m-auto">
             <div class="container bg-light p-5">
                 <div class="article-info px-5">
-                    <a href="/tprofile/{{article.creator.id}}" class="text-primary  h4"> {{article.creator.name}}</p></a>
-                    <p class="date text-primary">Lunes 29 de Abril 2022</p>
+                    <div class="d-flex align-items-center mb-3" style="height: 3rem;">
+                        <div class="col-1">
+                            <img class="rounded-circle me-2" src="{{ url_for('static', filename='img/therapist/user1.jpg')}}" width="40" height="40" alt="">
+                        </div>
+                        <div class="col-10">
+                            <div class="article-info">
+                                <a href="/tprofile/{{author.id}}" class="text-primary  h4 m-0" style="height: 2rem; display: block;"> {{author.name}}</p></a>
+                                <p class="text-dark m-0">Especialista {{author.metodo}}</p>
+                                <p class="date text-dark m-0">Lunes 29 de Abril 2022</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <hr>
                 <div class="px-5 pt-5 title h2">{{article.title}}</div>
@@ -33,3 +44,4 @@
     
 
 {% endblock %}
+

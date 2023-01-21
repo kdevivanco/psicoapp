@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, Blueprint,session,f
 from app.models.categories import Category
 from app.models.users import User
 from app.decorators import login_required
+from app.models.locations import Location
 import json
 import pdb
 import pprint
@@ -23,8 +24,9 @@ def show_patient_register():
         return redirect('/dashboard')
     user = User.get_one(session['user']['id'])
     all_categories = Category.get_all()
+    all_cities = Location.get_all()
 
-    return render_template('reg_user.html', all_categories = all_categories)
+    return render_template('reg_user.html', all_categories = all_categories, all_cities = all_cities)
 
 
 @patients.route('/patient-reg', methods = ['POST'])

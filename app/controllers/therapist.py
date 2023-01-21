@@ -4,6 +4,8 @@ from app.models.therapists import Therapist
 from app.models.users import User
 from app.decorators import login_required
 from app.models.educations import Education
+from app.models.locations import Location
+
 from app.models.users import User
 from app.models.confirmation_hash_test import generate_confirmation_hash
 import json
@@ -110,17 +112,31 @@ def profile_therapist(therapist_id):
     return render_template('profile_therapist.html',logged = logged, therapist = therapist,user = user)
 
 
-# BUSCA UN TERAPEUTA
-@therapist.route('/show-search')
-def show_search():
-    return render_template('search_therapist.html')
+@therapist.route('/add-district')
+def show_add_district():
+    #proteccion de ruta
+    logged = True
+    user = User.get_one(session['user']['id'])
+    if user.type == 1:
+        return redirect('/dashboard')
+
+    locations = Location.city_districts(user.city)
 
 
-@therapist.route('/search-therapist',methods=['POST'])
-def search_therapist():
-    results = Therapist.search(request.form)
-    return render_template('search_results.html')
+    return render_template('add_district.html',logged=logged, user=user,locations = locations)
 
+@therapist.route('/add-district', methods=['POST'])
+def add_district():
+    user_id = session['user']['id']
+    location_id = request.form['location_id']
+    Location.log_location(location_id,user_id)
+
+    return redirect(f'/tprofile/{user_id}')
+
+# # BUSCA UN TERAPEUTA
+# @therapist.route('/show-search')
+# def show_search():
+#     return render_template('search_therapist.html')
 
 # EDITA EL PERFIL DEL TERAPEUTA
 @therapist.route('/edit-therapist')

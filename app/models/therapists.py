@@ -10,6 +10,8 @@ from app.models.educations import Education
 from app.models.publications import Publication
 from app.models.articles import Article
 from app.models.messages import Message
+from app.models.locations import Location
+
 
 
 import pdb
@@ -29,34 +31,19 @@ class Therapist(User):
         self.publications = []
         self.articles = []
         self.education =[]
+        self.address = ''
         
 
 
-    # @classmethod
-    # def set_profile_pic(self, email, filename):
-    #     query = '''
-    #             UPDATE users 
-    #             SET profile_pic = %(profile_pic)s
-    #             WHERE email = %(email)s
-    #             '''
-
-    #     data = {
-    #         'email': email,
-    #         'profile_pic': filename
-    #     }
-
-    #     flash('¡La imagen quedó cargada!', 'success')
-    #     return connectToMySQL('psicoapp').query_db(query,data)
-
-
     @classmethod
-    def validate_form(self,form_data):
+    def validate_form(cls,form_data):
         #VALIDACION
         pass
 
 
     @classmethod
-    def fill_info(self,form_data,therapist_id):
+    def fill_info(cls,form_data,therapist_id):
+        pdb.set_trace()
         query = '''
                 UPDATE users 
                 SET 
@@ -67,6 +54,7 @@ class Therapist(User):
                 modalidad = %(modalidad)s,
                 description = %(description)s,
                 metodo = %(metodo)s,
+                city = %(city)s,
                 validated = 2
                 where id = %(therapist_id)s
                 '''
@@ -74,6 +62,7 @@ class Therapist(User):
         data = {
             'therapist_id':int(therapist_id),
             'linkedin' : form_data['linkedin'],
+            'city': form_data['city'],
             'cdr':form_data['cdr'],
             'age' :form_data['age'],
             'gender' :form_data['gender'],
@@ -109,8 +98,9 @@ class Therapist(User):
         therapist.categories = cls.get_categories(id)
         therapist.publications = Publication.get_all_from_user(id)
         therapist.articles = Article.get_all_from_user(id)
-        therapist.messages  = Message.get_all_messages(id) 
+        therapist.messages  = Message.get_recieved(id) 
         therapist.education = Education.get_education(id) 
+        therapist.address = Location.get_address(id)
 
         gender = {
             'female': 'Mujer',
@@ -176,6 +166,106 @@ class Therapist(User):
 
         return connectToMySQL('psicoapp').query_db(query,data)
 
+    @classmethod
+    def search(cls,text):
+        query = '''
+                SELECT id FROM users WHERE LOCATE(%(name)s, name) > 0 and type = 0 and validated = 3
+                '''
+
+        data = {
+            'name': text
+        }
+
+        results = connectToMySQL('psicoapp').query_db(query,data) 
+
+        search_results = []
+        if len(results) == 0 or results == False:
+            return search_results
+        else:
+            for result in results:
+                search_results.append(Therapist.classify(result['id']))
+            
+
+            return search_results
+
+    #Devuelve todos los articulos creados por el usuario
+    @classmethod
+    def get_all_articles(cls,user_id): 
+        
+        query = '''
+                SELECT id FROM articles
+                WHERE user_id = %(user_id)s;
+                '''
+
+        data = {
+            'user_id' : user_id
+        }
+        results = connectToMySQL('psicoapp').query_db(query,data)
+        
+        articles = []
+        if len(results) == 0 or results == False:
+            return articles
+
+        for article in results:
+            article = Article.classify(article['id'])
+            article.therapist = Therapist.classify(article.user_id)
+            articles.append(article)
+        
+        return articles
+        
+    
+    #Devuelve todas las publicaciones menos las del terapeuta. 
+    #COMENTARIO: ESTA FUNCION SOLO SE LLAMA SI EL TIPO DE CUENTA ES PSICOLOGO
+    @classmethod
+    def get_other_articles(cls,user_id): 
+        
+        query = '''
+                SELECT articles.id FROM articles
+                WHERE articles.user_id != %(user_id)s
+                order by articles.created_at desc;'''
+
+        data = {
+            'user_id' : user_id
+        }
+
+        results = connectToMySQL('psicoapp').query_db(query,data)
+        other_articles = []
+
+        if results == 0 or len(results) == 0 or results == False:
+            return other_articles #evita que la lista itere si esque esta vacia para evitar un error
+        
+
+        for article_id in results:
+            article = Article.classify(article_id['id'])
+            article.therapist = cls.classify(article.user_id)
+            other_articles.append(article)
+        
+        return other_articles
+
+    @classmethod
+    def search_location(cls,location_id):
+        query = '''
+                SELECT user_id from address
+                WHERE location_id =  %(location_id)s
+                '''
+
+        data = {
+                'location_id' : location_id
+            }
+        
+        results = connectToMySQL('psicoapp').query_db(query,data) 
+
+        search_results = []
+
+        if results == False or len(results) == 0 or results == []:
+            return search_results
+        
+        for result in results:
+            search_results.append(cls.classify(result['user_id']))
+        
+    
+        return search_results
+    
 
     @classmethod
     def save_therapist_edited(cls, form_data, therapist_id, profile_path ):
@@ -212,3 +302,4 @@ class Therapist(User):
         
         flash('Tu perfil se ha editado exitosamente','success')
         return True
+

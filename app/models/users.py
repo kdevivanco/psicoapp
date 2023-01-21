@@ -28,6 +28,7 @@ class User:
         self.modalidad = data['modalidad']
         self.confirmation_hash = data['confirmation_hash']
         self.validated = data['validated']
+        self.city = data['city']
         self.messages = []
         #self.linkedin = data['linkedin']
         #self.profile_pic = data['profile_pic']
@@ -161,7 +162,7 @@ class User:
 
         results= connectToMySQL('psicoapp').query_db(query,data)
 
-        if len(results) == 0:
+        if len(results) == 0 or results == False:
             flash('User not registered','error')
             print('User not in database')
             return False
@@ -201,6 +202,7 @@ class User:
                 gender = %(gender)s,
                 modalidad = %(modalidad)s,
                 description = %(description)s,
+                city = %(city)s,
                 validated = 2
                 where id = %(user_id)s
                 '''
@@ -210,6 +212,7 @@ class User:
             'age' :form_data['age'],
             'gender' :form_data['gender'],
             'modalidad': form_data['modalidad'],
+            'city':form_data['ciudad'],
             'description' : form_data['description']
         }
         

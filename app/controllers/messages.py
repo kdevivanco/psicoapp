@@ -20,3 +20,9 @@ def send_message(reciever_id):
     Message.send_msg(sender_id,reciever_id,request.form)
 
     return redirect ('/dashboard')
+
+@messages.route('/messages')
+@login_required
+def show_message(): #hay que pasarle el id
+    recieved_messages = Message.get_recieved(session['user']['id'])
+    return render_template('message.html',recieved_messages = recieved_messages)
