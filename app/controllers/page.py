@@ -72,19 +72,25 @@ def search_city():
     return redirect('/dashboard')
 
 @page.route('/search-district',methods=['POST'])
+@login_required
 def search_district():
     if 'user' not in session or session['user']==None:
         flash('Debes registrate para acceder a esta función', 'primary')
         return redirect('/register')
+    logged = True
     
     user = User.get_one(session['user']['id'])
-    city = user.city
+    
+    location_id = request.form['location_id']
+
+    results = Therapist.search_location(location_id)
+
+    location = Location.get_one(location_id)
     pdb.set_trace()
-    district = request.form['district']
 
-    results = Therapist.search_location(city,district)
+    text = (f'{location.city}, {location.district}')
 
-    return render_template('search_results.html',text = text,results=results)
+    return render_template('search_results.html',results=results,text=text,user=user, location = location, logged = logged)
 
 
 

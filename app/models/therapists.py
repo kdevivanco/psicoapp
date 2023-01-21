@@ -262,21 +262,18 @@ class Therapist(User):
         return other_articles
 
     @classmethod
-    def search_location(cls,city,district):
+    def search_location(cls,location_id):
         query = '''
                 SELECT user_id from address
-                WHERE location_id = 
-                (SELECT location.id from location
-                WHERE city = %(city)s and district = %(district)s)
+                WHERE location_id =  %(location_id)s
                 '''
 
         data = {
-                'city' : city,
-                'district':district
+                'location_id' : location_id
             }
         
         results = connectToMySQL('psicoapp').query_db(query,data) 
-        
+
         search_results = []
 
         if results == False or len(results) == 0 or results == []:

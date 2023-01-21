@@ -39,7 +39,7 @@ class Location:
     def city_districts(cls,city_name):
 
         query = '''
-            SELECT * from location where city = %(city_name)s order by district ASC;
+            SELECT * from location where city = %(city_name)s;
             '''
 
         data = {
@@ -107,4 +107,22 @@ class Location:
     
         return location
 
+    @classmethod
+    def get_one(cls,id):
+        query = '''
+                SELECT * from location
+                WHERE id = %(id)s;
+                '''
+
+        data = {
+                "id" : id
+            }
+        
+        results = connectToMySQL('psicoapp').query_db(query,data) 
+        if results == False or len(results) == 0 or results == []:
+            return ''
+        
+        location = cls(results[0])
+    
+        return location
     
