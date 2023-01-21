@@ -22,12 +22,11 @@
                             <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Lee los
                                 últimos artículos</h4>
                         </div>
-                        <div class="col-12 col-md-6">
+                        <!-- <div class="col-12 col-md-6">
                             <form action="/search-article" method="post">
                                 <div class="row">
                                     <div class="col-6">
                                         <select name="category" id="category" class="form-select bg-light m-0 border-0">
-                                            <!--DAR STYLING!! -->
                                             {%for category in categories%}
                                             <option name="category" value="{{category.id}}">{{category.name}}</option>
                                             {%endfor%}
@@ -39,7 +38,7 @@
                                     <p class="">Busca por tema</p>
                                 </div>
                             </form>
-                        </div>
+                        </div> -->
                     </div>
                     <!--EMPIEZA FOR PARA OTHER ARTICLES-->
                     {%for article in all_articles%}

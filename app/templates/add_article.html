@@ -42,10 +42,15 @@
                                     <textarea type="text" name="bibliography" class="form-control bg-white border-0"
                                         placeholder="Referencias/Links" rows="10"></textarea>
                                 </div>
-                                <div class="col-3 mb-3">
-                                    <button class="btn btn-outline-primary rounded-pill py-3 px-5" type="submit">Agregar
-                                        foto</button>
-                                </div>
+                                <!-- <div class="col-12 mb-3">
+                                    <label for="category" class="form-label">What subjects do you specialize in (choose five
+                                        as a maximum):</label>
+                                    <select name="category" id="category" style="height: 20rem;" multiple>
+                                        {% for category in all_categories %}
+                                        <option name="category" value="{{category.id}}">{{category.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div> -->
                                 <div class="mx-auto" style="width: 100%; max-width: 600px;">
                                     <div class="col-12 col-sm-12">
                                         <input type="file" name="file" class="form-control bg-white border-0"
