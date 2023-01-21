@@ -64,10 +64,11 @@ def show_therapist_register():
         return redirect('/add-education')
     elif user.type == 0 and user.validated == 3: 
         return redirect(f'/tprofile/{user.id}')
+    all_cities = Location.get_all()
 
     all_categories = Category.get_all()
 
-    return render_template('reg_therapist.html', all_categories = all_categories,logged=logged,user = user)
+    return render_template('reg_therapist.html', all_categories = all_categories, all_cities = all_cities, logged=logged,user = user)
 
 @therapist.route('/therapist-reg', methods = ['POST'])
 @login_required
