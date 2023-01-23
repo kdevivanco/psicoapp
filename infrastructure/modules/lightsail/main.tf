@@ -94,11 +94,11 @@ resource "aws_lightsail_database" "default" {
   ]
 }
 
-# resource "aws_ecr_repository" "webapp" {
-#   name                 = "psicoapp-webapp"
-#   image_tag_mutability = "MUTABLE"
+resource "aws_ecr_repository" "webapp" {
+  name                 = "psicoapp-webapp"
+  image_tag_mutability = "MUTABLE"
 
-#   image_scanning_configuration {
-#     scan_on_push = true
-#   }
-# }
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
