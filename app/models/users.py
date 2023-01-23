@@ -212,7 +212,7 @@ class User:
             'age' :form_data['age'],
             'gender' :form_data['gender'],
             'modalidad': form_data['modalidad'],
-            'city':form_data['ciudad'],
+            'city':form_data['city'],
             'description' : form_data['description']
         }
         
