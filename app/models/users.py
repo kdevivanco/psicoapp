@@ -114,7 +114,7 @@ class User:
         server.starttls()
 
         # Login to the email server
-        server.login("psicoappcd@gmail.com", "app_password")
+        server.login("kdevivanco@gmail.com", "pbfdbistyushqlin")
 
         # Send the email
         server.sendmail(msg['From'], msg['To'], msg.as_string())
@@ -270,7 +270,21 @@ class User:
         pass
 
 
+    @classmethod
+    def update_validated(cls,user_id,status):
+        query = '''
+            UPDATE users
+            SET validated = %(status)s
+            WHERE id = %(id)s;
+        '''
 
+        data ={
+            'id':int(user_id),
+            'status': status
+        }
+
+        connectToMySQL('psicoapp').query_db(query,data)
+        return
 
     #UPDATE FOR USER
     @classmethod

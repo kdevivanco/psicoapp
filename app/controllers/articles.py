@@ -53,7 +53,7 @@ def add_article():
 
     Article.create(file_name,request.form,int(session['user']['id']))
     
-    return render_template('add_article.html')
+    return redirect(f'/tprofile/{user_id}')
 
 @articles.route('/article/<id>')
 def show_article(id):

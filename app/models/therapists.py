@@ -54,6 +54,7 @@ class Therapist(User):
                 description = %(description)s,
                 metodo = %(metodo)s,
                 city = %(city)s,
+                profile_path = '',
                 validated = 2
                 where id = %(therapist_id)s
                 '''

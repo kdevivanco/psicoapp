@@ -13,8 +13,11 @@ messages = Blueprint('messages', __name__, template_folder='templates')
 
 
 @messages.route('/send-msg/<reciever_id>', methods=['POST'])
-@login_required
+#@login_required
 def send_message(reciever_id):
+    if 'user' not in session or session['user'] == None: 
+        flash('No puedes mandar mensajes si no te has registrado', 'error')
+        return redirect ('/register')
     reciever_id = int(reciever_id)
     sender_id = session['user']['id']
     Message.send_msg(sender_id,reciever_id,request.form)

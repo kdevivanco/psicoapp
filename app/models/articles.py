@@ -92,8 +92,8 @@ class Article:
     def get_all(cls): 
         
         query = '''
-                SELECT id FROM articles;
-                '''
+                SELECT id FROM articles
+                order by created_at DESC;'''
 
 
         results = connectToMySQL('psicoapp').query_db(query)
@@ -116,8 +116,8 @@ class Article:
         
         query = '''
                 SELECT id FROM articles
-                WHERE user_id = %(user_id)s;
-                '''
+                WHERE user_id = %(user_id)s
+                order by created_at DESC;'''
 
         data = {
             'user_id' : user_id

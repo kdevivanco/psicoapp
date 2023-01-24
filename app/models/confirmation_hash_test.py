@@ -25,7 +25,7 @@ def generate_confirmation_hash(email):
 def send_confirmation_email(email, confirmation_hash):
     msg = MIMEText("Your confirmation code is: " + confirmation_hash)
     msg['Subject'] = 'Email Confirmation'
-    msg['From'] = 'kdevivanco@gmail.com'
+    msg['From'] = 'EMAIL@EMAIL.com' #PONER EMAIL Y APP PASSWORD
     msg['To'] = email
 
     # Connect to the email server using SSL
@@ -33,7 +33,7 @@ def send_confirmation_email(email, confirmation_hash):
     server.starttls()
 
     # Login to the email server
-    server.login("kdevivanco@gmail.com", "mydrzjwkbmtfocii")
+    server.login("EMAIL@EMAIL.com", "APPPASWORD") #PONER EMAIL Y APP PASSWORD
 
     # Send the email
     server.sendmail(msg['From'], msg['To'], msg.as_string())

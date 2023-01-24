@@ -18,7 +18,12 @@
                 <div class="article-info px-5">
                     <div class="d-flex align-items-center mb-3" style="height: 3rem;">
                         <div class="col-1">
-                            <img class="rounded-circle me-2" src="{{ url_for('static', filename='img/therapist/user1.jpg')}}" width="40" height="40" alt="">
+                            <!-- <img class="rounded-circle me-2" src="{{ url_for('static', filename='img/therapist/user1.jpg')}}" width="40" height="40" alt=""> -->
+                            {%if author.profile_path%}
+                            <img class="img-fluid" src="{{ url_for('static', filename=author.profile_path)}}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" alt="">            
+                            {%else%}
+                            <img class="img-fluid" src="{{ url_for('static', filename='/img/avatar.png')}}" style="width: 40; height: 40; border-radius: 50%; object-fit: cover;" alt="">            
+                            {%endif%}
                         </div>
                         <div class="col-10">
                             <div class="article-info">

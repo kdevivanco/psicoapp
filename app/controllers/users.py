@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, Blueprint,session
+from flask import Flask, render_template, request, redirect, Blueprint,session,flash
 from app.models.users import User
 from app.models.categories import Category
 from app.models.therapists import Therapist
@@ -30,9 +30,11 @@ def register_user():
         return redirect('/register')
     if not User.validate_user(request.form):
         return redirect('/register')
+    
 
     user_id = int(User.create(request.form))#INSERTA AL USUARIO SIN IMPORTAR DE QUE TIPO ES    
     user = User.get_one(user_id)
+
     if user != False:
         session['user'] = {
             'id': int(user.id),
@@ -40,7 +42,9 @@ def register_user():
             'email':user.email,
             'type':user.type
         }
-
+    user= User.get_one(session['user']['id'])
+    User.send_confirmation_email(user.email, user.confirmation_hash)
+    return redirect('/validate-email')
     if int(request.form['account_type']) == 0: 
         #the user type is a therapist
         return redirect('/therapist-reg')
@@ -73,13 +77,13 @@ def login():
         'email':user.email,
         'type':user.type
     }
-    
+
     if user.validated == 0:
-        #Mandar a verifica tu email
+        return redirect('/validate-email')
         pass
-    if user.type == 1 and user.validated < 2:
+    elif user.type == 1 and user.validated < 2:
         return redirect('/patient-reg')
-    if user.type == 0 and user.validated == 1: #Ha verificado su email pero no llenado info de psicologo
+    elif user.type == 0 and user.validated == 1: #Ha verificado su email pero no llenado info de psicologo
         return redirect('/therapist-reg')
     elif user.type == 0 and user.validated == 2: #Ha llenado informacion de psicologo
         return redirect('/add-education')
@@ -88,13 +92,41 @@ def login():
     return redirect('/dashboard') #
 
 
+@users.route('/validate-email')
+@login_required
+def show_validate():
+    user= User.get_one(session['user']['id'])
+    logged = True 
+    return render_template('finish_valid.html',logged= logged, user = user)
+
+@users.route('/send-validation')
+@login_required
+def send_validate():
+    user= User.get_one(session['user']['id'])
+    User.send_confirmation_email(user.email, user.confirmation_hash)
+    flash('Código enviado', 'info')
+    return redirect('/validate-email')
+
+@users.route('/validate-email',methods=['POST'])
+@login_required
+def validation_route():
+    user= User.get_one(session['user']['id'])
+    if request.form['confirmation_hash'] != user.confirmation_hash:
+        flash('Codigo incorrecto','error')
+        return redirect('/validate-email')
+    else: 
+        flash('Cuenta verificada!','success')
+        User.update_validated(session['user']['id'],1)
+        if user.type == 1:
+            return redirect('/dashboard')
+        else:
+            return redirect('/therapist-reg')
+
 # LOG OUT DE CUALQUIER USUARIO
 @users.route('/logout')
 def logout():
     session['user'] = None
     return redirect('/')
-
-
 
 # EDITAR LOS USUARIOS
 @users.route('/edit_user/<id>')

@@ -90,13 +90,13 @@
                     <h1 class="display-4">Nuestros  más recientes artículos</h1>
                 </div>
                 <div class="row g-5">
-                    {%for article in articles%}
+                    {%for article in articles[:3]%}
                     <div class="col-xl-4 col-lg-6">
                         <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="{{ url_for('static', filename=article.file_path)}}" alt="foto_articulo">
-                            <div class="p-4">
+                            <img class="img-fluid w-100" src="{{ url_for('static', filename=article.file_path)}}" alt="foto_articulo" style="height:15rem;">
+                            <div class="p-4" style="height: 12rem;">
                                 <a class="h3 d-block mb-3" href="/article/{{article.id}}">{{article.title}}</a>
-                                <p class="m-0">{{article.subtitle[:20]}}...</p>
+                                <p class="m-0">{{article.subtitle[:60]}}...</p>
                             </div>
                         </div>
                     </div>

@@ -19,14 +19,17 @@ def permiso_paciente():
 
 # TERMINAR EL REGISTRO DEL Paciente 
 @patients.route('/patient-reg')
+@login_required
 def show_patient_register():
+    logged = True
+    user = User.get_one(session['user']['id'])
     if permiso_paciente() != True:
         return redirect('/dashboard')
     user = User.get_one(session['user']['id'])
     all_categories = Category.get_all()
     all_cities = Location.get_all()
 
-    return render_template('reg_user.html', all_categories = all_categories, all_cities = all_cities)
+    return render_template('reg_user.html', all_categories = all_categories, all_cities = all_cities, user= user, logged =logged)
 
 
 @patients.route('/patient-reg', methods = ['POST'])

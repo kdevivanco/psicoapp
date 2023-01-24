@@ -57,22 +57,25 @@ def therapist_protection(user_id):
 def show_therapist_register():
     logged = True
     user = User.get_one(session['user']['id'])
+    all_cities = Location.get_all()
+
+    all_categories = Category.get_all()
+    if user.validated == 0:
+        return redirect('/validate-email')
     if user.type == 0 and user.validated == 1: #Ha verificado su email pero no llenado info de psicologo
         # redirecionamos a terminar perfil
-        return redirect('/therapist-reg')
+        return render_template('reg_therapist.html', all_categories = all_categories, all_cities = all_cities, logged=logged,user = user)
     elif user.type == 0 and user.validated == 2:
         return redirect('/add-education')
     elif user.type == 0 and user.validated == 3: 
         return redirect(f'/tprofile/{user.id}')
-    all_cities = Location.get_all()
-
-    all_categories = Category.get_all()
 
     return render_template('reg_therapist.html', all_categories = all_categories, all_cities = all_cities, logged=logged,user = user)
 
 @therapist.route('/therapist-reg', methods = ['POST'])
 @login_required
 def register_therapist():
+    
 
     selected_categories = request.form.getlist('category')
     Therapist.fill_info(request.form,session['user']['id'])
@@ -108,7 +111,7 @@ def profile_therapist(therapist_id):
     this_user = User.get_one(therapist_id)
     if this_user.validated < 2:
         flash('Debe terminar la validacion de registro','error')
-        return redirect('/dashboard')
+        return redirect('/therapist-reg')
 
     therapist = Therapist.classify(therapist_id)
     recieved_messages = []

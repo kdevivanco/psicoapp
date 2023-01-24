@@ -19,6 +19,7 @@
                     <div class="col-5 bg-light rounded p-4 mx-2">
                         <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Mensajes Recibidos</h4>
                         {%for message in recieved_messages%}
+                        {% if message.status != 'deleted' %}
                         <div class="d-flex mb-4 bg-white p-4 rounded">
                             <div class="ps-3 mb-4">
                                 <h4>{{message.sender.name}}</h4>
@@ -39,6 +40,7 @@
                                 <a href="/message-delete/{{message.id}}"><ion-icon style="color:rgb(172, 63, 63);font-size: 1.5rem;" name="trash-outline"></ion-icon></a>
                             </div>
                         </div>
+                        {%endif%}
                         {%endfor%}
                     </div>
                     <div class="col-5 bg-light rounded p-4 mx-2">
@@ -51,7 +53,7 @@
                                 <p class="text-dark">{{message.text}}</p>
                                 {%if message.status == 'sent'%}
                                 <p class="btn btn-sm btn-outline-dark rounded-pill">Enviado</p>
-                                {%elif message.status == 'contact'%}
+                                {%elif message.status == 'contacto'%}
                                 <p class="btn btn-sm btn-primary rounded-pill">{{message.reciever.name}} ha respondido, se pondrá en contacto contigo!</p>
                                 {%elif message.status =='read'%}
                                 <p class="btn btn-sm btn-outline-dark rounded-pill">{{message.reciever.name}} ha visto tu mensaje, aun no hay respuesta</p>

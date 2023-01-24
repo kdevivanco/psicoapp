@@ -73,7 +73,8 @@ class Message:
     @classmethod
     def get_recieved(cls,reciever_id): #FALTA MODIFICAR!!!
         query = '''SELECT id FROM mensajes 
-                where reciever_id = %(reciever_id)s '''
+                where reciever_id = %(reciever_id)s
+                order by created_at DESC '''
 
         data = {
             "reciever_id": int(reciever_id)
@@ -95,7 +96,8 @@ class Message:
     @classmethod
     def get_sent(cls,sender_id): #FALTA MODIFICAR!!!
         query = '''SELECT * FROM mensajes 
-                where sender_id = %(sender_id)s '''
+                where sender_id = %(sender_id)s
+                order by created_at DESC '''
 
         data = {
             "sender_id": int(sender_id)

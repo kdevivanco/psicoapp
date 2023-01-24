@@ -39,7 +39,8 @@ class Location:
     def city_districts(cls,city_name):
 
         query = '''
-            SELECT * from location where city = %(city_name)s;
+            SELECT * from location where city = %(city_name)s
+            order by district ASC;
             '''
 
         data = {

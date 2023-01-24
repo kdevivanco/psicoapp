@@ -20,14 +20,25 @@
                     <div class="bg-light rounded p-5">
                         <div class="row m-0">
                             <div class="col-8 m-0">
-                                <h1 class="">{{therapist.name}}</h1>
-                                {%if therapist.addres != ''%}
-            
-                                    <p class="mb-0 date">{{therapist.address.city}}, {{therapist.address.district}}</p>
-                                    <a href="/add-district" class="text-primary text-underline">Cambiar tu distrito</a>
-                                {%else%}
-                                <a href="/add-district" class="text-primary">Añadir tu distrito</a>
-                                {%endif%}
+                                <div class="row">
+                                    <div class="col-4">
+                                        {%if therapist.profile_path%}
+                                        <img class="img-fluid" src="{{ url_for('static', filename=therapist.profile_path)}}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;" alt="">            
+                                        {%else%}
+                                        <img class="img-fluid" src="{{ url_for('static', filename='/img/avatar.png')}}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;" alt="">            
+                                        {%endif%}
+                                    </div>
+                                    <div class="col-8">
+                                        <h1 class="">{{therapist.name}}</h1>
+                                        {%if therapist.address != '' %}
+                                            <p class="mb-0 date">{{therapist.address.city}}, {{therapist.address.district}}</p>
+                                        {%elif therapist.address != '' and therapist.id == user.id%}
+                                            <a href="/add-district" class="text-primary text-underline">Cambiar tu distrito</a>
+                                        {%elif therapist.id == user.id%}
+                                        <a href="/add-district" class="text-primary">Añadir tu distrito</a>
+                                        {%endif%}
+                                    </div>
+                                </div>
                             </div>
                             {%if user.id == therapist.id%}
                             <div class="col-4">
@@ -103,11 +114,13 @@
                                 <div class="col-10">
                                     <a href="/article/{{article.id}}" class="h4">{{article.title}}</a>
                                 </div>
+                                {%if user.id == therapist.id%}
                                 <div class="col-2">
                                     <a href="/edit-article/{{article.id}}" class="edit-article">
                                         <ion-icon class="edit-icon-profile" name="cog-outline"></ion-icon>
                                     </a>
                                 </div>
+                                {%endif%}
                             </div>
                             <p class="h5 school_name px-3">{{article.subtitle}}</p>
                             <p class="date text-end px-5">{{article.created_at}}</p>
@@ -128,6 +141,7 @@
                 <div class="bg-light rounded text-center" style="padding: 30px;">
                     <div class="col-12 col-sm-12">
                         {%for message in recieved_messages%}
+                        {%if message.status != 'deleted'%}
                         <div class="btn bg-white border-0 col-sm-12 mb-3" style="height: 10rem; ">
                             {%if message.status == 'sent'%}
                             <div class="row" style="background-color: green; border-radius: 1rem; width: 30%; margin: 0.5rem; align-items: center;">
@@ -144,6 +158,7 @@
                                 <p class="h5 text-start school_name" style="font-size: 1rem;">{{message.text[:60]}}...</p>
                             </div>
                         </div>
+                        {%endif%}
                         {%endfor%}
                     </div>
                     <br>
@@ -208,3 +223,4 @@
 <!-- Blog End -->
 
 {% endblock %}
+
