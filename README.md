@@ -1,6 +1,9 @@
 # Psicoapp
 ## Esta app se crea con el objetivo de que las personas del común, tengan la oportunidad de crear red con varios psicólogos de su interés e incluso tener contacto con ellos antes de agendar una cita, lo que aumenta las probabilidades de procesos más exitosos, considerando que el cuidado de la salud mental es uno de los pilares fundamentales del bienestar humano.Adicionalmente, los psicólogos pueden hacer red entre ellos para complementar sus métodos y actualizarse
 
+## IMPORTANTE! Para correr el app con verificación de email, poner su gmail y app pasword en la funcion ""send_confirmation_email"" del modelo ""confirmation_hash_test.py"" y en elm metodo "send_confirmation_email" del modelo users.py, si no, usar el commit anterior
+
+
 ### Requerimientos:
 
 Python==3.8 en adelante

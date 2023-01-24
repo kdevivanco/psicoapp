@@ -106,7 +106,7 @@ class User:
     def send_confirmation_email(email, confirmation_hash):
         msg = MIMEText("Your confirmation code is: " + confirmation_hash)
         msg['Subject'] = 'Email Confirmation'
-        msg['From'] = 'psicoappcd@gmail.com'
+        msg['From'] = 'EMAIL@gmail.com'
         msg['To'] = email
 
         # Connect to the email server using SSL
@@ -114,7 +114,7 @@ class User:
         server.starttls()
 
         # Login to the email server
-        server.login("kdevivanco@gmail.com", "pbfdbistyushqlin")
+        server.login("EMAIL@EMAIL.com", "EMAIL")
 
         # Send the email
         server.sendmail(msg['From'], msg['To'], msg.as_string())
